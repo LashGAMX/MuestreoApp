@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.sax.StartElementListener
 import android.widget.Button
 import android.widget.Toast
+import com.acama.muestreoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var bin: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        val btnEntrar = findViewById<Button>(R.id.btnEntrar) as Button
+        bin = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(bin.root)
 
-        btnEntrar.setOnClickListener{
+        bin.btnEntrar.setOnClickListener{
 
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
