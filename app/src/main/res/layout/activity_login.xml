@@ -16,13 +16,33 @@
         android:layout_marginTop="250px"
         app:srcCompat="@drawable/acama_logo" />
 
+    <EditText
+        android:id="@+id/edtUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250px"
+        android:layout_marginTop="150px"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250px"
+        android:layout_marginTop="50px"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword" />
+
 
     <Button
         android:id="@+id/btnEntrar"
         android:layout_width="209dp"
         android:layout_height="43dp"
         android:layout_marginLeft="250px"
-        android:layout_marginTop="700px"
+        android:layout_marginTop="100px"
         android:backgroundTint="#17A2B8"
         android:text="Entrar" />
 
