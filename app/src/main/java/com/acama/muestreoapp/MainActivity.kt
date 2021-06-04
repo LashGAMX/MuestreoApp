@@ -18,12 +18,5 @@ class MainActivity : AppCompatActivity() {
         bin = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-        bin.btnEntrar.setOnClickListener{
-
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
     }
 }
