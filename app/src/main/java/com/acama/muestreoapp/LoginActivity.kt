@@ -1,5 +1,6 @@
 package com.acama.muestreoapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -15,6 +16,10 @@ class LoginActivity : AppCompatActivity() {
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-        bin.btnEntrar.setOnClickListener { Toast.makeText(this,"Hola",Toast.LENGTH_SHORT).show() }
+        bin.btnEntrar.setOnClickListener {
+            val intent = Intent(this, MuestreosActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 }
