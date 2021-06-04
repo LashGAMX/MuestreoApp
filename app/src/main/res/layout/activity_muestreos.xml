@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00FFFFFF"
     tools:context=".MuestreosActivity">
 
     <EditText
@@ -14,28 +15,29 @@
         android:layout_marginTop="20px"
         android:hint="Buscar" />
 
-    <Button
-        android:id="@+id/btnSincronizar"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="55dp"
-        android:layout_marginRight="20px"
+    <ImageView
+        android:id="@+id/imvSincronizar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20px"
-        android:layout_toRightOf="@id/edtBuscar"
+        android:layout_toRightOf="@+id/edtBuscar"
+        android:layout_marginLeft="110px"
+        android:foreground="@android:drawable/ic_popup_sync" />
 
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#00FFFFFF"
         android:orientation="vertical">
 
         <ListView
-            android:layout_marginTop="200px"
+            android:id="@+id/lstMuestreos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lstMuestreos"
+            android:layout_marginTop="200px"
             />
+
     </LinearLayout>
 
 </RelativeLayout>

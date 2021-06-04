@@ -3,7 +3,9 @@ package com.acama.muestreoapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuInflater
 import android.widget.ArrayAdapter
+import android.widget.PopupMenu
 import android.widget.Toast
 import com.acama.muestreoapp.databinding.ActivityLoginBinding
 import com.acama.muestreoapp.databinding.ActivityMuestreosBinding
@@ -24,9 +26,8 @@ class MuestreosActivity : AppCompatActivity() {
         bin.lstMuestreos.adapter = adaptador1
         
         bin.lstMuestreos.setOnItemClickListener { adapterView, view, i, l ->
+            //acción que cada elemen to debe llevar
 
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
         }
     }
 }
