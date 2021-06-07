@@ -10,11 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity android:name=".AguaEvidenciaActivity"></activity>
-        <activity android:name=".MuestraSimpleTemperaturaActivity" />
-        <activity android:name=".AguaMuestreoTemperaturaActivity" />
         <activity android:name=".MuestraSimpleActivity" />
-        <activity android:name=".AguaMuestreoPhActivity" />
-        <activity android:name=".AguaMuestreoActivity" />
+        <activity android:name=".AguaDatosMuestreosActivity" />
         <activity android:name=".AguaGeneralesActivity" />
         <activity android:name=".AguaCompuestosActivity" />
         <activity android:name=".AguaCapturaActivity" />
