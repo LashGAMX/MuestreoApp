@@ -13,15 +13,23 @@ class AguaCapturaActivity : AppCompatActivity() {
         bin = ActivityAguaCapturaBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-        bin.btnGenerales.setOnClickListener(View.OnClickListener { v: View? ->
-            val intent = Intent(this, AguaGeneralesActivity::class.java)
-            startActivity(intent)
-        })
+            bin.btnGenerales.setOnClickListener(View.OnClickListener { v: View? ->
+                val intent = Intent(this, AguaGeneralesActivity::class.java)
+                startActivity(intent)
+            })
 
-        bin.btnCompuesto.setOnClickListener(View.OnClickListener { v: View? ->
-            val intent = Intent(this,AguaCompuestosActivity::class.java)
-            startActivity(intent)
-        })
+            bin.btnMuestreo.setOnClickListener(View.OnClickListener { v: View? ->
+                val intent = Intent(this,AguaMuestreoActivity::class.java)
+                startActivity(intent)
+            })
+            bin.btnCompuesto.setOnClickListener(View.OnClickListener { v: View? ->
+                val intent = Intent(this,AguaCompuestosActivity::class.java)
+                startActivity(intent)
+            })
+            bin.btnEvidencia.setOnClickListener(View.OnClickListener { v: View? ->
+                val intent = Intent(this,AguaEvidenciaActivity::class.java)
+                startActivity(intent)
+            })
     }
 
 }

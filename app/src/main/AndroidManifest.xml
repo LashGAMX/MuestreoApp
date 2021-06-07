@@ -9,13 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".MuestraSimpleTemperaturaActivity"></activity>
+        <activity android:name=".AguaEvidenciaActivity"></activity>
+        <activity android:name=".MuestraSimpleTemperaturaActivity" />
         <activity android:name=".AguaMuestreoTemperaturaActivity" />
         <activity android:name=".MuestraSimpleActivity" />
         <activity android:name=".AguaMuestreoPhActivity" />
         <activity android:name=".AguaMuestreoActivity" />
+        <activity android:name=".AguaGeneralesActivity" />
+        <activity android:name=".AguaCompuestosActivity" />
         <activity android:name=".AguaCapturaActivity" />
-        <activity android:name=".CapturaAguaActivity" />
         <activity android:name=".ListaAguaActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".MuestreosActivity" />

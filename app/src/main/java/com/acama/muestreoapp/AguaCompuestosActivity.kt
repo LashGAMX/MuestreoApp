@@ -8,6 +8,7 @@ import com.acama.muestreoapp.databinding.ActivityAguaCompuestosBinding
 
 class AguaCompuestosActivity : AppCompatActivity() {
     private lateinit var bin: ActivityAguaCompuestosBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaCompuestosBinding.inflate(layoutInflater)
