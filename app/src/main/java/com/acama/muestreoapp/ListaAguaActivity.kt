@@ -28,8 +28,9 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 bin.lstMuestreos.setOnItemClickListener { adapterView, view, i, l ->
                     //acción que cada elemen to debe llevar
-                    val intent = Intent(this,AguaCapturaActivity::class.java)
+                    val intent = Intent(this, AguaCapturaActivity::class.java)
                     startActivity(intent)
+
                 }
                 registerForContextMenu(bin.lstMuestreos)
     }

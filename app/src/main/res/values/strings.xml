@@ -7,4 +7,10 @@
     <string name="info">Info</string>
     <string name="firma">Firma</string>
 
+    <!--Spinner Materia flotante-->
+    <string-array name="materia_flotante">
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+
 </resources>
