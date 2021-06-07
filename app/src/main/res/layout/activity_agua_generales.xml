@@ -1,135 +1,480 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:orientation="vertical"
     tools:context=".AguaGeneralesActivity">
 
-    <ImageView
-        android:id="@+id/imvSincronizar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/_48_return"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Datos generales"
-        />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@drawable/separador"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cliente"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LABORATORIO ACAMA PRUEBA"
-            />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Folio servicio:"
+
+        <ImageView
+            android:id="@+id/imvSincronizar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/_48_return"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="147-18/21"
+            android:text="Datos generales"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cliente"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LABORATORIO ACAMA PRUEBA"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Folio servicio:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="147-18/21"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Punto de muestreo:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DESCARGA FINAL"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Muestreo:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14 Hrs"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="Núm. muestra: 4"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo descarga:"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Residual"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Spinner
+                android:id="@+id/spnTermo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Punto de muestreo:"
+            android:text="Croquis punto de muestreo"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Latitud"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Longitud"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Altitud"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DESCARGA FINAL"
+            android:text="Ph Trazable"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ph Trazable 1"
+            />
+        <Spinner
+            android:id="@+id/spnPhTrazable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ph Trazable 2"
+            />
+        <Spinner
+            android:id="@+id/spnPhTrazable2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <!-- ::::::::::::::::::::::::: -->
+        <!-- PH Trazable calidad -->
+        <!-- ::::::::::::::::::::::::: -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Muestreo:"
+            android:text="Ph Trazable calidad"
             />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ph Trazable calidad 1"
+            />
+        <Spinner
+            android:id="@+id/spnPhTrazableCalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Promedio:"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ph Trazable Calidad 2"
+            />
+        <Spinner
+            android:id="@+id/spnPhTrazableCalidad2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Ph3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Promedio:"
+            />
+        <!-- ::::::::::::::::::::::::: -->
+        <!-- Conductividad -->
+        <!-- ::::::::::::::::::::::::: -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="14 Hrs"
+            android:text="Conductividad trazable"
             />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Conductividad"
+            />
+        <Spinner
+            android:id="@+id/spnConductividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="Núm. muestra: 4"
+            android:text="Conductividad trazable"
             />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Conductividad calidad "
+            />
+        <Spinner
+            android:id="@+id/spnConductividadCalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 1"
+                android:layout_marginLeft="20dp"
+                />
+            <EditText
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 2"
+                />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="Lectura 3"
+                android:layout_marginLeft="20dp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Promedio:"
+            />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            style="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4"
-            />
+            android:layout_gravity="center|center_horizontal"
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:text="Guardar" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo descarga:"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Residual"
-            />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-       <EditText
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="Termo calibración"
-           />
-    </LinearLayout>
-
-
-</LinearLayout>
+    </ScrollView>
+</FrameLayout>
