@@ -19,7 +19,7 @@ class AguaCapturaActivity : AppCompatActivity() {
             })
 
             bin.btnMuestreo.setOnClickListener(View.OnClickListener { v: View? ->
-                val intent = Intent(this,AguaMuestreoActivity::class.java)
+                val intent = Intent(this,AguaDatosMuestreosActivity::class.java)
                 startActivity(intent)
             })
             bin.btnCompuesto.setOnClickListener(View.OnClickListener { v: View? ->
