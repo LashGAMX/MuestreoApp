@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MuestreoApp</string>
+
+
+    <!--Opciones de menu contextual listas-->
+    <string name="enviar">Enviar</string>
+    <string name="info">Info</string>
+    <string name="firma">Firma</string>
+
 </resources>

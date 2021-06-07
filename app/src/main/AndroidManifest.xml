@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".AguaGeneralesActivity"></activity>
-        <activity android:name=".AguaCapturaActivity" />
+        <activity android:name=".AguaCapturaActivity"></activity>
+        <activity android:name=".CapturaAguaActivity" />
         <activity android:name=".ListaAguaActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".MuestreosActivity" />
