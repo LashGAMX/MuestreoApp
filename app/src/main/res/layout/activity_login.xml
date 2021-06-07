@@ -27,7 +27,8 @@
             android:layout_width="300dp"
            android:layout_height="wrap_content"
            android:hint="Usuario"
-           app:helperText="*Requerido"
+           app:helperText="* Requerido"
+           app:helperTextTextColor="#E91E63"
            app:startIconDrawable="@android:drawable/ic_dialog_email"
            >
            <EditText
@@ -45,7 +46,8 @@
            app:startIconDrawable="@android:drawable/ic_partial_secure"
            android:layout_gravity="center_horizontal"
            app:endIconMode="password_toggle"
-           app:helperText="*Requerido"
+           app:helperText="* Requerido"
+           app:helperTextTextColor="#E91E63"
            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
            <EditText
