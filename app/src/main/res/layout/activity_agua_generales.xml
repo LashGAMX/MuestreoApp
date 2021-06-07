@@ -134,12 +134,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <Spinner
-                android:id="@+id/spnTermo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                >
+                <Spinner
+                    android:id="@+id/spnTermo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <View
             android:layout_width="fill_parent"
@@ -161,21 +167,41 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
             android:hint="Latitud"
-            />
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
             android:hint="Longitud"
-            />
-        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:hint="Altitud"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
