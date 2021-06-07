@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".agua.ListaAguaActivity"></activity>
+        <activity android:name=".ListaAguaActivity"></activity>
         <activity android:name=".MenuActivity" />
         <activity android:name=".MuestreosActivity" />
         <activity android:name=".MainActivity" />
