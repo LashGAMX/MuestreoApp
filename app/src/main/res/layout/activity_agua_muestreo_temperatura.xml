@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AguaMuestreoTemperaturaActivity"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/imvSincronizar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/edtBuscar"
+            android:src="@drawable/_48_return"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="110dp"
+            android:text="TEMPERATURA" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        >
+
+        <Button
+            android:id="@+id/btnMS1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Muestra simple 1"
+            android:layout_gravity="center"
+            android:background="#00867d"
+            android:textColor="#fff"
+            android:layout_marginTop="50dp"
+            />
+
+        <Button
+            android:id="@+id/btnMS2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Muestra simple 2"
+            android:layout_gravity="center"
+            android:background="#00867d"
+            android:textColor="#fff"
+            android:layout_marginTop="50dp"
+            />
+
+        <Button
+            android:id="@+id/btnMS3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Muestra simple 3"
+            android:layout_gravity="center"
+            android:background="#00867d"
+            android:textColor="#fff"
+            android:layout_marginTop="50dp"
+            />
+
+        <Button
+            android:id="@+id/btnMS4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Muestra simple 4"
+            android:layout_gravity="center"
+            android:background="#00867d"
+            android:textColor="#fff"
+            android:layout_marginTop="50dp"
+            />
+    </LinearLayout>
+
+</FrameLayout>

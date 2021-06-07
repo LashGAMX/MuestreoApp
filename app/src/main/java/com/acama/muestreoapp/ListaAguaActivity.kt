@@ -1,6 +1,7 @@
 package com.acama.muestreoapp
 
 import android.R
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -27,6 +28,8 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 bin.lstMuestreos.setOnItemClickListener { adapterView, view, i, l ->
                     //acción que cada elemen to debe llevar
+                    val intent = Intent(this, AguaCapturaActivity::class.java)
+                    startActivity(intent)
 
                 }
                 registerForContextMenu(bin.lstMuestreos)
