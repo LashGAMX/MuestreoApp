@@ -7,25 +7,42 @@ import android.view.Menu
 import android.widget.Toast
 
 import com.acama.muestreoapp.databinding.ActivityLoginBinding
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var bin: ActivityLoginBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://dev.sistemaacama.com.mx/api/app/login"
+
 
 
         bin.btnEntrar.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
+            //val intent = Intent(this, MenuActivity::class.java)
+            //startActivity(intent)
+            val queue = Volley.newRequestQueue(this)
+            val url = "https://dev.sistemaacama.com.mx/api/app/login"
+
+            val jsonArray = JSONArray()
+            jsonArray.put("isaac")
+            jsonArray.put("admin2421")
+
+            val jsonArrayRequest = JsonArrayRequest(Request.Method.POST, url, jsonArray,
+                Response.Listener { response->
+                Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
+            },Response.ErrorListener{ error ->
+                error.printStackTrace()
+            })
+            queue.add(jsonArrayRequest)
         }
     }
 }
