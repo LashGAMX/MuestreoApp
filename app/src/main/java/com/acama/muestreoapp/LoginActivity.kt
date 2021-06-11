@@ -17,6 +17,9 @@ class LoginActivity : AppCompatActivity() {
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://dev.sistemaacama.com.mx/api/app/login"
+
         bin.btnEntrar.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
