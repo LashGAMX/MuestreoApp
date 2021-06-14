@@ -38,9 +38,9 @@ class LoginActivity : AppCompatActivity() {
 
             val jsonArrayRequest = JsonArrayRequest(Request.Method.POST, url, jsonArray,
                 Response.Listener { response->
-                Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
             },Response.ErrorListener{ error ->
-                error.printStackTrace()
+                    Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
             })
             queue.add(jsonArrayRequest)
         }
