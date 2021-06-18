@@ -25,24 +25,24 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
         bin.btnEntrar.setOnClickListener {
-            //val intent = Intent(this, MenuActivity::class.java)
-            //startActivity(intent)
-            val queue = Volley.newRequestQueue(this)
-            val url = "https://dev.sistemaacama.com.mx/api/app/login"
+             val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            //val queue = Volley.newRequestQueue(this)
+            //val url = "https://dev.sistemaacama.com.mx/api/app/login"
 
-            val jsonArray = JSONArray()
-            jsonArray.put("isaac")
-            jsonArray.put("admin2421")
+            //val jsonArray = JSONArray()
+           // jsonArray.put("isaac")
+           // jsonArray.put("admin2421")
+            
 
-            val jsonArrayRequest = JsonArrayRequest(Request.Method.POST, url, jsonArray,
-                Response.Listener { response->
-                    Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
-            },Response.ErrorListener{ error ->
-                    Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
-            })
-            queue.add(jsonArrayRequest)
+           // val jsonArrayRequest = JsonArrayRequest(Request.Method.POST, url, jsonArray,
+             //   Response.Listener { response->
+             //       Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
+           // },Response.ErrorListener{ error ->
+           //         Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
+           // })
+           // queue.add(jsonArrayRequest)
         }
     }
 }
