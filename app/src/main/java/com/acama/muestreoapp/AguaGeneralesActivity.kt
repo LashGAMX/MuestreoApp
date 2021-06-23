@@ -3,6 +3,7 @@ package com.acama.muestreoapp
 import android.R
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
@@ -13,6 +14,13 @@ class AguaGeneralesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
         setContentView(bin.root)
+
+
+        bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
+            val intent = Intent(this,AguaCapturaActivity::class.java)
+            startActivity(intent)
+            finish()
+        })
 
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
 
@@ -53,5 +61,6 @@ class AguaGeneralesActivity : AppCompatActivity() {
         bin.spnConductividad.adapter = adpConductividad
 
     }
+
 
 }
