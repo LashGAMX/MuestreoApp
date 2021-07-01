@@ -19,9 +19,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
             startActivity(intent)
         })
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
-            val intent = Intent(this,AguaCapturaActivity::class.java)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         })
 
     }
