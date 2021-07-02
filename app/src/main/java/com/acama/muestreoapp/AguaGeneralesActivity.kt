@@ -1,10 +1,12 @@
 package com.acama.muestreoapp
 
 import android.R
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
 
@@ -17,7 +19,7 @@ class AguaGeneralesActivity : AppCompatActivity() {
 
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
-            onBackPressed()
+            DialogVolver()
         })
 
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
@@ -60,5 +62,23 @@ class AguaGeneralesActivity : AppCompatActivity() {
 
     }
 
+    fun DialogVolver(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Cuidado")
+        builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT).show()
+            onBackPressed()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT).show()
+        }
+        builder.show()
+
+    }
 
 }
