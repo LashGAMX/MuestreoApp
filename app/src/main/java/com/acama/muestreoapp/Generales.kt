@@ -17,5 +17,16 @@ class Generales {
                 Temperatura_b: Int, Latitud: String, Longitud: String, Altitud: String, Pendiente: String,
                 Criterio: String){
 
+        this.Id_general = Id_general
+        this.Id_solicitud = Id_solicitud
+        this.Captura = Captura
+        this.Id_equipo = Id_equipo
+        this.Temperatura_a = Temperatura_a
+        this.Temperatura_b = Temperatura_b
+        this.Latitud = Latitud
+        this.Longitud = Longitud
+        this.Altitud = Altitud
+        this.Pendiente = Pendiente
+        this.Criterio = Criterio
     }
 }
