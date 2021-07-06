@@ -17,12 +17,26 @@ class AguaGeneralesActivity : AppCompatActivity() {
         bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        val context = this
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
 
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
+        var generales = Generales(1,
+            1,
+            "Movil",
+            1,
+            "10°C",
+            "10°C",
+            bin.latitud.toString(),
+            bin.longitud.toString(),
+            bin.altitud.toString(),
+            "15",
+            "Criterio")
+        var db = DataBaseHandler(context)
+        db.insertGeneral(generales)
 
         llenarSpinner()
     }
@@ -80,5 +94,6 @@ class AguaGeneralesActivity : AppCompatActivity() {
         builder.show()
 
     }
+
 
 }

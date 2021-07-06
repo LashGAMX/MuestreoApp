@@ -63,6 +63,7 @@
                 android:text="Folio servicio:"
                 />
             <TextView
+                android:id="@+id/folioServicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="147-18/21"
@@ -168,6 +169,7 @@
             android:layout_marginRight="5dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/latitud"
             android:hint="Latitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,6 +182,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/longitud"
             android:hint="Longitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -192,6 +195,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/altitud"
             android:hint="Altitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -232,18 +236,21 @@
             >
 
             <EditText
+                android:id="@+id/phTrazable1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/phTrazable2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 />
             <EditText
+                android:id="@+id/phTrazable3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
@@ -268,18 +275,21 @@
             >
 
             <EditText
+                android:id="@+id/ph2Trazable1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/ph2Trazable2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 />
             <EditText
+                android:id="@+id/ph2Trazable3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
@@ -320,18 +330,21 @@
             >
 
             <EditText
+                android:id="@+id/phCalidad1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/phCalidad2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 />
             <EditText
+                android:id="@+id/phCalidad3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
@@ -361,18 +374,21 @@
             >
 
             <EditText
+                android:id="@+id/ph2Calidad1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/ph2Calidad2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 />
             <EditText
+                android:id="@+id/ph2Calidad3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph3"

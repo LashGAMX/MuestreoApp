@@ -5,16 +5,16 @@ class Generales {
     var Id_solicitud: Int = 0
     var Captura: String = ""
     var Id_equipo: Int = 0
-    var Temperatura_a: Int = 0
-    var Temperatura_b: Int = 0
+    var Temperatura_a: String = ""
+    var Temperatura_b: String = ""
     var Latitud: String = ""
     var Longitud: String = ""
     var Altitud: String = ""
     var Pendiente: String = ""
     var Criterio: String = ""
 
-    constructor(Id_general: Int, Id_solicitud: Int, Captura: String, Id_equipo: Int, Temperatura_a: Int,
-                Temperatura_b: Int, Latitud: String, Longitud: String, Altitud: String, Pendiente: String,
+    constructor(Id_general: Int, Id_solicitud: Int, Captura: String, Id_equipo: Int, Temperatura_a: String,
+                Temperatura_b: String, Latitud: String, Longitud: String, Altitud: String, Pendiente: String,
                 Criterio: String){
 
         this.Id_general = Id_general
