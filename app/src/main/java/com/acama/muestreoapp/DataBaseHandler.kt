@@ -21,6 +21,14 @@ val Altitud = "Altitud"
 val Pendiente = "Pendiente"
 val Criterio = "Criterio"
 
+//ph trazbale
+val Id_solicitudT = "Id_solicitud"
+val Id_phTrazable = "Id_phTrazable"
+val Lectura1 = "Lectura1"
+val Lectura2 = "Lectura2"
+val Lectura3 = "Lectura3"
+val Estado = "Estado"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +
@@ -65,5 +73,26 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
 
+    }
+    fun insertPhTrazable(phTrazable: PhTrazable) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+    //put datos
+        cv.put(Id_solicitudT,phTrazable.Id_solicitud)
+        cv.put(Id_phTrazable, phTrazable.Id_phTrazable)
+        cv.put(Lectura1, phTrazable.Lectura1)
+        cv.put(Lectura2, phTrazable.Lectura2)
+        cv.put(Lectura3, phTrazable.Lectura3)
+        cv.put(Estado, phTrazable.Estado)
+
+        var result = db.insert(DATOSGENERALES, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
     }
 }
