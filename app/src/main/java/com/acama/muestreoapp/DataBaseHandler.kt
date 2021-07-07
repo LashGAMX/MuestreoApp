@@ -30,17 +30,17 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_equipo + " INTEGER," +
                 Temperatura_a + " VARCHAR(256)," +
                 Temperatura_b + " VARCHAR(256)," +
-                Latitud + " VARCHAR(256)" +
-                Longitud + " VARCHAR(256)" +
-                Altitud + " VARCHAR(256)" +
-                Pendiente + " VARCHAR(256)" +
-                Criterio + " VARCHAR(256))";
+                Latitud + " VARCHAR(256)," +
+                Longitud + " VARCHAR(256)," +
+                Altitud + " VARCHAR(256)," +
+                Pendiente + " VARCHAR(256)," +
+                Criterio + " VARCHAR(256)";
 
         db?.execSQL(campo_general)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
+         TODO("Not yet implemented")
     }
     fun insertGeneral(generales: Generales) {
         val db = this.writableDatabase
