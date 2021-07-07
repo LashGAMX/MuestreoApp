@@ -13,11 +13,11 @@ class Generales {
     var Pendiente: String = ""
     var Criterio: String = ""
 
-    constructor(Id_general: Int, Id_solicitud: Int, Captura: String, Id_equipo: Int, Temperatura_a: String,
+    constructor(Id_solicitud: Int, Captura: String, Id_equipo: Int, Temperatura_a: String,
                 Temperatura_b: String, Latitud: String, Longitud: String, Altitud: String, Pendiente: String,
                 Criterio: String){
 
-        this.Id_general = Id_general
+
         this.Id_solicitud = Id_solicitud
         this.Captura = Captura
         this.Id_equipo = Id_equipo

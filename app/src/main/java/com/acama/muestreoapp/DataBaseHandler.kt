@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import java.sql.Types.NULL
+
 
 val DATABASE_NAME = "Muestreo"
 val DATOSGENERALES = "campo_generales"
