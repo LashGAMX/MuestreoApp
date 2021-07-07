@@ -1,17 +1,18 @@
 package com.acama.muestreoapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Toast
 
-
 import com.acama.muestreoapp.databinding.ActivityLoginBinding
-import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
-import org.json.JSONException
-import org.json.JSONObject
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,42 +22,27 @@ class LoginActivity : AppCompatActivity() {
 
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
+
+
+
         bin.btnEntrar.setOnClickListener {
+             val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+            //val queue = Volley.newRequestQueue(this)
+            //val url = "https://dev.sistemaacama.com.mx/api/app/login"
 
+            //val jsonArray = JSONArray()
+           // jsonArray.put("isaac")
+           // jsonArray.put("admin2421")
+            
+
+           // val jsonArrayRequest = JsonArrayRequest(Request.Method.POST, url, jsonArray,
+             //   Response.Listener { response->
+             //       Toast.makeText(applicationContext, "Bienvenido", Toast.LENGTH_LONG).show()
+           // },Response.ErrorListener{ error ->
+           //         Toast.makeText(applicationContext, "error", Toast.LENGTH_LONG).show()
+           // })
+           // queue.add(jsonArrayRequest)
         }
-    }
-    private fun addUser() {
-        //getting the record values
-
-        val url = "https://dev.sistemaacama.com.mx/api/app/user"
-
-        //creating volley string request
-        val stringRequest = object : StringRequest(
-            Request.Method.POST, url,
-            Response.Listener<String> { response ->
-                try {
-                    val obj = JSONObject(response)
-                    Toast.makeText(applicationContext, obj.getString("data"), Toast.LENGTH_LONG).show()
-                    val data = JSONObject(obj["data"].toString())
-                    //bin.txtPeticion.text = data.get("User").toString()
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                    //bin.txtPeticion.text = "Error en la peticion"
-                }
-
-            },
-            Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }) {
-            @Throws(AuthFailureError::class)
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params.put("user", "Admin")
-                params.put("pass", "Admin1234")
-                return params
-            }
-        }
-
-        //adding request to queue
-        //VolleySingleton.instance?.addToRequestQueue(stringRequest)
-        //MySingleton.getInstance(this).addToRequestQueue(stringRequest)
     }
 }

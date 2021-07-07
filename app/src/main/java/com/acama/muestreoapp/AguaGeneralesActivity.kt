@@ -1,9 +1,12 @@
 package com.acama.muestreoapp
 
 import android.R
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
 
@@ -14,7 +17,26 @@ class AguaGeneralesActivity : AppCompatActivity() {
         bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        val context = this
+
+        bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
+            DialogVolver()
+        })
+
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
+        var generales = Generales(
+            1,
+            "Movil",
+            1,
+            "10°C",
+            "10°C",
+            bin.latitud.toString(),
+            bin.longitud.toString(),
+            bin.altitud.toString(),
+            "15",
+            "Criterio")
+        var db = DataBaseHandler(context)
+        db.insertGeneral(generales)
 
         llenarSpinner()
     }
@@ -53,5 +75,25 @@ class AguaGeneralesActivity : AppCompatActivity() {
         bin.spnConductividad.adapter = adpConductividad
 
     }
+
+    fun DialogVolver(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Cuidado")
+        builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT).show()
+            onBackPressed()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT).show()
+        }
+        builder.show()
+
+    }
+
 
 }
