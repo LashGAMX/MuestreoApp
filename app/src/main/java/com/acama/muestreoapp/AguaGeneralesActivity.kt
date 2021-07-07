@@ -24,7 +24,7 @@ class AguaGeneralesActivity : AppCompatActivity() {
         })
 
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
-        var generales = Generales(1,
+        var generales = Generales(
             1,
             "Movil",
             1,
