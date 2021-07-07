@@ -32,6 +32,7 @@
            app:startIconDrawable="@android:drawable/ic_dialog_email"
            >
            <EditText
+               android:id="@+id/edtUser"
                android:layout_width="300dp"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
