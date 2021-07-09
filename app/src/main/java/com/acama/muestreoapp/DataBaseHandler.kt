@@ -29,6 +29,15 @@ val Lectura2 = "Lectura2"
 val Lectura3 = "Lectura3"
 val Estado = "Estado"
 
+//phCalidad
+val Id_solicitudC = "Id_solicitud"
+val Id_phTrazableC = "Id_phTrazable"
+val Lectura1C = "Lectura1"
+val Lectura2C = "Lectura2"
+val Lectura3C = "Lectura3"
+val EstadoC = "Estado"
+val PromedioC= "Promedio"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
@@ -88,6 +97,28 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put(Lectura2, phTrazable.Lectura2)
         cv.put(Lectura3, phTrazable.Lectura3)
         cv.put(Estado, phTrazable.Estado)
+
+        var result = db.insert(DATOSGENERALES, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertPhCalidad(phCalidad: PhCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put(Id_solicitudC,phCalidad.Id_solicitudC)
+        cv.put(Id_phTrazableC, phCalidad.Id_phCalidad)
+        cv.put(Lectura1C, phCalidad.Lectura1)
+        cv.put(Lectura2C, phCalidad.Lectura2)
+        cv.put(Lectura3C, phCalidad.Lectura3)
+        cv.put(EstadoC, phCalidad.Estado)
+        cv.put(PromedioC, phCalidad.Promedio)
 
         var result = db.insert(DATOSGENERALES, null,cv)
         if( result == -1.toLong())
