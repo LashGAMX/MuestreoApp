@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.acama.muestreoapp.models.Usuarios
 
 
 val DATABASE_NAME = "Muestreo"
@@ -29,11 +30,47 @@ val Lectura2 = "Lectura2"
 val Lectura3 = "Lectura3"
 val Estado = "Estado"
 
+//Usuarios app
+val USUARIOS = "usuarios_app"
+val Id_usuario = "Id_usuario"
+val Id_muestreador = "Id_muestreador"
+val User = "User"
+val UserPass = "UserPass"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
+        createTableUsuariosApp(db)
     }
+    // Inicio Usuario
+    fun createTableUsuariosApp(db: SQLiteDatabase?)
+    {
+        val usuarios_app = "CREATE TABLE " + USUARIOS + " (" +
+                Id_usuario + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                Id_muestreador + " INTEGER," +
+                User + " VARCHAR(100)," +
+                UserPass + " VARCHAR(100)"
+        db?.execSQL(usuarios_app)
+    }
+    fun inserUsuario(usuarios: Usuarios) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put(Id_muestreador,usuarios.Id_muestreador)
+        cv.put(User,usuarios.User)
+        cv.put(UserPass,usuarios.UserPass)
 
+        var result = db.insert(USUARIOS, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    // Fin Usuario
     fun createTableDatosGenerales(db: SQLiteDatabase?)
     {
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +
@@ -48,7 +85,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Altitud + " VARCHAR(256)," +
                 Pendiente + " VARCHAR(256)," +
                 Criterio + " VARCHAR(256))";
-
         db?.execSQL(campo_general)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -71,9 +107,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        }
-        else
-        {
+        } else {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
 
@@ -81,7 +115,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun insertPhTrazable(phTrazable: PhTrazable) {
         val db = this.writableDatabase
         var cv = ContentValues()
-    //put datos
+        //put datos
         cv.put(Id_solicitudT,phTrazable.Id_solicitud)
         cv.put(Id_phTrazable, phTrazable.Id_phTrazable)
         cv.put(Lectura1, phTrazable.Lectura1)
