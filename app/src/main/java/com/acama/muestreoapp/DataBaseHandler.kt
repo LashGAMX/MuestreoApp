@@ -31,6 +31,11 @@ val Estado = "Estado"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
+       createTableDatosGenerales(db)
+    }
+
+    fun createTableDatosGenerales(db: SQLiteDatabase?)
+    {
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +
                 Id_general + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Id_solicitud + " INTEGER," +
@@ -46,7 +51,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
         db?.execSQL(campo_general)
     }
-
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
     }
