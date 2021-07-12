@@ -31,25 +31,22 @@ class LoginActivity : AppCompatActivity() {
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-
-
         bin.btnEntrar.setOnClickListener {
-            //loginApi()
-            loginApi(bin.edtUser.text.toString(),bin.edtPassword.text.toString())
-            //Toast.makeText(applicationContext, bin.edtPassword.text, Toast.LENGTH_LONG).show()
-            // val intent = Intent(this, MenuActivity::class.java)
-            //startActivity(intent)
-
+            checkfirstOpen()
         }
+    }
 
-        //checkfirstOpen()
+    fun changeActivity(){
+         val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
     }
 
     fun checkfirstOpen(){
         if(prefs.getFirstStart()){
-            Toast.makeText(this,"Segunda",Toast.LENGTH_LONG).show()
+            Log.d("checkFirstOpen","Inicio por segunda vez")
         }else{
-            Toast.makeText(this,"Inicio por primera vez",Toast.LENGTH_LONG).show()
+            Log.d("checkFirstOpen","Inicio por primera vez")
+            loginApi(bin.edtUser.text.toString(),bin.edtPassword.text.toString())
         }
     }
 
@@ -62,10 +59,15 @@ class LoginActivity : AppCompatActivity() {
                     try {
                         val obj = JSONObject(response)
                         Log.d("Response",response)
-                        Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_LONG).show()
+                        if (obj.getBoolean("response") == true){
+                            syncFirstData(obj)
+                            Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_LONG).show()
+                        }
                     } catch (e: JSONException) {
                         e.printStackTrace()
-                        Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
                     }
 
                 },
@@ -83,6 +85,24 @@ class LoginActivity : AppCompatActivity() {
         VolleySingleton.getInstance(this).addToRequestQueue(stringRequest)
     }
 
+    fun syncFirstData(data:JSONObject) {
+        Log.d("syncFirstData",data.getString("usuarios"))
+        var usuarios = JSONObject(data.getJSONObject("usuarios"))
 
+        /*
+        var generales = Generales(
+            1,
+            "Movil",
+            1,
+            "10°C",
+            "10°C",
+            bin.latitud.toString(),
+            bin.longitud.toString(),
+            bin.altitud.toString(),
+            "15",
+            "Criterio")
+        var db = DataBaseHandler(context)
+        db.insertGeneral(generales)*/
+    }
 
 }
