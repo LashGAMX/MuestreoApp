@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.acama.muestreoapp.api.VolleySingleton
 
 import com.acama.muestreoapp.databinding.ActivityLoginBinding
+import com.acama.muestreoapp.models.Usuarios
 import com.acama.muestreoapp.preference.Prefs
 import com.acama.muestreoapp.preference.UserApplication.Companion.prefs
 import com.android.volley.AuthFailureError
@@ -18,6 +19,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -27,6 +29,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var bin: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val context = this
 
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
@@ -46,6 +50,8 @@ class LoginActivity : AppCompatActivity() {
             Log.d("checkFirstOpen","Inicio por segunda vez")
         }else{
             Log.d("checkFirstOpen","Inicio por primera vez")
+
+
             loginApi(bin.edtUser.text.toString(),bin.edtPassword.text.toString())
         }
     }
@@ -86,23 +92,24 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun syncFirstData(data:JSONObject) {
-        Log.d("syncFirstData",data.getString("usuarios"))
-        var usuarios = JSONObject(data.getJSONObject("usuarios"))
+        //Log.d("syncFirstData",data.getString("usuarios"))
+        var user_array = JSONArray(data.getString("usuarios"))
+        //Log.d("jsonArray",json_array[0].toString())
+        var db = DataBaseHandler(this)
 
-        /*
-        var generales = Generales(
-            1,
-            "Movil",
-            1,
-            "10°C",
-            "10°C",
-            bin.latitud.toString(),
-            bin.longitud.toString(),
-            bin.altitud.toString(),
-            "15",
-            "Criterio")
-        var db = DataBaseHandler(context)
-        db.insertGeneral(generales)*/
+        for (i in 0 until user_array.length()){
+            /* var jsonObject = json_array.getJSONObject(i)
+            Log.d("User",jsonObject.getString("User"))*/
+                var users = user_array.getJSONObject(i)
+            var usuariosModel = Usuarios(
+                users.getInt("Id_muestreador"),
+                users.getString("User"),
+                users.getString("UserPass")
+            )
+            db.inserUsuario(usuariosModel)
+        }
+
+
     }
 
 }
