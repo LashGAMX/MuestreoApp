@@ -5,7 +5,7 @@ class PhCalidad {
     var Id_solicitudC : Int = 0
     var Id_phCalidad : Int = 0
     var Lectura1 : Int = 0
-    var Lectura2 : Int = 0
+    var Lectura2 : Int = 0 
     var Lectura3 : Int = 0
     var Estado : String = ""
     var Promedio : Int = 0
