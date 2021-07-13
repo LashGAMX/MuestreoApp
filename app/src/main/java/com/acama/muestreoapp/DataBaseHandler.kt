@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.acama.muestreoapp.models.SolicitudGenerada
 import com.acama.muestreoapp.models.Usuarios
 
 
@@ -37,10 +38,17 @@ val Id_muestreador = "Id_muestreador"
 val User = "User"
 val UserPass = "UserPass"
 
+//Solicitud Generada
+val SOLGENERADA = "solicitud_generadas"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
         createTableUsuariosApp(db)
+        createSolicitudGenerada(db)
+    }
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+
     }
     // Inicio Usuario
     fun createTableUsuariosApp(db: SQLiteDatabase?)
@@ -49,7 +57,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_usuario + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Id_muestreador + " INTEGER," +
                 User + " VARCHAR(100)," +
-                UserPass + " VARCHAR(100)"
+                UserPass + " VARCHAR(100))"
         db?.execSQL(usuarios_app)
     }
     fun inserUsuario(usuarios: Usuarios) {
@@ -71,6 +79,51 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
     // Fin Usuario
+    // Inicio SolicitudGenerada
+    fun createSolicitudGenerada(db: SQLiteDatabase?){
+        val solicitud = "CREATE TABLE $SOLGENERADA (" +
+                "Id_solicitudGen INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Folio_servicio VARCHAR(100) NOT NULL," +
+                "Id_solicitud INTEGER NOT NULL," +
+                "Id_intermediario INTEGER NOT NULL," +
+                "Nombres VARCHAR(255) NOT NULL," +
+                "Id_cliente INTEGER NOT NULL," +
+                "Empresa VARCHAR(255) NOT NULL," +
+                "Direccion TEXT NOT NULL" +
+                "Contacto TEXT NOT NULL," +
+                "Observacion TEXT NOT NULL" +
+                "Servicio TEXT NOT NULL," +
+                "Descarga TEXT NOT NULL," +
+                "Clave TEXT NOT NULL," +
+                "Fecha_muestreo TEXT NOT NULL," +
+                "Num_tomas INTGER NOT NULL," +
+                "Id_muestreador INTEGER NOT NULL" +
+                ");"
+        db?.execSQL(solicitud)
+    }
+    fun insertSolicitudGenerada(sol: SolicitudGenerada) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Folio_servicio",sol.Folio_servicio)
+        cv.put("Id_solicitud", sol.Id_solicitud)
+        cv.put("Id_intermediario", sol.Id_intermediario)
+        cv.put("Nombres", sol.Nombres)
+        cv.put("Id_cliente", sol.Id_cliente)
+        cv.put("Empresa", sol.Empresa)
+        cv.put("Direccion", sol.Direccion)
+        cv.put("Contacto", sol.Contacto)
+        cv.put("Observacion", sol.Observacion)
+        cv.put("Servicio", sol.Servicio)
+        cv.put("Descarga", sol.Descarga)
+        cv.put("Clave", sol.Clave)
+        cv.put("Fecha_muestreo", sol.Fecha_muestreo)
+        cv.put("Num_tomas", sol.Num_tomas)
+        cv.put("Id_muestreador", sol.Id_muestreador)
+
+        var result = db.insert(SOLGENERADA, null,cv)
+
+    }
+    // Fin SolicitudGenerada
     fun createTableDatosGenerales(db: SQLiteDatabase?)
     {
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +
@@ -87,9 +140,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Criterio + " VARCHAR(256))";
         db?.execSQL(campo_general)
     }
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
-    }
     fun insertGeneral(generales: Generales) {
         val db = this.writableDatabase
         var cv = ContentValues()
@@ -133,6 +184,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
 }
