@@ -12,12 +12,14 @@ import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
 
 class AguaGeneralesActivity : AppCompatActivity() {
     private lateinit var bin:ActivityAguaGeneralesBinding
+    private lateinit var con:DataBaseHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
         val context = this
+
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()

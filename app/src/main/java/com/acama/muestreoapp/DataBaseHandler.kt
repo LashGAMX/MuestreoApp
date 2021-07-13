@@ -81,7 +81,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     // Fin Usuario
     // Inicio SolicitudGenerada
     fun createSolicitudGenerada(db: SQLiteDatabase?){
-        val solicitud = "CREATE TABLE $SOLGENERADA (" +
+        val solicitud = "CREATE TABLE "+ SOLGENERADA +" (" +
                 "Id_solicitudGen INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Folio_servicio VARCHAR(100) NOT NULL," +
                 "Id_solicitud INTEGER NOT NULL," +
@@ -89,16 +89,16 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Nombres VARCHAR(255) NOT NULL," +
                 "Id_cliente INTEGER NOT NULL," +
                 "Empresa VARCHAR(255) NOT NULL," +
-                "Direccion TEXT NOT NULL" +
-                "Contacto TEXT NOT NULL," +
-                "Observacion TEXT NOT NULL" +
-                "Servicio TEXT NOT NULL," +
-                "Descarga TEXT NOT NULL," +
-                "Clave TEXT NOT NULL," +
-                "Fecha_muestreo TEXT NOT NULL," +
-                "Num_tomas INTGER NOT NULL," +
-                "Id_muestreador INTEGER NOT NULL" +
-                ");"
+                "Direccion VARCHAR(255) NOT NULL," +
+                "Contacto VARCHAR(255) NOT NULL," +
+                "Observacion VARCHAR(255)," +
+                "Servicio VARCHAR(255)," +
+                "Descarga VARCHAR(255)," +
+                "Clave VARCHAR(255)," +
+                "Fecha_muestreo ARCHAR(255)," +
+                "Num_tomas INTEGER," +
+                "Id_muestreador INTEGER" +
+                ")"
         db?.execSQL(solicitud)
     }
     fun insertSolicitudGenerada(sol: SolicitudGenerada) {
@@ -137,7 +137,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Longitud + " VARCHAR(256)," +
                 Altitud + " VARCHAR(256)," +
                 Pendiente + " VARCHAR(256)," +
-                Criterio + " VARCHAR(256))";
+                Criterio + " VARCHAR(256))"
         db?.execSQL(campo_general)
     }
 
@@ -184,7 +184,11 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
-
-
+/*ad
+    fun deleteData(db: SQLiteDatabase?) {
+        val delTable = "DROP TABLE IF EXISTS $SOLGENERADA"
+        db!!.execSQL(delTable)
+        createSolicitudGenerada(db)
+    }*/
 
 }
