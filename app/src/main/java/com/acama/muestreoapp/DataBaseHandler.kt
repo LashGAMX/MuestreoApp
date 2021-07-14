@@ -184,11 +184,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
-/*ad
-    fun deleteData(db: SQLiteDatabase?) {
-        val delTable = "DROP TABLE IF EXISTS $SOLGENERADA"
-        db!!.execSQL(delTable)
-        createSolicitudGenerada(db)
-    }*/
+
+    fun deleteData(db: SQLiteDatabase?,sql:String) {
+        db!!.execSQL(sql)
+    }
 
 }
