@@ -1,4 +1,4 @@
-package com.acama.muestreoapp
+ package com.acama.muestreoapp
 
 import android.R
 import android.app.AlertDialog
@@ -26,19 +26,42 @@ class AguaGeneralesActivity : AppCompatActivity() {
         })
 
         bin.btnGuardar.setOnClickListener{ guardarDatos() }
+        var db = DataBaseHandler(context)
+        //Insertar en tabla generales
         var generales = Generales(
             1,
             "Mobil",
             1,
             "10°C",
             "10°C",
-            bin.latitud.toString(),
-            bin.longitud.toString(),
-            bin.altitud.toString(),
+            bin.latitud.text.toString(),
+            bin.longitud.text.toString(),
+            bin.altitud.text.toString(),
             "15",
             "Criterio")
-        var db = DataBaseHandler(context)
+        
+        //insertar en tabla PhTrasable
+        val phTrazable = PhTrazable(
+             1,
+            1,
+            25,
+            12,
+            34,
+            "estado"
+        )
+        //insertar en tabla PhCalidad
+        val phCalidad = PhCalidad(
+            1,
+            1,
+            25,
+            12,
+            34,
+            "estado",
+        14
+        )
+
         db.insertGeneral(generales)
+        db.insertPhTrazable(phTrazable)
 
         llenarSpinner()
     }
