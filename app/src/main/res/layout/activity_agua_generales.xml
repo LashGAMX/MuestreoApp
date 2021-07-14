@@ -169,39 +169,39 @@
             android:layout_marginRight="5dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/latitud"
             android:hint="Latitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <EditText
+                android:id="@+id/latitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/longitud"
             android:hint="Longitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <EditText
+                android:id="@+id/longitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/altitud"
             android:hint="Altitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <EditText
+                android:id="@+id/altitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

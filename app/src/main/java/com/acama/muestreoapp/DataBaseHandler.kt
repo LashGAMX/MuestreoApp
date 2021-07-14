@@ -24,12 +24,22 @@ val Pendiente = "Pendiente"
 val Criterio = "Criterio"
 
 //ph trazbale
+val PHTRAZABLE = "PhTrazable"
 val Id_solicitudT = "Id_solicitud"
 val Id_phTrazable = "Id_phTrazable"
 val Lectura1 = "Lectura1"
 val Lectura2 = "Lectura2"
 val Lectura3 = "Lectura3"
 val Estado = "Estado"
+
+//ph calidad
+val PHCALIDAD = "PhCalidad"
+val Id_solicitudC = "Id_solicitud"
+val Id_phCalidad = "Id_phCalidad"
+val Lectura1C = "Lectura1"
+val Lectura2C = "Lectura2"
+val Lectura3C = "Lectura3"
+val EstadoC = "Estado"
 
 //Usuarios app
 val USUARIOS = "usuarios_app"
@@ -46,6 +56,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
        createTableDatosGenerales(db)
         createTableUsuariosApp(db)
         createSolicitudGenerada(db)
+        createTablePhTrazable(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
@@ -58,6 +69,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_muestreador + " INTEGER," +
                 User + " VARCHAR(100)," +
                 UserPass + " VARCHAR(100))"
+
+
         db?.execSQL(usuarios_app)
     }
     fun inserUsuario(usuarios: Usuarios) {
@@ -163,6 +176,18 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
 
     }
+    fun createTablePhTrazable(db: SQLiteDatabase?){
+        val phTrazable = "CREATE TABLE " + PHTRAZABLE + " (" +
+                Id_phTrazable + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                Id_solicitudT + " INTEGER," +
+                Lectura1 + " INTEGER," +
+                Lectura2 + " INTEGER," +
+                Lectura3 + " INTEGER," +
+                Estado + " VARCHAR(100))"
+
+
+        db?.execSQL(phTrazable)
+    }
     fun insertPhTrazable(phTrazable: PhTrazable) {
         val db = this.writableDatabase
         var cv = ContentValues()
@@ -174,7 +199,28 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put(Lectura3, phTrazable.Lectura3)
         cv.put(Estado, phTrazable.Estado)
 
-        var result = db.insert(DATOSGENERALES, null,cv)
+        var result = db.insert(PHTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertPhCalidad(phCalidad: PhCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put(Id_solicitudC,phCalidad.Id_solicitudC)
+        cv.put(Id_solicitudC, phCalidad.Id_phCalidadC)
+        cv.put(Lectura1C, phCalidad.Lectura1C)
+        cv.put(Lectura2C, phCalidad.Lectura2C)
+        cv.put(Lectura3C, phCalidad.Lectura3C)
+        cv.put(EstadoC, phCalidad.EstadoC)
+
+        var result = db.insert(PHCALIDAD, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
