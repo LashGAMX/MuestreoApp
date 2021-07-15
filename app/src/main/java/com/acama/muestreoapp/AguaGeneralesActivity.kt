@@ -66,9 +66,9 @@ import kotlinx.coroutines.launch
          val phTrazable = PhTrazable(
              1,
              1,
-             bin.phTrazable1.toString(),
-             bin.phTrazable2.toString(),
-             bin.phTrazable3.toString(),
+             bin.phTrazable1.text.toString(),
+             bin.phTrazable2.text.toString(),
+             bin.phTrazable3.text.toString(),
              "estado"
          )
          db.insertPhTrazable(phTrazable)
@@ -79,9 +79,9 @@ import kotlinx.coroutines.launch
          val phCalidad = PhCalidad(
              1,
              1,
-             bin.ph2Calidad1.toString(),
-             bin.ph2Calidad2.toString(),
-             bin.ph2Calidad3.toString(),
+             bin.ph2Calidad1.text.toString(),
+             bin.ph2Calidad2.text.toString(),
+             bin.ph2Calidad3.text.toString(),
              "estado",
              "14.5"
          )
@@ -93,7 +93,6 @@ import kotlinx.coroutines.launch
          Toast.makeText(applicationContext, "Datos guardados", Toast.LENGTH_SHORT).show()
          startActivity(intent)
      }
-
      fun llenarSpinner() {
          val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
          val adTermo = ArrayAdapter(
@@ -123,12 +122,15 @@ import kotlinx.coroutines.launch
          bin.spnConductividad.adapter = adpConductividad
 
      }
-
     fun validaciones(){
+       val PhTrazable1 =  bin.phTrazable1.text.toString().toInt()
+        val PhTrazable2 =  bin.phTrazable2.text.toString().toInt()
+        val PhTrazable3 =  bin.phTrazable3.text.toString().toInt()
+         var dif1 = PhTrazable1 - PhTrazable2
+
 
 
     }
-
     fun DialogVolver(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cuidado")
