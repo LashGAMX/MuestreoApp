@@ -35,6 +35,7 @@ import com.acama.muestreoapp.preference.UserApplication
             fun llenarLista(){
 
                 val listaMuestreo: MutableList<String> = mutableListOf()
+                val listaIdMuestreo: MutableList<String> = mutableListOf()
 
 
                 val db: SQLiteDatabase = con.readableDatabase
@@ -45,10 +46,9 @@ import com.acama.muestreoapp.preference.UserApplication
                 if (muestreoModel.moveToFirst()) {
                     do {
                         listaMuestreo.add(
-                            "" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(
-                                6
-                            )
+                            "" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6)
                         )
+                        listaIdMuestreo.add(muestreoModel.getString(1))
                     } while (muestreoModel.moveToNext())
                     // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
                 } else {
@@ -62,8 +62,14 @@ import com.acama.muestreoapp.preference.UserApplication
                 bin.lstMuestreos.setOnItemClickListener { adapterView, view, i, l ->
                     //acción que cada elemen to debe llevar
                     val intent = Intent(this, AguaCapturaActivity::class.java)
-                    //startActivity(intent)
-                    Log.d("Folio",bin.lstMuestreos.toString())
+                    intent.putExtra("folio",listaIdMuestreo[i])
+                    startActivity(intent)
+                    //Toast.makeText(this,"Folio: " + listaIdMuestreo[i] ,Toast.LENGTH_SHORT).show()
+                    /*
+                    Toast.makeText(this,"Folio: " + ,Toast.LENGTH_SHORT).show()
+                    Log.d("Folio",bin.lstMuestreos.getItemAtPosition(i).toString())
+                    Log.d("Folio2",bin.lstMuestreos.getItemIdAtPosition(i).toString())
+                    */
                 }
                 registerForContextMenu(bin.lstMuestreos)
             }

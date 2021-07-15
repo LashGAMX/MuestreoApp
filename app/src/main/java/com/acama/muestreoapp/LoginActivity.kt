@@ -35,21 +35,23 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var con: DataBaseHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val context = this
-
         bin = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(bin.root)
-        con = DataBaseHandler(this)
 
-        bin.btnEntrar.setOnClickListener {
-            checkfirstOpen()
+        if (prefs.getPermanecerConectado()){
+            changeActivity()
+        }else{
+            con = DataBaseHandler(this)
+            bin.btnEntrar.setOnClickListener {
+                checkfirstOpen()
+            }
         }
     }
 
     fun changeActivity(){
          val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
+        startActivity(intent)
     }
 
     fun checkfirstOpen(){
@@ -72,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
             do{
                 Log.d("User",users.getString(1))
                 prefs.saveMuestreador(users.getString(1),users.getString(2))
+                prefs.savePermanecerConectado(bin.ckdConectado.isChecked)
             }while (users.moveToNext())
             Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
         }else{
@@ -91,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
                        if (obj.getBoolean("response") == true){
                            syncFirstData(obj)
                            prefs.saveFirstStart(true)
+                           prefs.savePermanecerConectado(bin.ckdConectado.isChecked)
                            Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_LONG).show()
                        }else{
                            Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_LONG).show()

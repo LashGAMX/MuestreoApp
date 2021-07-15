@@ -28,9 +28,10 @@
             android:layout_marginLeft="50dp"
             />
         <TextView
+            android:id="@+id/txtFolio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="25-5/21"
+            tools:text="00-00/00"
             android:layout_gravity="center"
 
             />

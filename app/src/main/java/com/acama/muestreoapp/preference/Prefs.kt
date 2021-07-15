@@ -9,6 +9,7 @@ class Prefs(val context:Context) {
     val FIRST_START = "first"
     val MUESTREADORID = "0"
     val MUESTREADOR = "null"
+    val PERCONECTADO = "NO"
 
     val storage = context.getSharedPreferences(SHARED_NAME,0)
 
@@ -29,6 +30,12 @@ class Prefs(val context:Context) {
     }
     fun getMuestreador():String{
         return storage.getString(MUESTREADOR,"")!!
+    }
+    fun savePermanecerConectado(sw:Boolean){
+        storage.edit().putBoolean(PERCONECTADO,sw).apply()
+    }
+    fun getPermanecerConectado():Boolean{
+        return storage.getBoolean(PERCONECTADO,false)!!
     }
 
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -17,7 +17,7 @@
            android:layout_width="240dp"
            android:layout_height="87dp"
            android:layout_gravity="center|center_horizontal"
-           android:layout_marginTop="250px"
+           android:layout_marginTop="30px"
            app:srcCompat="@drawable/acama_logo2" />
 
        <com.google.android.material.textfield.TextInputLayout
@@ -60,6 +60,14 @@
                />
        </com.google.android.material.textfield.TextInputLayout>
 
+
+       <CheckBox
+           android:id="@+id/ckdConectado"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:layout_gravity="center"
+           android:checked="true"
+           android:text="Permanecer conectado"/>
 
        <Button
            android:id="@+id/btnEntrar"
