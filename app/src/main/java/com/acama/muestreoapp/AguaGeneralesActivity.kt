@@ -13,95 +13,119 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
+import android.util.Log.d
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class AguaGeneralesActivity : AppCompatActivity() {
-    private lateinit var bin:ActivityAguaGeneralesBinding
-    private lateinit var con:DataBaseHandler
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
-        setContentView(bin.root)
+ class AguaGeneralesActivity : AppCompatActivity() {
+     private lateinit var bin: ActivityAguaGeneralesBinding
+     private lateinit var con: DataBaseHandler
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
+         setContentView(bin.root)
 
-        val context = this
+         val context = this
 
+         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
+             DialogVolver()
+         })
 
-        bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
-            DialogVolver()
-        })
+         bin.btnGuardar.setOnClickListener {
+             CoroutineScope(Dispatchers.IO).launch {
+                 generales()
+                 phtrazable()
+                 phcalidad()
+             }
+             guardarDatos()
+         }
 
-        bin.btnGuardar.setOnClickListener{ guardarDatos() }
-        var db = DataBaseHandler(context)
-        //Insertar en tabla generales
-        var generales = Generales(
-            1,
-            "Mobil",
-            1,
-            "10°C",
-            "10°C",
-            bin.latitud.text.toString(),
-            bin.longitud.text.toString(),
-            bin.altitud.text.toString(),
-            "15",
-            "Criterio")
-        
-        //insertar en tabla PhTrasable
-        val phTrazable = PhTrazable(
+         llenarSpinner()
+     }
+     fun generales(){
+         var db = DataBaseHandler(this)
+         //Insertar en tabla generales
+         var generales = Generales(
              1,
-            1,
-            25,
-            12,
-            34,
-            "estado"
-        )
-        //insertar en tabla PhCalidad
-        val phCalidad = PhCalidad(
-            1,
-            1,
-            25,
-            12,
-            34,
-            "estado",
-        14
-        )
+             "Mobil",
+             1,
+             "10°C",
+             "10°C",
+             bin.latitud.text.toString(),
+             bin.longitud.text.toString(),
+             bin.altitud.text.toString(),
+             "15",
+             "Criterio"
+         )
+         db.insertGeneral(generales)
+     }
+     fun phtrazable(){
+         var db = DataBaseHandler(this)
+         //insertar en tabla PhTrasable
+         val phTrazable = PhTrazable(
+             1,
+             1,
+             bin.phTrazable1.toString(),
+             bin.phTrazable2.toString(),
+             bin.phTrazable3.toString(),
+             "estado"
+         )
+         db.insertPhTrazable(phTrazable)
+     }
+     fun phcalidad(){
+         var db = DataBaseHandler(this)
+         //insertar en tabla PhCalidad
+         val phCalidad = PhCalidad(
+             1,
+             1,
+             bin.ph2Calidad1.toString(),
+             bin.ph2Calidad2.toString(),
+             bin.ph2Calidad3.toString(),
+             "estado",
+             "14.5"
+         )
+         db.insertPhCalidad(phCalidad)
+     }
 
-        db.insertGeneral(generales)
-        db.insertPhTrazable(phTrazable)
+     fun guardarDatos() {
+         val intent = Intent(this, AguaCapturaActivity::class.java)
+         Toast.makeText(applicationContext, "Datos guardados", Toast.LENGTH_SHORT).show()
+         startActivity(intent)
+     }
 
-        llenarSpinner()
-    }
-    fun guardarDatos() {
-        val intent = Intent(this,AguaCapturaActivity::class.java)
-        startActivity(intent)
-    }
+     fun llenarSpinner() {
+         val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+         val adTermo = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, termos
+         )
+         bin.spnTermo.adapter = adTermo
 
-    fun llenarSpinner()
-    {
-        val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
-        val adTermo = ArrayAdapter(
-            this,
-            R.layout.simple_spinner_item, termos
-        )
-        bin.spnTermo.adapter = adTermo
+         val phTrazable = arrayOf("Select", "7")
 
-        val phTrazable = arrayOf("Select","7")
+         val adPhTrazable = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, phTrazable
+         )
+         bin.spnPhTrazable.adapter = adPhTrazable
+         bin.spnPhTrazable2.adapter = adPhTrazable
+         bin.spnPhTrazableCalidad.adapter = adPhTrazable
+         bin.spnPhTrazableCalidad2.adapter = adPhTrazable
 
-        val adPhTrazable = ArrayAdapter(
-            this,
-            R.layout.simple_spinner_item,phTrazable
-        )
-        bin.spnPhTrazable.adapter = adPhTrazable
-        bin.spnPhTrazable2.adapter = adPhTrazable
-        bin.spnPhTrazableCalidad.adapter = adPhTrazable
-        bin.spnPhTrazableCalidad2.adapter = adPhTrazable
+         val conductividad = arrayOf("1412", "1315")
 
-        val conductividad = arrayOf("1412","1315")
+         val adpConductividad = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item,
+             conductividad
+         )
+         bin.spnConductividad.adapter = adpConductividad
 
-        val adpConductividad = ArrayAdapter(
-            this,
-            R.layout.simple_spinner_item,
-            conductividad
-        )
-        bin.spnConductividad.adapter = adpConductividad
+     }
+
+    fun validaciones(){
+
 
     }
 

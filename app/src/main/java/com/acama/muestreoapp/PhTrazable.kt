@@ -4,12 +4,12 @@ class PhTrazable{
     var Id_ph : Int = 0
     var Id_solicitud : Int = 0
     var Id_phTrazable : Int = 0
-    var Lectura1 : Int = 0
-    var Lectura2 : Int = 0
-    var Lectura3 : Int = 0
+    var Lectura1 : String = ""
+    var Lectura2 : String = ""
+    var Lectura3 : String = ""
     var Estado : String = ""
 
-    constructor(Id_solicitud: Int, Id_phTrazable: Int, Lectura1: Int, Lectura2: Int, Lectura3: Int,
+    constructor(Id_solicitud: Int, Id_phTrazable: Int, Lectura1: String, Lectura2: String, Lectura3: String,
     Estado: String){
         this.Id_solicitud = Id_solicitud
         this.Id_phTrazable = Id_phTrazable

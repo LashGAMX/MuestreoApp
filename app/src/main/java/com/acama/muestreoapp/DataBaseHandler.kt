@@ -40,6 +40,7 @@ val Lectura1C = "Lectura1"
 val Lectura2C = "Lectura2"
 val Lectura3C = "Lectura3"
 val EstadoC = "Estado"
+val PromedioC = "Promedio"
 
 //Usuarios app
 val USUARIOS = "usuarios_app"
@@ -57,6 +58,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createTableUsuariosApp(db)
         createSolicitudGenerada(db)
         createTablePhTrazable(db)
+        createTablePhCalidad(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
@@ -180,9 +182,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val phTrazable = "CREATE TABLE " + PHTRAZABLE + " (" +
                 Id_phTrazable + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Id_solicitudT + " INTEGER," +
-                Lectura1 + " INTEGER," +
-                Lectura2 + " INTEGER," +
-                Lectura3 + " INTEGER," +
+                Lectura1 + " VARCHAR(100)," +
+                Lectura2 + " VARCHAR(100)," +
+                Lectura3 + " VARCHAR(100)," +
                 Estado + " VARCHAR(100))"
 
 
@@ -208,6 +210,20 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun createTablePhCalidad(db: SQLiteDatabase?){
+        val phCalidad = "CREATE TABLE " + PHCALIDAD + " (" +
+                Id_phCalidad + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                Id_solicitudC + " INTEGER," +
+                Lectura1C + " VARCHAR(100)," +
+                Lectura2C + " VARCHAR(100)," +
+                Lectura3C + " VARCHAR(100)," +
+                EstadoC + " VARCHAR(100)," +
+                PromedioC + " VARCHAR(100))"
+
+
+        db?.execSQL(phCalidad)
     }
     fun insertPhCalidad(phCalidad: PhCalidad) {
         val db = this.writableDatabase
