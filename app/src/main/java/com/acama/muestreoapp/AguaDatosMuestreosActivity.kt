@@ -11,10 +11,13 @@ import com.acama.muestreoapp.databinding.ActivityAguaDatosMuestreosBinding
 
 class AguaDatosMuestreosActivity : AppCompatActivity() {
     private  lateinit var bin: ActivityAguaDatosMuestreosBinding
+    private  lateinit var folio:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaDatosMuestreosBinding.inflate(layoutInflater)
         setContentView(bin.root)
+
+        getExtras()
 
         bin.btnMS1.setOnClickListener(View.OnClickListener { v: View? ->
             val intent = Intent(this, MuestraSimpleActivity::class.java)
@@ -25,6 +28,12 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         })
 
     }
+    fun getExtras(){
+        val bundle = intent.extras
+        val fol = bundle?.get("folio")
+        folio = fol.toString()
+    }
+
     fun DialogVolver(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cuidado")
