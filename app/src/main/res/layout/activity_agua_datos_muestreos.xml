@@ -37,49 +37,10 @@
         android:orientation="vertical"
         android:layout_marginTop="50dp"
         >
-
-        <Button
-            android:id="@+id/btnMS1"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMuestraSimple"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Muestra simple 1"
-            android:layout_gravity="center"
-            android:background="#00867d"
-            android:textColor="#fff"
-            android:layout_marginTop="50dp"
-            />
-
-        <Button
-            android:id="@+id/btnMS2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Muestra simple 2"
-            android:layout_gravity="center"
-            android:background="#00867d"
-            android:textColor="#fff"
-            android:layout_marginTop="50dp"
-            />
-
-        <Button
-            android:id="@+id/btnMS3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Muestra simple 3"
-            android:layout_gravity="center"
-            android:background="#00867d"
-            android:textColor="#fff"
-            android:layout_marginTop="50dp"
-            />
-
-        <Button
-            android:id="@+id/btnMS4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Muestra simple 4"
-            android:layout_gravity="center"
-            android:background="#00867d"
-            android:textColor="#fff"
-            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
             />
     </LinearLayout>
 
