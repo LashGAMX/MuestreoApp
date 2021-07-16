@@ -2,37 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="8dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal">
 
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:clickable="true"
+        android:focusable="true"
+        android:checkable="true"
+        android:layout_margin="8dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/material_on_surface_stroke"
+        app:strokeWidth="1dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtMuestra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="21dp"
-            android:textStyle="bold"
-            tools:text="Muestra Simple"
-            />
-        <TextView
-            android:id="@+id/txtNumeroMuestra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#DC6C6C"
-            tools:text="# 1"
-            />
+            <TextView
+                android:id="@+id/txtMuestra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                tools:text="Muestra Simple"
+                />
+            <TextView
+                android:id="@+id/txtNumeroMuestra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#DC6C6C"
+                tools:text="# 1"
+                />
 
-    </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
 
 
 </LinearLayout>

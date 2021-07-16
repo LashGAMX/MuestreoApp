@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.acama.muestreoapp.R
 import com.acama.muestreoapp.databinding.ItemMuestrasimpleBinding
 
-class MuestraSimpleAdapter (val muestrasimple: List<MuestraSimple>) : RecyclerView.Adapter<MuestraSimpleAdapter.MuestraSimpleHolder>() {
+class MuestraSimpleAdapter(val muestrasimple: MutableList<MuestraSimple>) : RecyclerView.Adapter<MuestraSimpleAdapter.MuestraSimpleHolder>() {
 
     class MuestraSimpleHolder(val view: View):RecyclerView.ViewHolder(view){
 
         private val bin = ItemMuestrasimpleBinding.bind(view)
-        fun render(muestrasimple:MuestraSimple){
+        fun render(muestrasimple: MuestraSimple){
             bin.txtMuestra.text = "Muestra simple"
-            bin.txtNumeroMuestra.text = muestrasimple.numToma.toString()
+            bin.txtNumeroMuestra.text = muestrasimple.numToma
             //bin.edtColor.setBackgroundColor(R.drawable._11_computer)
-            view.setOnClickListener { Toast.makeText(view.context,"Has seleccionado ${muestrasimple.numToma}",Toast.LENGTH_SHORT).show() }
+            //view.setOnClickListener { Toast.makeText(view.context,"Has seleccionado ${muestrasimple.numToma}",Toast.LENGTH_SHORT).show() }
         }
     }
 

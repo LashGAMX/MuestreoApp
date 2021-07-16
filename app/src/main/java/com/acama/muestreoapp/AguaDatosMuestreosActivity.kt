@@ -1,53 +1,60 @@
 package com.acama.muestreoapp
 
+import android.R
 import android.app.AlertDialog
-import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.agua.MuestraSimpleAdapter
-import com.acama.muestreoapp.databinding.ActivityAguaCapturaBinding
 import com.acama.muestreoapp.databinding.ActivityAguaDatosMuestreosBinding
-import com.acama.muestreoapp.preference.UserApplication
 
 class AguaDatosMuestreosActivity : AppCompatActivity() {
     private  lateinit var bin: ActivityAguaDatosMuestreosBinding
     private  lateinit var folio:String
     private  lateinit var con: DataBaseHandler
-    var muestraSimple = listOf(
-        MuestraSimple(1),
-        MuestraSimple(2)
-    )
+    private var numTomas:Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaDatosMuestreosBinding.inflate(layoutInflater)
         setContentView(bin.root)
-
+        con = DataBaseHandler(this)
         getExtras()
-
+        getNumTomas()
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
-
-        initRecycler()
     }
 
     fun getNumTomas(){
+        var listaTomas: MutableList<MuestraSimple> = mutableListOf()
+        val db : SQLiteDatabase = con.readableDatabase
+        val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+        val model = db.rawQuery(query,null)
+        if (model.moveToFirst()){
+            do{
+                numTomas = model.getInt(14)
+            }while (model.moveToNext())
+        }
 
-    }
+        var cont:Int
+        cont = numTomas
+        for (i in 0 until numTomas){
+            listaTomas.add(0,MuestraSimple(cont.toString()))
+            cont--
+        }
 
-    fun initRecycler(){
+
         bin.rvMuestraSimple.layoutManager = LinearLayoutManager(this)
-        val adapter = MuestraSimpleAdapter(muestraSimple)
+        val adapter = MuestraSimpleAdapter(listaTomas)
         bin.rvMuestraSimple.adapter = adapter
     }
+
 
     fun getExtras(){
         val bundle = intent.extras
@@ -74,3 +81,4 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
     }
 }
+
