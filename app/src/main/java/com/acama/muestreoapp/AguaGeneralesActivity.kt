@@ -1,9 +1,12 @@
  package com.acama.muestreoapp
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.green
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
 import android.util.Log.d
+import kotlinx.android.synthetic.main.activity_agua_generales.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,16 +36,19 @@ import kotlinx.coroutines.launch
              DialogVolver()
          })
 
+
          bin.btnGuardar.setOnClickListener {
-             CoroutineScope(Dispatchers.IO).launch {
-                 generales()
-                 phtrazable()
-                 phcalidad()
-             }
-             guardarDatos()
+            // CoroutineScope(Dispatchers.IO).launch {
+                // generales()
+               //  phtrazable()
+               //  phcalidad()
+            // }
+             Validaciones()
+             //guardarDatos()
          }
 
          llenarSpinner()
+
      }
      fun generales(){
          var db = DataBaseHandler(this)
@@ -121,14 +128,23 @@ import kotlinx.coroutines.launch
          )
          bin.spnConductividad.adapter = adpConductividad
 
+
      }
-    fun validaciones(){
-       val PhTrazable1 =  bin.phTrazable1.text.toString().toInt()
-        val PhTrazable2 =  bin.phTrazable2.text.toString().toInt()
-        val PhTrazable3 =  bin.phTrazable3.text.toString().toInt()
-         var dif1 = PhTrazable1 - PhTrazable2
 
-
+    fun Validaciones(){
+        var PhTrazable1 =  bin.phTrazable1.text.toString().toDouble()
+        var PhTrazable2 =  bin.phTrazable2.text.toString().toDouble()
+        //val PhTrazable3 =  bin.phTrazable3.text.toString().toInt()
+         var dif1:Double = PhTrazable1 - PhTrazable2
+        // var dif2 = PhTrazable2 - PhTrazable3
+       // var dif3 = PhTrazable1 - PhTrazable3
+        if(dif1 <= 0.3 && dif1 <= -0.3){
+            Toast.makeText(applicationContext,"Valor aceptado", Toast.LENGTH_SHORT).show()
+           // bin.phTrazable1.setBackgroundColor(R.color.holo_green_dark)
+        }else{
+            Toast.makeText(applicationContext,"Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable1.setError("No valido")
+        }
 
     }
     fun DialogVolver(){
