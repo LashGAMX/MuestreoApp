@@ -154,9 +154,9 @@ import kotlinx.coroutines.launch
         var PhTrazable2 = bin.phTrazable2.text.toString().toDouble()
         val PhTrazable3 = bin.phTrazable3.text.toString().toDouble()
         // val PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
-        var dif1: Double = PhTrazable1 - PhTrazable2
+        var dif1: Double = PhTrazable2 - PhTrazable1
         var dif2: Double = PhTrazable2 - PhTrazable3
-        var dif3: Double = PhTrazable1 - PhTrazable3
+        var dif3: Double = PhTrazable1 - PhTrazable2
         Log.d("dif1",dif1.toString())
         Log.d("dif2",dif2.toString())
         Log.d("dif3",dif3.toString())
@@ -171,42 +171,25 @@ import kotlinx.coroutines.launch
         */
 
 
-        if (dif1 <= 0.03) {
+        if (dif1 <= 0.03 || dif1 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable1.setError("valor invalido entre 1 y 2")
         }
-        if (dif1 <= -0.03) {
+        if (dif2 >= 0.03 || dif2 >= -0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable2.setError("valor invalido entre 1 y 3")
+        }
+        if (dif3 >= 0.03 || dif3 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable1.setError("valor invalido entre 1 y 2")
         }
-        if (dif2 <= 0.03) {
-            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
-            bin.phTrazable2.setError("valor invalido entre 2 y 3")
-        }
-        if (dif2 <= -0.03) {
-            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
-            bin.phTrazable2.setError("valor invalido entre 2 y 3")
-        }
-        if (dif3 <= 0.03) {
-            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
-            bin.phTrazable3.setError("valor invalido entre 1 y 3")
-        }
-        if (dif3 <= -0.03) {
-            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
-            bin.phTrazable3.setError("valor invalido entre 1 y 3")
-        }
+
 
         //VALIDACION PH CALIDAD
     }

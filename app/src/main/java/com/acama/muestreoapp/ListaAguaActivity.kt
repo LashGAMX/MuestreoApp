@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.get
@@ -83,6 +84,10 @@ import com.acama.muestreoapp.preference.UserApplication
                 }
 
                 override fun onContextItemSelected(item: MenuItem): Boolean {
+
+                    val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                    val posicion = info.position
+
 
                     when (item.itemId) {
                         com.acama.muestreoapp.R.id.enviar -> {
