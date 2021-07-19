@@ -433,18 +433,21 @@
             >
 
             <EditText
+                android:id="@+id/conductividad1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/conductividad2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
                 />
             <EditText
+                android:id="@+id/conductividad3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 3"
@@ -482,18 +485,21 @@
             >
 
             <EditText
+                android:id="@+id/conducti1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
                 />
             <EditText
+                android:id="@+id/conducti2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
                 />
             <EditText
+                android:id="@+id/conducti3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 3"
