@@ -22,7 +22,7 @@
         android:layout_marginLeft="110px"
         android:layout_marginTop="20px"
         android:layout_toRightOf="@+id/edtBuscar"
-        android:foreground="@drawable/_93_left_arrow" />
+        android:foreground="@drawable/outline_cached_black_24dp" />
 
 
     <LinearLayout

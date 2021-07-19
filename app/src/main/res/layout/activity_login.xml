@@ -29,7 +29,7 @@
            android:hint="Usuario"
            app:helperText="* Requerido"
            app:helperTextTextColor="#E91E63"
-           app:startIconDrawable="@android:drawable/ic_dialog_email"
+            app:startIconDrawable="@drawable/outline_perm_identity_black_24dp"
            >
            <EditText
                android:id="@+id/edtUser"

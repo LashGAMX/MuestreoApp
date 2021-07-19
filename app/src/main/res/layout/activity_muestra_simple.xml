@@ -19,7 +19,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@+id/edtBuscar"
-                android:src="@drawable/_48_return" />
+                android:src="@drawable/outline_arrow_back_black_24dp" />
 
             <TextView
                 android:id="@+id/titulo"
