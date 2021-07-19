@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.get
@@ -33,7 +34,7 @@ import org.json.JSONObject
 
  class ListaAguaActivity : AppCompatActivity() {
     private lateinit var bin:  ActivityListaAguaBinding
-    private lateinit var folPres: String
+    private lateinit var listaArr: MutableList<String>
     private lateinit var con: DataBaseHandler
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
@@ -169,22 +170,26 @@ import org.json.JSONObject
                     Log.d("Folio2",bin.lstMuestreos.getItemIdAtPosition(i).toString())
                     */
                 }
+                listaArr = listaMuestreo
                 registerForContextMenu(bin.lstMuestreos)
             }
                 override fun onCreateContextMenu(
                     menu: ContextMenu?,
                     v: View?,
-                    menuInfo: ContextMenu.ContextMenuInfo?
+                    menuInfo: ContextMenu.ContextMenuInfo?,
                 ) {
                     menuInflater.inflate(com.acama.muestreoapp.R.menu.menu_lista, menu)
                     super.onCreateContextMenu(menu, v, menuInfo)
                 }
 
                 override fun onContextItemSelected(item: MenuItem): Boolean {
+                    val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+                    val posicion = info.position
 
                     when (item.itemId) {
                         com.acama.muestreoapp.R.id.enviar -> {
-
+                            //Log.d("item",)
+                            Log.d("item",listaArr[posicion])
                             Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
                             return true
                         }
@@ -200,6 +205,11 @@ import org.json.JSONObject
 
                     return super.onContextItemSelected(item)
                 }
+
+                 override fun onOptionsItemSelected(item: MenuItem): Boolean {
+                     Log.d("optionSelected",item.toString())
+                     return super.onOptionsItemSelected(item)
+                 }
      fun guardarDatos(data:JSONObject) {
          //Log.d("syncFirstData",data.getString("usuarios"))
          //Log.d("jsonArray",json_array[0].toString())
