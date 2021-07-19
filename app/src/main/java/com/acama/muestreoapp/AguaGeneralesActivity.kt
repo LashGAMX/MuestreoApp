@@ -1,3 +1,4 @@
+
  package com.acama.muestreoapp
 
 import android.R
@@ -42,6 +43,7 @@ import kotlinx.coroutines.launch
                 // generales()
                //  phtrazable()
                //  phcalidad()
+             //conductividad()
             // }
              Validaciones()
              //guardarDatos()
@@ -94,6 +96,16 @@ import kotlinx.coroutines.launch
          )
          db.insertPhCalidad(phCalidad)
      }
+     fun conductividad(){
+         var db = DataBaseHandler(this)
+         val conductividad = Conductividad(
+             1,
+             bin.conductividad1.text.toString(),
+             bin.conductividad2.text.toString(),
+             bin.conductividad3.text.toString(),
+             "3.15"
+         )
+     }
 
      fun guardarDatos() {
          val intent = Intent(this, AguaCapturaActivity::class.java)
@@ -131,39 +143,94 @@ import kotlinx.coroutines.launch
 
      }
 
-    fun Validaciones(){
-        var PhTrazable1 =  bin.phTrazable1.text.toString().toDouble()
-        var PhTrazable2 =  bin.phTrazable2.text.toString().toDouble()
-        //val PhTrazable3 =  bin.phTrazable3.text.toString().toInt()
-         var dif1:Double = PhTrazable1 - PhTrazable2
-        // var dif2 = PhTrazable2 - PhTrazable3
-       // var dif3 = PhTrazable1 - PhTrazable3
-        if(dif1 <= 0.3 && dif1 <= -0.3){
-            Toast.makeText(applicationContext,"Valor aceptado", Toast.LENGTH_SHORT).show()
-           // bin.phTrazable1.setBackgroundColor(R.color.holo_green_dark)
-        }else{
-            Toast.makeText(applicationContext,"Error: Verifica los datos", Toast.LENGTH_LONG).show()
-            bin.phTrazable1.setError("No valido")
+    fun Validaciones() {
+        //VALIDACION PH TRAZABLE
+        var PhTrazable1 = bin.phTrazable1.text.toString().toDouble()
+        /* var global1 = bin.phTrazable1.text.toString().toInt()
+        var global2 = bin.phTrazable2.text.toString().toInt()
+        var global3 = bin.phTrazable3.text.toString().toInt()
+
+        */
+        var PhTrazable2 = bin.phTrazable2.text.toString().toDouble()
+        val PhTrazable3 = bin.phTrazable3.text.toString().toDouble()
+        // val PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
+        var dif1: Double = PhTrazable1 - PhTrazable2
+        var dif2: Double = PhTrazable2 - PhTrazable3
+        var dif3: Double = PhTrazable1 - PhTrazable3
+        Log.d("dif1",dif1.toString())
+        Log.d("dif2",dif2.toString())
+        Log.d("dif3",dif3.toString())
+        /* if (PhTrazableSpn.equals(global1) && PhTrazableSpn.equals(global2) && PhTrazableSpn.equals(global3)){
+            Toast.makeText(applicationContext,"VALORES CORRECTOS", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(applicationContext,"VALOR DE PH FUERA DE RANGO", Toast.LENGTH_SHORT).show()
         }
 
+        */
+
+
+        if (dif1 <= 0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable1.setError("valor invalido entre 1 y 2")
+        }
+        if (dif1 <= -0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable1.setError("valor invalido entre 1 y 2")
+        }
+        if (dif2 <= 0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable2.setError("valor invalido entre 2 y 3")
+        }
+        if (dif2 <= -0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable2.setError("valor invalido entre 2 y 3")
+        }
+        if (dif3 <= 0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable3.setError("valor invalido entre 1 y 3")
+        }
+        if (dif3 <= -0.03) {
+            Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
+            bin.phTrazable3.setError("valor invalido entre 1 y 3")
+        }
+
+        //VALIDACION PH CALIDAD
     }
-    fun DialogVolver(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Cuidado")
-        builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
 
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.yes, Toast.LENGTH_SHORT).show()
-            onBackPressed()
+        fun DialogVolver() {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Cuidado")
+            builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                Toast.makeText(
+                    applicationContext,
+                    android.R.string.yes, Toast.LENGTH_SHORT
+                ).show()
+                onBackPressed()
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                Toast.makeText(
+                    applicationContext,
+                    android.R.string.no, Toast.LENGTH_SHORT
+                ).show()
+            }
+            builder.show()
+
         }
-
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.no, Toast.LENGTH_SHORT).show()
-        }
-        builder.show()
-
     }
-
-}

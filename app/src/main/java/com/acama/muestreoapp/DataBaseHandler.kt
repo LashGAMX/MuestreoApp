@@ -42,6 +42,15 @@ val Lectura3C = "Lectura3"
 val EstadoC = "Estado"
 val PromedioC = "Promedio"
 
+//Conductividad
+val CONDUCTIVIDAD = "Conductividad"
+val Id_Conductividad = "Id_conductividad"
+val Id_solicitudCond = "Id_solicitud"
+val Conductividad1 = "Conductividad1"
+val Conductividad2 = "Conductividad2"
+val Conductividad3 = "Conductividad3"
+val PromedioCond = "Promedio"
+
 //Usuarios app
 val USUARIOS = "usuarios_app"
 val Id_usuario = "Id_usuario"
@@ -229,7 +238,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val db = this.writableDatabase
         var cv = ContentValues()
         //put datos
-        cv.put(Id_solicitudC,phCalidad.Id_solicitudC)
+        //cv.put(Id_solicitudC,phCalidad.Id_solicitudC)
         cv.put(Id_solicitudC, phCalidad.Id_phCalidadC)
         cv.put(Lectura1C, phCalidad.Lectura1C)
         cv.put(Lectura2C, phCalidad.Lectura2C)
@@ -237,6 +246,38 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put(EstadoC, phCalidad.EstadoC)
 
         var result = db.insert(PHCALIDAD, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createTableConductividad(db: SQLiteDatabase?){
+        val conductividad = "CREATE TABLE " + CONDUCTIVIDAD + " (" +
+                Id_Conductividad + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                Id_solicitudCond + " INTEGER," +
+                Conductividad1 + " VARCHAR(100)," +
+                Conductividad2 + " VARCHAR(100)," +
+                Conductividad3 + " VARCHAR(100)," +
+                PromedioCond + " VARCHAR(100))"
+
+
+        db?.execSQL(conductividad)
+    }
+    fun insertConductividad(conductividad: Conductividad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put(Id_solicitudCond, conductividad.Id_conductividad)
+        cv.put(Conductividad1, conductividad.Conductividad1)
+        cv.put(Conductividad2, conductividad.Conductividad2)
+        cv.put(Conductividad3, conductividad.Conductividad3)
+        cv.put(PromedioCond, conductividad.Promedio)
+
+        var result = db.insert(CONDUCTIVIDAD, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
