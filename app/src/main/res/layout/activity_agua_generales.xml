@@ -136,17 +136,16 @@
             android:orientation="horizontal"
             >
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_height="wrap_content"
+            <Spinner
+                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                android:id="@+id/spnTermo"
                 android:layout_width="match_parent"
-                >
-                <Spinner
-                    android:id="@+id/spnTermo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                />
+
+
+
+
         </LinearLayout>
         <View
             android:layout_width="fill_parent"

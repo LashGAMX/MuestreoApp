@@ -12,12 +12,28 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.get
+import com.acama.muestreoapp.agua.MuestraSimple
+import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
+import com.acama.muestreoapp.models.SolicitudGenerada
+import com.acama.muestreoapp.models.Usuarios
 import com.acama.muestreoapp.preference.UserApplication
+import com.airbnb.lottie.LottieAnimationView
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 
  class ListaAguaActivity : AppCompatActivity() {
     private lateinit var bin:  ActivityListaAguaBinding
+    private lateinit var folPres: String
     private lateinit var con: DataBaseHandler
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
@@ -28,10 +44,92 @@ import com.acama.muestreoapp.preference.UserApplication
                 llenarLista()
                 //Mostrar datos en la lista
                 bin.imgSincronizar.setOnClickListener {
-                    val del = "DELETE FROM solicitud_generadas where Id_solicitudGen = 1"
-                    con.deleteData(con.writableDatabase, del)
+                    //val del = "DELETE FROM solicitud_generadas where Id_solicitudGen = 1"
+                    //con.deleteData(con.writableDatabase, del)
+                    //animationSycn(bin.lteCarga,com.acama.muestreoapp.R.raw.cargaar)
+                    sycnDatos()
                 }
             }
+     fun animationSycn(imageView: LottieAnimationView, animation: Int){
+         imageView.setAnimation(animation)
+         imageView.playAnimation()
+     }
+
+     fun sycnDatos(){
+         CoroutineScope(Dispatchers.IO).launch {
+
+             var listSol: MutableList<String> = ArrayList()
+             var solGenModel: MutableList<String> = ArrayList()
+
+             val db : SQLiteDatabase = con.readableDatabase
+             val query = "SELECT * FROM solicitud_generadas WHERE Estado != 1"
+             val result = db.rawQuery(query, null)
+             Log.d("result",result.toString())
+
+             var cont:Int = 0
+             if (result.moveToFirst()){
+                 do{
+
+                     var json = "{" +
+                             " \"Id_solicitudGen\" : \""+ result.getInt(0)+ "\""+
+                             ",\"Folio_servicio\" : \""+ result.getString(1)+ "\""+
+                             ",\"Id_solicitud\" : \""+ result.getInt(2)+ "\""+
+                             ",\"Id_intermediario\" : \""+ result.getInt(3)+ "\""+
+                             ",\"Nombres\" : \""+ result.getString(4)+ "\""+
+                             ",\"Id_cliente\" : \""+ result.getInt(5)+ "\""+
+                             ",\"Empresa\" : \""+ result.getString(6)+ "\""+
+                             ",\"Direccion\" : \""+ result.getString(7)+ "\""+
+                             ",\"Contacto\" : \""+ result.getString(8)+ "\""+
+                             ",\"Servicio\" : \""+ result.getString(9)+ "\""+
+                             ",\"Descarga\" : \""+ result.getString(10)+ "\""+
+                             ",\"Clave\" : \""+ result.getString(11) + "\""+
+                             ",\"Fecha_muestreo\" : \""+ result.getString(12)+ "\""+
+                             ",\"Num_tomas\" : \"" +result.getInt(13)+"\""+
+                             ",\"Id_muestreador\" : \""+ result.getInt(14)+"\""+
+                             ",\"Estado\" : \""+ result.getInt(15)+ "\""+
+                             "}"
+
+                     listSol.add(cont,json)
+                     cont++
+                 }while (result.moveToNext())
+             }
+             solGenModel.addAll(listSol)
+
+             Log.d("json",solGenModel.toString())
+
+             val stringRequest = object : StringRequest(
+                 Request.Method.POST, UserApplication.prefs.BASE_URL + "sycnDatos",
+                 Response.Listener<String> { response ->
+                     try {
+                         val obj = JSONObject(response)
+                         Log.d("Response",response)
+                         if (obj.getBoolean("response") == true){
+                             Log.d("datos",obj.getString("datos"))
+                             //Log.d("ds",obj.getString("ds"))
+                             guardarDatos(obj)
+                             llenarLista()
+                         }else{
+                             Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                         }
+                     } catch (e: JSONException) {
+                         e.printStackTrace()
+                         Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                     }
+
+                 },
+                 Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }) {
+                 @Throws(AuthFailureError::class)
+                 override fun getParams(): Map<String, String> {
+                     val params = HashMap<String, String>()
+                     params.put("solicitudesModel", solGenModel.toString())
+                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
+                     return params
+                 }
+             }
+             // Agregamos el request para que nos permita retornar y/o visualizar la respuesta
+             VolleySingleton.getInstance(this@ListaAguaActivity).addToRequestQueue(stringRequest)
+         }
+     }
             fun llenarLista(){
 
                 val listaMuestreo: MutableList<String> = mutableListOf()
@@ -86,6 +184,7 @@ import com.acama.muestreoapp.preference.UserApplication
 
                     when (item.itemId) {
                         com.acama.muestreoapp.R.id.enviar -> {
+
                             Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
                             return true
                         }
@@ -101,5 +200,36 @@ import com.acama.muestreoapp.preference.UserApplication
 
                     return super.onContextItemSelected(item)
                 }
+     fun guardarDatos(data:JSONObject) {
+         //Log.d("syncFirstData",data.getString("usuarios"))
+         //Log.d("jsonArray",json_array[0].toString())
+         var db = DataBaseHandler(this)
 
-            }
+         var listaMuestreo = JSONArray(data.getString("modelSolGen"))
+
+         for (i in 0 until listaMuestreo.length()) {
+             var muestreo = listaMuestreo.getJSONObject(i)
+             Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+             var muestreoModel = SolicitudGenerada(
+                 muestreo.getString("Folio_servicio"),
+                 muestreo.getInt("Id_solicitud"),
+                 muestreo.getInt("Id_intermediario"),
+                 muestreo.getString("Nombres"),
+                 muestreo.getInt("Id_cliente"),
+                 muestreo.getString("Empresa"),
+                 muestreo.getString("Direccion"),
+                 muestreo.getString("Nom_con"),
+                 muestreo.getString("Observacion"),
+                 muestreo.getString("Servicio"),
+                 muestreo.getString("Descarga"),
+                 muestreo.getString("Clave"),
+                 muestreo.getString("Fecha_muestreo"),
+                 muestreo.getInt("Num_tomas"),
+                 muestreo.getInt("Id_muestreador"),
+                 1
+             )
+             db.insertSolicitudGenerada(muestreoModel)
+         }
+     }
+
+     }
