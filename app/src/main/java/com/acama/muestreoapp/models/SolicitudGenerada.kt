@@ -17,6 +17,7 @@ class SolicitudGenerada {
     var Fecha_muestreo : String = ""
     var Num_tomas : Int = 0
     var Id_muestreador : Int = 0
+    var Estado : Int = 0
 
     constructor(Folio_servicio:String,Id_solicitud:Int
                 ,Id_intermediario:Int,
@@ -24,7 +25,7 @@ class SolicitudGenerada {
                 Direccion:String,Contacto:String,
                 Observacion:String,Servicio:String,Descarga:String,
                 Clave:String,Fecha_muestreo:String,Num_tomas:Int,
-                Id_muestreador:Int){
+                Id_muestreador:Int,Estado:Int){
         this.Folio_servicio = Folio_servicio
         this.Id_solicitud = Id_solicitud
         this.Id_intermediario = Id_intermediario
@@ -40,5 +41,7 @@ class SolicitudGenerada {
         this.Fecha_muestreo = Fecha_muestreo
         this.Num_tomas = Num_tomas
         this.Id_muestreador = Id_muestreador
+        this.Estado = Estado
     }
+    constructor()
 }

@@ -161,7 +161,8 @@ class LoginActivity : AppCompatActivity() {
                 muestreo.getString("Clave"),
                 muestreo.getString("Fecha_muestreo"),
                 muestreo.getInt("Num_tomas"),
-                muestreo.getInt("Id_muestreador")
+                muestreo.getInt("Id_muestreador"),
+                1
             )
             db.insertSolicitudGenerada(muestreoModel)
         }

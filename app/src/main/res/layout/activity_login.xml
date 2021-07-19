@@ -8,78 +8,79 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
-       <ImageView
-           android:id="@+id/imageView"
-           android:layout_width="240dp"
-           android:layout_height="87dp"
-           android:layout_gravity="center|center_horizontal"
-           android:layout_marginTop="30px"
-           app:srcCompat="@drawable/acama_logo2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="240dp"
+            android:layout_height="87dp"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="30px"
+            app:srcCompat="@drawable/acama_logo2" />
 
-       <com.google.android.material.textfield.TextInputLayout
-           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-           android:layout_gravity="center_horizontal"
-           android:layout_marginTop="50dp"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
             android:layout_width="300dp"
-           android:layout_height="wrap_content"
-           android:hint="Usuario"
-           app:helperText="* Requerido"
-           app:helperTextTextColor="#E91E63"
+            android:layout_height="wrap_content"
+            android:hint="Usuario"
+            app:helperText="* Requerido"
+            app:helperTextTextColor="#E91E63"
             app:startIconDrawable="@drawable/outline_perm_identity_black_24dp"
-           >
-           <EditText
-               android:id="@+id/edtUser"
-               android:layout_width="300dp"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_horizontal"
-               android:inputType="textEmailAddress" />
-       </com.google.android.material.textfield.TextInputLayout>
 
-       <com.google.android.material.textfield.TextInputLayout
-           android:layout_width="300dp"
-           android:layout_height="wrap_content"
-           android:hint="Contraseña"
-           android:layout_marginTop="50dp"
-           app:startIconDrawable="@android:drawable/ic_partial_secure"
-           android:layout_gravity="center_horizontal"
-           app:endIconMode="password_toggle"
-           app:helperText="* Requerido"
-           app:helperTextTextColor="#E91E63"
-           style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            >
+            <EditText
+                android:id="@+id/edtUser"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-           <EditText
-               android:id="@+id/edtPassword"
-               android:layout_width="300dp"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center_horizontal"
-               android:inputType="textPassword"
-               />
-       </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            app:endIconMode="password_toggle"
+            app:helperText="* Requerido"
+            app:helperTextTextColor="#E91E63"
+            app:startIconDrawable="@android:drawable/ic_secure">
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-       <CheckBox
-           android:id="@+id/ckdConectado"
-           android:layout_width="wrap_content"
-           android:layout_height="match_parent"
-           android:layout_gravity="center"
-           android:checked="true"
-           android:text="Permanecer conectado"/>
+        <CheckBox
+            android:id="@+id/ckdConectado"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:checked="true"
+            android:text="Permanecer conectado"/>
 
-       <Button
-           android:id="@+id/btnEntrar"
-           android:layout_width="200dp"
-           android:layout_height="50dp"
-           android:layout_gravity="center|center_horizontal"
-           android:layout_marginTop="150px"
-           android:textSize="20dp"
-           android:backgroundTint="#17A2B8"
-           android:text="Entrar"
-           app:cornerRadius="10dp"
-           />
-   </LinearLayout>
+        <Button
+            android:id="@+id/btnEntrar"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="150px"
+            android:textSize="20dp"
+            android:backgroundTint="#17A2B8"
+            android:text="Entrar"
+            app:cornerRadius="10dp"
+            />
+    </LinearLayout>
 
 </FrameLayout>

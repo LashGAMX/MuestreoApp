@@ -121,7 +121,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Clave VARCHAR(255)," +
                 "Fecha_muestreo ARCHAR(255)," +
                 "Num_tomas INTEGER," +
-                "Id_muestreador INTEGER" +
+                "Id_muestreador INTEGER," +
+                "Estado INTEGER" +
                 ")"
         db?.execSQL(solicitud)
     }
@@ -143,6 +144,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Fecha_muestreo", sol.Fecha_muestreo)
         cv.put("Num_tomas", sol.Num_tomas)
         cv.put("Id_muestreador", sol.Id_muestreador)
+        cv.put("Estado", sol.Estado)
 
         var result = db.insert(SOLGENERADA, null,cv)
 
