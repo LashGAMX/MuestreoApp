@@ -26,6 +26,9 @@ import kotlinx.coroutines.launch
  class AguaGeneralesActivity : AppCompatActivity() {
      private lateinit var bin: ActivityAguaGeneralesBinding
      private lateinit var con: DataBaseHandler
+
+     var sw = 0
+
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
          bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
@@ -45,7 +48,7 @@ import kotlinx.coroutines.launch
                  phcalidad()
              conductividad()
             // }
-             //Validaciones()
+             Validaciones()
              //guardarDatos()
          }
 
@@ -143,20 +146,18 @@ import kotlinx.coroutines.launch
 
      }
 
-    fun Validaciones() {
+    fun Validaciones()  {
         //VALIDACION PH TRAZABLE
-        var PhTrazable1 = bin.phTrazable1.text.toString().toDouble()
+        var uno = bin.phTrazable1.text.toString().toDouble()
         /* var global1 = bin.phTrazable1.text.toString().toInt()
         var global2 = bin.phTrazable2.text.toString().toInt()
-        var global3 = bin.phTrazable3.text.toString().toInt()
-
-        */
-        var PhTrazable2 = bin.phTrazable2.text.toString().toDouble()
-        val PhTrazable3 = bin.phTrazable3.text.toString().toDouble()
+        var global3 = bin.phTrazable3.text.toString().toInt()*/
+        var dos = bin.phTrazable2.text.toString().toDouble()
+        val tres = bin.phTrazable3.text.toString().toDouble()
         // val PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
-        var dif1: Double = PhTrazable2 - PhTrazable1
-        var dif2: Double = PhTrazable2 - PhTrazable3
-        var dif3: Double = PhTrazable1 - PhTrazable2
+        var dif1: Double = dos - uno
+        var dif2: Double = dos - tres
+        var dif3: Double = uno - dos
         Log.d("dif1",dif1.toString())
         Log.d("dif2",dif2.toString())
         Log.d("dif3",dif3.toString())
@@ -170,21 +171,23 @@ import kotlinx.coroutines.launch
 
         */
 
-
         if (dif1 <= 0.03 || dif1 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+            bin.phTrazable1.setError(null)
         } else {
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable1.setError("valor invalido entre 1 y 2")
         }
         if (dif2 >= 0.03 || dif2 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+            bin.phTrazable2.setError(null)
         } else {
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable2.setError("valor invalido entre 1 y 3")
         }
         if (dif3 >= 0.03 || dif3 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+            bin.phTrazable1.setError(null)
         } else {
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable1.setError("valor invalido entre 1 y 2")
