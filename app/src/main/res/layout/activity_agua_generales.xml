@@ -240,6 +240,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/phTrazable2"
@@ -247,6 +248,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/phTrazable3"
@@ -254,6 +256,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <TextView
@@ -279,6 +282,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/ph2Trazable2"
@@ -286,6 +290,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/ph2Trazable3"
@@ -293,6 +298,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <!-- ::::::::::::::::::::::::: -->
@@ -334,6 +340,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/phCalidad2"
@@ -341,6 +348,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/phCalidad3"
@@ -348,6 +356,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <TextView
@@ -378,6 +387,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/ph2Calidad2"
@@ -385,6 +395,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/ph2Calidad3"
@@ -392,6 +403,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <TextView
@@ -438,6 +450,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/conductividad2"
@@ -445,13 +458,14 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
-                />
+                android:inputType="numberDecimal"                />
             <EditText
                 android:id="@+id/conductividad3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
 
@@ -490,6 +504,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/conducti2"
@@ -497,6 +512,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
+                android:inputType="numberDecimal"
                 />
             <EditText
                 android:id="@+id/conducti3"
@@ -504,6 +520,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Lectura 3"
                 android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
                 />
         </LinearLayout>
         <TextView

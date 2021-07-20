@@ -15,7 +15,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imvSincronizar"
+                android:id="@+id/btnRegresar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@+id/edtBuscar"
@@ -142,18 +142,21 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/ph1"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center" />
 
             <EditText
+                android:id="@+id/ph2"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center" />
 
             <EditText
+                android:id="@+id/ph3"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
@@ -208,18 +211,21 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/temp1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/temp2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/temp3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -268,18 +274,21 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/cond1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/cond2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/cond3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -328,18 +337,21 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/gasto1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/gasto2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
+            android:id="@+id/gasto3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -353,7 +365,7 @@
             android:layout_marginTop="130dp">
 
             <Button
-                android:id="@+id/btnMS1"
+                android:id="@+id/btnGuardar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Guardar"

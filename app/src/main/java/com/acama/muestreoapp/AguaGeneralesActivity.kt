@@ -40,12 +40,12 @@ import kotlinx.coroutines.launch
 
          bin.btnGuardar.setOnClickListener {
             // CoroutineScope(Dispatchers.IO).launch {
-                // generales()
-               //  phtrazable()
-               //  phcalidad()
-             //conductividad()
+                generales()
+                phtrazable()
+                 phcalidad()
+             conductividad()
             // }
-             Validaciones()
+             //Validaciones()
              //guardarDatos()
          }
 
