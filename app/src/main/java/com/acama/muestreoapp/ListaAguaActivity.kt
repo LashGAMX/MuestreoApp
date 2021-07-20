@@ -144,18 +144,15 @@ import org.json.JSONObject
                 val muestreoModel = db.rawQuery(query, null)
                 if (muestreoModel.moveToFirst()) {
                     do {
-                        listaMuestreo.add(
-                            "" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6)
-                        )
+                        listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
                         listaIdMuestreo.add(muestreoModel.getString(1))
                     } while (muestreoModel.moveToNext())
                     // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
                 } else {
-                    //   Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
                 }
 
-                val adaptador1 =
-                    ArrayAdapter<String>(this, R.layout.simple_list_item_1, listaMuestreo)
+                val adaptador1 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, listaMuestreo)
                 bin.lstMuestreos.adapter = adaptador1
 
                 bin.lstMuestreos.setOnItemClickListener { adapterView, view, i, l ->
@@ -265,9 +262,12 @@ import org.json.JSONObject
                      cont++
                  } while (generalModel.moveToNext())
              }
-
              campoGenModel.addAll(listTemp)
-             Log.d("campoGenModel",campoGenModel.toString())
+
+
+
+
+             //Log.d("campoGenModel",campoGenModel.toString())
 
              val stringRequest = object : StringRequest(
                  Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
@@ -276,7 +276,7 @@ import org.json.JSONObject
                          val obj = JSONObject(response)
                          Log.d("Response",response)
                          if (obj.getBoolean("response") == true){
-                             Log.d("datos",obj.getString("datos"))
+                             Log.d("datos",obj.getString("dato"))
 
                          }else{
                              Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
@@ -293,6 +293,7 @@ import org.json.JSONObject
                      val params = HashMap<String, String>()
                      params.put("campoGenerales", campoGenModel.toString())
                      params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
+                     params.put("folio", folio)
                      return params
                  }
              }
