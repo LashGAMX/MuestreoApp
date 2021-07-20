@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import com.acama.muestreoapp.models.SolicitudGenerada
+import com.acama.muestreoapp.models.TermometroCampo
 import com.acama.muestreoapp.models.Usuarios
 
 
@@ -60,6 +61,7 @@ val UserPass = "UserPass"
 
 //Solicitud Generada
 val SOLGENERADA = "solicitud_generadas"
+val TERMOMETRO = "termometro_campo"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -150,6 +152,27 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     }
     // Fin SolicitudGenerada
+    // Inicio Termometro Campo
+    fun createTermometro(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ TERMOMETRO +" (" +
+                "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_muestreador INTEGER NOT NULL," +
+                "Equipo TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Modelo TEXT NOT NULL," +
+                "Serie TEXT NOT NULL," +
+                ")"
+        db?.execSQL(model)
+    }
+    fun insertTermometroCampo(term: TermometroCampo) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //cv.put("Id_muestreoador",term.)
+
+        var result = db.insert(SOLGENERADA, null,cv)
+
+    }
+    // Fin Termomentro Campo
     fun createTableDatosGenerales(db: SQLiteDatabase?)
     {
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +

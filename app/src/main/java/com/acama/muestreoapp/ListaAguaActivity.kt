@@ -170,7 +170,7 @@ import org.json.JSONObject
                     Log.d("Folio2",bin.lstMuestreos.getItemIdAtPosition(i).toString())
                     */
                 }
-                listaArr = listaMuestreo
+                listaArr = listaIdMuestreo
                 registerForContextMenu(bin.lstMuestreos)
             }
                 override fun onCreateContextMenu(
@@ -185,16 +185,36 @@ import org.json.JSONObject
                 override fun onContextItemSelected(item: MenuItem): Boolean {
                     val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
                     val posicion = info.position
-
-                    val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
-                    val posicion = info.position
-
-
+                    val db: SQLiteDatabase = con.readableDatabase
+                    //val idMuestreador = UserApplication.prefs.getMuestreadorId()
+                    var sw:Boolean = false
+                    var folio = listaArr[posicion]
+                    var idSol:Int = 0
                     when (item.itemId) {
                         com.acama.muestreoapp.R.id.enviar -> {
                             //Log.d("item",)
-                            Log.d("item",listaArr[posicion])
-                            Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
+                            val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+                            val muestreoModel = db.rawQuery(query, null)
+
+                            if (muestreoModel.moveToFirst()) {
+                                do {
+                                    if (muestreoModel.getInt(16) == 3){
+                                        sw = true
+                                        idSol = muestreoModel.getInt(0)
+                                    }else{
+                                        sw = false
+                                    }
+                                } while (muestreoModel.moveToNext())
+                            }
+
+                            if (sw == true){
+                                sendDatosMuestra(idSol,folio)
+                                Toast.makeText(this,"Los datos ya se pueden enviar",Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(this,"No puedes enviar aun esta orden de muestra",Toast.LENGTH_SHORT).show()
+                            }
+
+                            //Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
                             return true
                         }
                         com.acama.muestreoapp.R.id.info -> {
@@ -214,6 +234,74 @@ import org.json.JSONObject
                      Log.d("optionSelected",item.toString())
                      return super.onOptionsItemSelected(item)
                  }
+     fun sendDatosMuestra(idSol:Int,folio:String){
+         CoroutineScope(Dispatchers.IO).launch {
+             val db: SQLiteDatabase = con.readableDatabase
+            // val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+            val queryGeneral = "SELECT * FROM campo_generales WHERE Id_solicitud = '$idSol'"
+
+             var listTemp: MutableList<String> = ArrayList()
+
+             var solGenModel: MutableList<String> = ArrayList()
+             var campoGenModel: MutableList<String> = ArrayList()
+
+             val generalModel = db.rawQuery(queryGeneral, null)
+             var cont:Int = 0
+             if (generalModel.moveToFirst()) {
+                 do {
+                        var jsonGeneral = "{" +
+                                " \"Id_solicitud\" : \""+ generalModel.getInt(1)+ "\""+
+                                ", \"Captura\" : \""+ generalModel.getString(2)+ "\""+
+                                ", \"Id_equipo\" : \""+ generalModel.getInt(3)+ "\""+
+                                ", \"Temperatura_a\" : \""+ generalModel.getString(4)+ "\""+
+                                ", \"Temperatura_b\" : \""+ generalModel.getString(5)+ "\""+
+                                ", \"Latitud\" : \""+ generalModel.getString(6)+ "\""+
+                                ", \"Longitud\" : \""+ generalModel.getString(7)+ "\""+
+                                ", \"Altitud\" : \""+ generalModel.getString(8)+ "\""+
+                                ", \"Pendiente\" : \""+ generalModel.getString(9)+ "\""+
+                                ", \"Criterio\" : \""+ generalModel.getString(10)+ "\""+
+                                "}"
+                     listTemp.add(cont,jsonGeneral)
+                     cont++
+                 } while (generalModel.moveToNext())
+             }
+
+             campoGenModel.addAll(listTemp)
+             Log.d("campoGenModel",campoGenModel.toString())
+
+             val stringRequest = object : StringRequest(
+                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
+                 Response.Listener<String> { response ->
+                     try {
+                         val obj = JSONObject(response)
+                         Log.d("Response",response)
+                         if (obj.getBoolean("response") == true){
+                             Log.d("datos",obj.getString("datos"))
+
+                         }else{
+                             Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                         }
+                     } catch (e: JSONException) {
+                         e.printStackTrace()
+                         Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                     }
+
+                 },
+                 Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }) {
+                 @Throws(AuthFailureError::class)
+                 override fun getParams(): Map<String, String> {
+                     val params = HashMap<String, String>()
+                     params.put("campoGenerales", campoGenModel.toString())
+                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
+                     return params
+                 }
+             }
+             // Agregamos el request para que nos permita retornar y/o visualizar la respuesta
+             VolleySingleton.getInstance(this@ListaAguaActivity).addToRequestQueue(stringRequest)
+
+         }
+
+     }
      fun guardarDatos(data:JSONObject) {
          //Log.d("syncFirstData",data.getString("usuarios"))
          //Log.d("jsonArray",json_array[0].toString())
