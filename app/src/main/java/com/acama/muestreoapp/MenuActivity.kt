@@ -26,5 +26,11 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this, ListaAguaActivity::class.java)
             startActivity(intent)
         })
+        bin.btnCerrar.setOnClickListener {
+            UserApplication.prefs.savePermanecerConectado(false)
+            finish()
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

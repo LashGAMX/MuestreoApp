@@ -21,8 +21,10 @@
           >
           <EditText
               android:id="@+id/edtBuscar"
+              android:inputType="text"
               android:layout_width="300dp"
               android:layout_height="wrap_content"
+
               android:hint="Buscar" />
       </com.google.android.material.textfield.TextInputLayout>
 

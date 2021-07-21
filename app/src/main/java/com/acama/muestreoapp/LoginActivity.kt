@@ -58,11 +58,11 @@ class LoginActivity : AppCompatActivity() {
         if(prefs.getFirstStart()){
             Log.d("checkFirstOpen","Inicio por segunda vez")
             loginLocal(bin.edtUser.text.toString(),bin.edtPassword.text.toString())
-            changeActivity()
+            //changeActivity()
         }else{
             Log.d("checkFirstOpen","Inicio por primera vez")
             loginApi(bin.edtUser.text.toString(),bin.edtPassword.text.toString())
-            changeActivity()
+            //changeActivity()
         }
     }
 
@@ -77,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
                 prefs.savePermanecerConectado(bin.ckdConectado.isChecked)
             }while (users.moveToNext())
             Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+            changeActivity()
         }else{
             Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
         }
@@ -96,6 +97,7 @@ class LoginActivity : AppCompatActivity() {
                            prefs.saveFirstStart(true)
                            prefs.savePermanecerConectado(bin.ckdConectado.isChecked)
                            Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_LONG).show()
+                           changeActivity()
                        }else{
                            Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_LONG).show()
                        }
