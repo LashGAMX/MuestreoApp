@@ -2,31 +2,23 @@
  package com.acama.muestreoapp
 
 import android.R
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Color.green
+import android.location.Criteria
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
-import android.util.Half.round
 import android.util.Log
 import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
-import android.util.Log.d
 import kotlinx.android.synthetic.main.activity_agua_generales.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.math.RoundingMode
-import kotlin.math.round
-import kotlin.math.roundToInt
+
 
  class AguaGeneralesActivity : AppCompatActivity() {
      private lateinit var bin: ActivityAguaGeneralesBinding
@@ -74,7 +66,6 @@ import kotlin.math.roundToInt
              "10°C",
              bin.latitud.text.toString(),
              bin.longitud.text.toString(),
-             bin.altitud.text.toString(),
              "15",
              "Criterio"
          )
@@ -208,6 +199,7 @@ import kotlin.math.roundToInt
         }
         //Promedio
         val result = uno + dos + tres
+        val prom = result/3
         val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
         bin.PromedioPhT1.setText(promedio.toString())
     }
@@ -234,4 +226,5 @@ import kotlin.math.roundToInt
             builder.show()
 
         }
+
     }

@@ -9,12 +9,11 @@ class Generales {
     var Temperatura_b: String = ""
     var Latitud: String = ""
     var Longitud: String = ""
-    var Altitud: String = ""
     var Pendiente: String = ""
     var Criterio: String = ""
 
     constructor(Id_solicitud: Int, Captura: String, Id_equipo: Int, Temperatura_a: String,
-                Temperatura_b: String, Latitud: String, Longitud: String, Altitud: String, Pendiente: String,
+                Temperatura_b: String, Latitud: String, Longitud: String, Pendiente: String,
                 Criterio: String){
 
 
@@ -25,7 +24,6 @@ class Generales {
         this.Temperatura_b = Temperatura_b
         this.Latitud = Latitud
         this.Longitud = Longitud
-        this.Altitud = Altitud
         this.Pendiente = Pendiente
         this.Criterio = Criterio
     }

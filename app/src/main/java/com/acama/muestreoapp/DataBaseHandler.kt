@@ -20,7 +20,6 @@ val Temperatura_a = "Temperatura_a"
 val Temperatura_b = "Temperatura_b"
 val Latitud = "Latitud"
 val Longitud = "Longitud"
-val Altitud = "Altitud"
 val Pendiente = "Pendiente"
 val Criterio = "Criterio"
 
@@ -184,7 +183,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Temperatura_b + " VARCHAR(256)," +
                 Latitud + " VARCHAR(256)," +
                 Longitud + " VARCHAR(256)," +
-                Altitud + " VARCHAR(256)," +
                 Pendiente + " VARCHAR(256)," +
                 Criterio + " VARCHAR(256))"
         db?.execSQL(campo_general)
@@ -200,7 +198,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put(Temperatura_b, generales.Temperatura_b)
         cv.put(Latitud, generales.Latitud)
         cv.put(Longitud, generales.Longitud)
-        cv.put(Altitud, generales.Altitud)
         cv.put(Pendiente, generales.Pendiente)
         cv.put(Criterio, generales.Criterio)
         var result = db.insert(DATOSGENERALES, null,cv)
