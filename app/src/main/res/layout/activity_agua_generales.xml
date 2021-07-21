@@ -208,7 +208,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ph Trazable"
+            android:text="pH TRAZABLE"
             />
 
         <View
@@ -262,7 +262,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ph Trazable 2"
+            android:text="pH Trazable 2"
             />
         <Spinner
             android:id="@+id/spnPhTrazable2"
@@ -308,7 +308,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ph Trazable calidad"
+            android:text="pH CALIDAD"
             />
 
         <View
@@ -320,7 +320,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ph Trazable calidad 1"
+            android:text="pH Calidad 1"
             />
         <Spinner
             android:id="@+id/spnPhTrazableCalidad"
@@ -367,7 +367,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ph Trazable Calidad 2"
+            android:text="pH Calidad 2"
             />
         <Spinner
             android:id="@+id/spnPhTrazableCalidad2"
