@@ -9,6 +9,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Color.green
 import android.os.Bundle
+import android.util.Half.round
 import android.util.Log
 import android.view.View
 import android.widget.Adapter
@@ -22,6 +23,10 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+import java.math.RoundingMode
+import kotlin.math.round
+import kotlin.math.roundToInt
 
  class AguaGeneralesActivity : AppCompatActivity() {
      private lateinit var bin: ActivityAguaGeneralesBinding
@@ -40,15 +45,18 @@ import kotlinx.coroutines.launch
              DialogVolver()
          })
 
+         bin.btnPromPhT1.setOnClickListener{
+              ValPhTrazable1()
+         }
+
 
          bin.btnGuardar.setOnClickListener {
             // CoroutineScope(Dispatchers.IO).launch {
-                generales()
+               /* generales()
                 phtrazable()
                  phcalidad()
-             conductividad()
+             conductividad()*/
             // }
-             Validaciones()
              //guardarDatos()
          }
 
@@ -146,30 +154,36 @@ import kotlinx.coroutines.launch
 
      }
 
-    fun Validaciones()  {
+    fun ValPhTrazable1()  {
         //VALIDACION PH TRAZABLE
         var uno = bin.phTrazable1.text.toString().toDouble()
-        /* var global1 = bin.phTrazable1.text.toString().toInt()
-        var global2 = bin.phTrazable2.text.toString().toInt()
-        var global3 = bin.phTrazable3.text.toString().toInt()*/
         var dos = bin.phTrazable2.text.toString().toDouble()
-        val tres = bin.phTrazable3.text.toString().toDouble()
-        // val PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
+        var tres = bin.phTrazable3.text.toString().toDouble()
+
+        var global1 = uno.toInt()
+        var global2 = dos.toInt()
+        var global3 = tres.toInt()
+        var PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
+
+        Log.d("spiner", PhTrazableSpn.toString())
         var dif1: Double = dos - uno
         var dif2: Double = dos - tres
         var dif3: Double = uno - dos
         Log.d("dif1",dif1.toString())
         Log.d("dif2",dif2.toString())
         Log.d("dif3",dif3.toString())
-        /* if (PhTrazableSpn.equals(global1) && PhTrazableSpn.equals(global2) && PhTrazableSpn.equals(global3)){
-            Toast.makeText(applicationContext,"VALORES CORRECTOS", Toast.LENGTH_SHORT).show()
-        }
-        else
+        Log.d("global1", global1.toString())
+        Log.d("global2", global2.toString())
+        Log.d("global3", global3.toString())
+        if (global1.equals(PhTrazableSpn)||global2.equals(PhTrazableSpn)||global3.equals(PhTrazableSpn))
         {
-            Toast.makeText(applicationContext,"VALOR DE PH FUERA DE RANGO", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            bin.PromedioPhT1.setError("El valor fuera de rango")
+
         }
 
-        */
 
         if (dif1 <= 0.03 || dif1 >= -0.03) {
             Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
@@ -192,9 +206,10 @@ import kotlinx.coroutines.launch
             Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG).show()
             bin.phTrazable1.setError("valor invalido entre 1 y 2")
         }
-
-
-        //VALIDACION PH CALIDAD
+        //Promedio
+        val result = uno + dos + tres
+        val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
+        bin.PromedioPhT1.setText(promedio.toString())
     }
 
         fun DialogVolver() {
