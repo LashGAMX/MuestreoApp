@@ -451,6 +451,7 @@
 
                 />
             <EditText
+                android:id="@+id/PromedioCalidad"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -622,6 +623,7 @@
 
                 />
             <EditText
+                android:id="@+id/PromedioConductividad"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -707,6 +709,7 @@
 
                 />
             <EditText
+                android:id="@+id/PromedioConductividadCalidad"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
