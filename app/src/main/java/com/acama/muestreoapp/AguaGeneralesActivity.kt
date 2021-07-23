@@ -59,10 +59,10 @@ import java.math.RoundingMode
 
          bin.btnGuardar.setOnClickListener {
             // CoroutineScope(Dispatchers.IO).launch {
-               /* generales()
+                generales()
                 phtrazable()
                  phcalidad()
-             conductividad()*/
+             conductividad()
             // }
              //guardarDatos()
          }
