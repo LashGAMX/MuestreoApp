@@ -93,7 +93,6 @@ class ListaAguaActivity : AppCompatActivity(){
                             ",\"Id_muestreador\" : \"" + result.getInt(14) + "\"" +
                             ",\"Estado\" : \"" + result.getInt(15) + "\"" +
                             "}"
-
                     listSol.add(cont, json)
                     cont++
                 } while (result.moveToNext())
