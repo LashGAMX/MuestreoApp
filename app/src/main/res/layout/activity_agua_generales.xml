@@ -281,7 +281,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Promedio:"
+                android:text="Estado:"
                 android:layout_marginLeft="20dp"
 
                 />
@@ -458,6 +458,7 @@
                 android:inputType="numberDecimal"
                 />
             <Button
+                android:id="@+id/btnProbarCalidad1"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -529,14 +530,14 @@
 
                 />
             <EditText
-
+                android:id="@+id/PromedioCalidad2"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
                 />
             <Button
-
+                android:id="@+id/btnProbarCalidad2"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -630,6 +631,7 @@
                 android:inputType="numberDecimal"
                 />
             <Button
+                android:id="@+id/btnProbarConductividad"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -716,6 +718,7 @@
                 android:inputType="numberDecimal"
                 />
             <Button
+                android:id="@+id/btnProbarConductividadCalidad"
                 android:layout_marginLeft="20dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
