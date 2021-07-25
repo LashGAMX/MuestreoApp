@@ -413,49 +413,45 @@ import java.math.RoundingMode
 
              var dif1  = dos - uno
              var dif2  = dos - tres
-             var dif3  = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
+             var dif3  = uno - tres
+             var global1 = uno
+             var global2 = dos
+             var global3 = tres
+             var PhTrazableSpn = bin.spnConductividad.selectedItem.toString().toInt()
 
              //Validacion de tolerancia entre datos
-             if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(PhTrazableSpn))
-             {
-                 Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
-                 if (dif1 <= 5 || dif1 >= -5) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conductividad1.setError(null)
-                 } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conductividad1.setError("valor invalido entre 1 y 2")
+
+                 if(dif1 == 0 || dif2 == 0 || dif3 == 0){
+                     bin.PromedioConductividad.setText("ACEPTADO")
+                 }else{
+                     if (dif1 >= 5 || dif1 >= -5) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+                         bin.PromedioConductividad.setText("ACEPTADO")
+                     } else {
+                         bin.conductividad1.setError("valor invalido entre 1 y 2")
+                         bin.PromedioConductividad.setText("RECHAZADO")
+                     }
+                     if (dif2 >= 5 || dif2 >= -5) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+                         bin.PromedioConductividad.setText("ACEPTADO")
+                     } else {
+                         bin.conductividad2.setError("valor invalido entre 1 y 3")
+                         bin.PromedioConductividad.setText("RECHAZADO")
+                     }
+                     if (dif3 >= 5 || dif3 >= -5) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
+                         bin.PromedioConductividad.setText("ACEPTADO")
+                     } else {
+                         bin.conductividad1.setError("valor invalido entre 1 y 2")
+                         bin.PromedioConductividad.setText("RECHAZADO")
+                     }
+                     //Promedio
+                     val result = uno + dos + tres
+                     val prom = result / 3
+                     val promedio = BigDecimal(prom).setScale(2, RoundingMode.HALF_EVEN)
+                     //bin.PromedioConductividad.setText(promedio.toString())
+                     bin.PromedioConductividad!!.setEnabled(false)
                  }
-                 if (dif2 >= 5 || dif2 >= -5) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conductividad2.setError(null)
-                 } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conductividad2.setError("valor invalido entre 1 y 3")
-                 }
-                 if (dif3 >= 5 || dif3 >= -5) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conductividad1.setError(null)
-                 } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conductividad1.setError("valor invalido entre 1 y 2")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioConductividad.setText(promedio.toString())
-                 bin.PromedioConductividad!!.setEnabled(false)
-             } else {
-                 bin.PromedioConductividad.setError("El valor fuera de rango")
-             }
          }
      }
      fun ValConductiCalidad() {
