@@ -401,8 +401,7 @@ import java.math.RoundingMode
      }     //bloque 3 conductividad
      fun ValConductividad() {
          //validacion campos vacios
-         if (bin.conductividad1.text.toString() == "" || bin.conductividad2.text.toString() == "" || bin.conductividad3.text.toString() == "" )
-         {
+         if (bin.conductividad1.text.toString() == "" || bin.conductividad2.text.toString() == "" || bin.conductividad3.text.toString() == "") {
              bin.PromedioPhT1.setError("Los campos están vacios") //error de campos vacios
          } else {
              bin.PromedioPhT1.setError(null)
@@ -411,130 +410,139 @@ import java.math.RoundingMode
              var dos = bin.conductividad2.text.toString().toInt()
              var tres = bin.conductividad3.text.toString().toInt()
 
-             var dif1  = dos - uno
-             var dif2  = dos - tres
-             var dif3  = uno - tres
-             var global1 = uno
-             var global2 = dos
-             var global3 = tres
+             var dif1 = dos - uno
+             var dif2 = dos - tres
+             var dif3 = uno - tres
+
+             Log.d("dif1", dif1.toString())
+             Log.d("dif2", dif2.toString())
+             Log.d("dif3", dif3.toString())
+
+
              var PhTrazableSpn = bin.spnConductividad.selectedItem.toString().toInt()
 
              //Validacion de tolerancia entre datos
 
-                 if(dif1 == 0 || dif2 == 0 || dif3 == 0){
-                     bin.PromedioConductividad.setText("ACEPTADO")
-                 }else{
-                     if (dif1 >= 5 || dif1 >= -5) {
-                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                         bin.PromedioConductividad.setText("ACEPTADO")
-                     } else {
-                         bin.conductividad1.setError("valor invalido entre 1 y 2")
-                         bin.PromedioConductividad.setText("RECHAZADO")
-                     }
+             if (dif1 == 0 && dif2 == 0 && dif3 == 0) {
+                 bin.PromedioConductividad.setText("ACEPTADO")
+             } else {
+                 if (dif1 >= 5 || dif1 >= -5) {
                      if (dif2 >= 5 || dif2 >= -5) {
-                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                         bin.PromedioConductividad.setText("ACEPTADO")
-                     } else {
-                         bin.conductividad2.setError("valor invalido entre 1 y 3")
-                         bin.PromedioConductividad.setText("RECHAZADO")
+                         if (dif3 >= 5 || dif3 >= -5) {
+                             bin.PromedioConductividad.setText("ACEPTADO")
+                         }
                      }
-                     if (dif3 >= 5 || dif3 >= -5) {
-                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                         bin.PromedioConductividad.setText("ACEPTADO")
+                 } else {
+                     bin.PromedioConductividad.setText("RECHAZADO")
+                 }
+                 //Promedio
+
+//                 val result = uno + dos + tres
+//                 val prom = result / 3
+//                 val promedio = BigDecimal(prom).setScale(2, RoundingMode.HALF_EVEN)
+//                 //bin.PromedioConductividad.setText(promedio.toString())
+//                 bin.PromedioConductividad!!.setEnabled(false)
+             }
+         }
+     }
+         fun ValConductiCalidad() {
+             //validacion campos vacios
+             if (bin.conducti1.text.toString() == "" || bin.conducti2.text.toString() == "" || bin.conducti3.text.toString() == "") {
+                 bin.PromedioConductividadCalidad.setError("Los campos están vacios") //error de campos vacios
+             } else {
+                 bin.PromedioConductividadCalidad.setError(null)
+                 // Declaración d evariables para las comprobaciones y operaciones
+                 var uno = bin.conducti1.text.toString().toDouble()
+                 var dos = bin.conducti2.text.toString().toDouble()
+                 var tres = bin.conducti3.text.toString().toDouble()
+
+                 var dif1: Double = dos - uno
+                 var dif2: Double = dos - tres
+                 var dif3: Double = uno - dos
+                 var global1 = uno.toInt()
+                 var global2 = dos.toInt()
+                 var global3 = tres.toInt()
+                 var PhTrazableSpn = bin.spnConductividadCalidad.selectedItem.toString().toInt()
+
+                 //Validacion de tolerancia entre datos
+                 if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(
+                         PhTrazableSpn
+                     )
+                 ) {
+                     Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
+                     if (dif1 <= 0.03 || dif1 >= -0.03) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT)
+                             .show()
+                         bin.conducti1.setError(null)
                      } else {
-                         bin.conductividad1.setError("valor invalido entre 1 y 2")
-                         bin.PromedioConductividad.setText("RECHAZADO")
+                         Toast.makeText(
+                             applicationContext,
+                             "Error: Verifica los datos",
+                             Toast.LENGTH_LONG
+                         )
+                             .show()
+                         bin.conducti1.setError("valor invalido entre 1 y 2")
+                     }
+                     if (dif2 >= 0.03 || dif2 >= -0.03) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT)
+                             .show()
+                         bin.conducti2.setError(null)
+                     } else {
+                         Toast.makeText(
+                             applicationContext,
+                             "Error: Verifica los datos",
+                             Toast.LENGTH_LONG
+                         )
+                             .show()
+                         bin.conducti2.setError("valor invalido entre 1 y 3")
+                     }
+                     if (dif3 >= 0.03 || dif3 >= -0.03) {
+                         Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT)
+                             .show()
+                         bin.conducti1.setError(null)
+                     } else {
+                         Toast.makeText(
+                             applicationContext,
+                             "Error: Verifica los datos",
+                             Toast.LENGTH_LONG
+                         )
+                             .show()
+                         bin.conducti1.setError("valor invalido entre 1 y 2")
                      }
                      //Promedio
                      val result = uno + dos + tres
                      val prom = result / 3
-                     val promedio = BigDecimal(prom).setScale(2, RoundingMode.HALF_EVEN)
-                     //bin.PromedioConductividad.setText(promedio.toString())
+                     val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
+                     bin.PromedioConductividad.setText(promedio.toString())
                      bin.PromedioConductividad!!.setEnabled(false)
-                 }
-         }
-     }
-     fun ValConductiCalidad() {
-         //validacion campos vacios
-         if (bin.conducti1.text.toString() == "" || bin.conducti2.text.toString() == "" || bin.conducti3.text.toString() == "" )
-         {
-             bin.PromedioConductividadCalidad.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioConductividadCalidad.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.conducti1.text.toString().toDouble()
-             var dos = bin.conducti2.text.toString().toDouble()
-             var tres = bin.conducti3.text.toString().toDouble()
-
-             var dif1: Double = dos - uno
-             var dif2: Double = dos - tres
-             var dif3: Double = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnConductividadCalidad.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(PhTrazableSpn))
-             {
-                 Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
-                 if (dif1 <= 0.03 || dif1 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conducti1.setError(null)
                  } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conducti1.setError("valor invalido entre 1 y 2")
+                     bin.PromedioConductividad.setError("El valor fuera de rango")
                  }
-                 if (dif2 >= 0.03 || dif2 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conducti2.setError(null)
-                 } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conducti2.setError("valor invalido entre 1 y 3")
-                 }
-                 if (dif3 >= 0.03 || dif3 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.conducti1.setError(null)
-                 } else {
-                     Toast.makeText(applicationContext, "Error: Verifica los datos", Toast.LENGTH_LONG)
-                         .show()
-                     bin.conducti1.setError("valor invalido entre 1 y 2")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioConductividad.setText(promedio.toString())
-                 bin.PromedioConductividad!!.setEnabled(false)
-             } else {
-                 bin.PromedioConductividad.setError("El valor fuera de rango")
              }
          }
+
+         //Funcion para salir de la activity
+         fun DialogVolver() {
+             val builder = AlertDialog.Builder(this)
+             builder.setTitle("Cuidado")
+             builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
+
+             builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                 Toast.makeText(
+                     applicationContext,
+                     android.R.string.yes, Toast.LENGTH_SHORT
+                 ).show()
+                 onBackPressed()
+             }
+
+             builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                 Toast.makeText(
+                     applicationContext,
+                     android.R.string.no, Toast.LENGTH_SHORT
+                 ).show()
+             }
+             builder.show()
+
+         }
+
      }
-     //Funcion para salir de la activity
-        fun DialogVolver() {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Cuidado")
-            builder.setMessage("Los datos capturados se perderan ¿Seguro que quieres salir?")
-
-            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                Toast.makeText(
-                    applicationContext,
-                    android.R.string.yes, Toast.LENGTH_SHORT
-                ).show()
-                onBackPressed()
-            }
-
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                Toast.makeText(
-                    applicationContext,
-                    android.R.string.no, Toast.LENGTH_SHORT
-                ).show()
-            }
-            builder.show()
-
-        }
-
-    }
