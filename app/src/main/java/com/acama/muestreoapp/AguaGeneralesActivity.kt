@@ -414,9 +414,12 @@ import java.math.RoundingMode
              var dif1  = dos - uno
              var dif2  = dos - tres
              var dif3  = uno - tres
-             var global1 = uno
-             var global2 = dos
-             var global3 = tres
+
+             Log.d("dif1", dif1.toString())
+             Log.d("dif2", dif2.toString())
+             Log.d("dif3", dif3.toString())
+
+
              var PhTrazableSpn = bin.spnConductividad.selectedItem.toString().toInt()
 
              //Validacion de tolerancia entre datos
@@ -438,11 +441,11 @@ import java.math.RoundingMode
                          bin.conductividad2.setError("valor invalido entre 1 y 3")
                          bin.PromedioConductividad.setText("RECHAZADO")
                      }
-                     if (dif3 >= 5 || dif3 >= -5) {
+                     if (dif3 >= 5 || dif3 <= -5) {
                          Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
                          bin.PromedioConductividad.setText("ACEPTADO")
                      } else {
-                         bin.conductividad1.setError("valor invalido entre 1 y 2")
+                         bin.conductividad3.setError("valor invalido entre 1 y 3")
                          bin.PromedioConductividad.setText("RECHAZADO")
                      }
                      //Promedio
