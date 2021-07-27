@@ -5,9 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import com.acama.muestreoapp.models.SolicitudGenerada
-import com.acama.muestreoapp.models.TermometroCampo
-import com.acama.muestreoapp.models.Usuarios
+import com.acama.muestreoapp.models.*
 
 
 val DATABASE_NAME = "Muestreo"
@@ -60,7 +58,9 @@ val UserPass = "UserPass"
 
 //Solicitud Generada
 val SOLGENERADA = "solicitud_generadas"
-val TERMOMETRO = "termometro_campo"
+val TERMOMETRO = "TermometroCampo"
+val CATPHTRAZABLE = "cat_phTrazable"
+val CATPHCALIDAD = "cat_phCalidad"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -69,9 +69,66 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createSolicitudGenerada(db)
         createTablePhTrazable(db)
         createTablePhCalidad(db)
+        createCatPhTrazable(db)
+        createCatPhCalidad(db)
+        createTermometro(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+    }
+    fun createCatPhTrazable(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ CATPHTRAZABLE +" (" +
+                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Ph TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Lote TEXT NOT NULL," +
+                "Inicio_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun insertPhTrazable(tra: CatPhTrazable) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Ph",tra.Ph)
+        cv.put("Marca", tra.Marca)
+        cv.put("Lote", tra.Lote)
+        cv.put("Inicio_caducidad", tra.Inicio)
+        cv.put("Fin_caducidad", tra.Fin)
+        var result = db.insert(CATPHTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertPhCalidad(tra: CatPhCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Ph_calidad",tra.Ph_calidad)
+        cv.put("Marca", tra.Marca)
+        cv.put("Lote", tra.Lote)
+        cv.put("Inicio_caducidad", tra.Inicio)
+        cv.put("Fin_caducidad", tra.Fin)
+        var result = db.insert(CATPHTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createCatPhCalidad(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ CATPHCALIDAD +" (" +
+                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Ph_clidad TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Lote TEXT NOT NULL," +
+                "Inicio_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
     }
     // Inicio Usuario
     fun createTableUsuariosApp(db: SQLiteDatabase?)
@@ -104,6 +161,47 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
     // Fin Usuario
+
+    fun insertCatPhTrazable(ph: CatPhTrazable) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Ph",ph.Ph)
+        cv.put("Marca",ph.Marca)
+        cv.put("Lote",ph.Lote)
+        cv.put("Inicio",ph.Inicio)
+        cv.put("Fin",ph.Fin)
+
+        var result = db.insert(CATPHTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertCatPhCalidad(ph: CatPhCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Ph_calidad",ph.Ph_calidad)
+        cv.put("Marca",ph.Marca)
+        cv.put("Lote",ph.Lote)
+        cv.put("Inicio",ph.Inicio)
+        cv.put("Fin",ph.Fin)
+
+        var result = db.insert(CATPHCALIDAD, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
     // Inicio SolicitudGenerada
     fun createSolicitudGenerada(db: SQLiteDatabase?){
         val solicitud = "CREATE TABLE "+ SOLGENERADA +" (" +
@@ -159,16 +257,25 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Equipo TEXT NOT NULL," +
                 "Marca TEXT NOT NULL," +
                 "Modelo TEXT NOT NULL," +
-                "Serie TEXT NOT NULL," +
+                "Serie TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
     }
     fun insertTermometroCampo(term: TermometroCampo) {
         val db = this.writableDatabase
         var cv = ContentValues()
-        //cv.put("Id_muestreoador",term.)
-
-        var result = db.insert(SOLGENERADA, null,cv)
+        cv.put("Id_muestreador",term.Id_muestreador)
+        cv.put("Equipo", term.Equipo)
+        cv.put("Marca", term.Marca)
+        cv.put("Modelo", term.Modelo)
+        cv.put("Serie", term.Serie)
+        var result = db.insert(TERMOMETRO, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
 
     }
     // Fin Termomentro Campo
@@ -207,7 +314,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         } else {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
-
     }
     fun createTablePhTrazable(db: SQLiteDatabase?){
         val phTrazable = "CREATE TABLE " + PHTRAZABLE + " (" +

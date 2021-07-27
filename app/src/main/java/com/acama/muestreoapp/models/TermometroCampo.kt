@@ -8,7 +8,7 @@ class TermometroCampo {
     var Modelo : String = ""
    var Serie : String = ""
 
-   constructor(Id_muestreadir: Int,Equipo: String,Marca:String,Modelo:String,Serie:String){
+   constructor(Id_muestreador: Int,Equipo: String,Marca:String,Modelo:String,Serie:String){
        this.Id_muestreador = Id_muestreador
        this.Equipo = Equipo
        this.Marca = Marca

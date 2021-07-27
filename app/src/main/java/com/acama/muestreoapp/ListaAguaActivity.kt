@@ -18,8 +18,7 @@ import androidx.core.view.get
 import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
-import com.acama.muestreoapp.models.SolicitudGenerada
-import com.acama.muestreoapp.models.Usuarios
+import com.acama.muestreoapp.models.*
 import com.acama.muestreoapp.preference.UserApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.AuthFailureError
@@ -333,13 +332,16 @@ class ListaAguaActivity : AppCompatActivity(){
         //Log.d("jsonArray",json_array[0].toString())
 
         var listaMuestreo = JSONArray(data.getString("modelSolGen"))
+        var listaPhTrazable = JSONArray(data.getString("phTrazable"))
+        var listaPhCalidad = JSONArray(data.getString("phCalidad"))
+        var listaTermometro = JSONArray(data.getString("termometro"))
         val db: SQLiteDatabase = con.readableDatabase
 
 
-
+        //Sincronizar datos muestreo
         for (i in 0 until listaMuestreo.length()) {
-            var muestreo = listaMuestreo.getJSONObject(i)
-            var folio = muestreo.getString("Folio_servicio").toString()
+            val muestreo = listaMuestreo.getJSONObject(i)
+            val folio = muestreo.getString("Folio_servicio").toString()
             val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
             val solGenModel = db.rawQuery(query, null)
             //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
@@ -370,8 +372,84 @@ class ListaAguaActivity : AppCompatActivity(){
                 var db = DataBaseHandler(this)
                 db.insertSolicitudGenerada(muestreoModel)
             }
-
         }
+        //Sincronizar datos termometro
+        for (i in 0 until listaTermometro.length()) {
+            val termometro = listaTermometro.getJSONObject(i)
+            val equipo = termometro.getString("Equipo").toString()
+            val queryTermo = "SELECT * FROM TermometroCampo WHERE Equipo = '$equipo'"
+            val termometroCampo = db.rawQuery(queryTermo, null)
+            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+            var cont: Int = 0
+            if (termometroCampo.moveToFirst()) {
+                do {
+
+                } while (termometroCampo.moveToNext())
+            }else{
+                var termometroModel = TermometroCampo(
+                    termometro.getString("Id_muestreador").toInt(),
+                    termometro.getString("Equipo"),
+                    termometro.getString("Marca"),
+                    termometro.getString("Modelo"),
+                    termometro.getString("Serie")
+
+                )
+                var db = DataBaseHandler(this)
+                db.insertTermometroCampo(termometroModel)
+            }
+        }
+
+        //Sincronizar ph Trazable
+        for (i in 0 until listaPhTrazable.length()) {
+            val phTrazable = listaPhTrazable.getJSONObject(i)
+            val ph = phTrazable.getString("Ph").toString()
+            val lote = phTrazable.getString("Lote").toString()
+            val queryPhTrazable = "SELECT * FROM cat_phTrazable WHERE Ph = '$ph' AND Lote = '$lote'"
+            val phTrazableCampo = db.rawQuery(queryPhTrazable, null)
+            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+            var cont: Int = 0
+            if (phTrazableCampo.moveToFirst()) {
+                do {
+
+                } while (phTrazableCampo.moveToNext())
+            }else{
+                var phModel = CatPhTrazable(
+                    phTrazable.getString("Ph"),
+                    phTrazable.getString("Marca"),
+                    phTrazable.getString("Lote"),
+                    phTrazable.getString("Inicio_caducidad"),
+                    phTrazable.getString("Fin_caducidad")
+                )
+                var db = DataBaseHandler(this)
+                db.insertCatPhTrazable(phModel)
+            }
+        }
+        //Sincronizar ph Calidad
+        for (i in 0 until listaPhCalidad.length()) {
+            val phCalidad = listaPhCalidad.getJSONObject(i)
+            val ph = phCalidad.getString("Ph_calidad").toString()
+            val lote = phCalidad.getString("Lote").toString()
+            val queryPhCal = "SELECT * FROM cat_phTrazable WHERE Ph_calidad = '$ph' AND Lote = '$lote'"
+            val phCalCampo = db.rawQuery(queryPhCal, null)
+            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+            var cont: Int = 0
+            if (phCalCampo.moveToFirst()) {
+                do {
+
+                } while (phCalCampo.moveToNext())
+            }else{
+                var phModelCal = CatPhCalidad(
+                    phCalidad.getString("Ph_calidad"),
+                    phCalidad.getString("Marca"),
+                    phCalidad.getString("Lote"),
+                    phCalidad.getString("Inicio_caducidad"),
+                    phCalidad.getString("Fin_caducidad")
+                )
+                var db = DataBaseHandler(this)
+                db.insertCatPhCalidad(phModelCal)
+            }
+        }
+
     }
     @SuppressLint("ServiceCast")
     private fun hideKeyboard() {
