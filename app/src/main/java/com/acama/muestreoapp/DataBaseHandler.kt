@@ -61,6 +61,9 @@ val UserPass = "UserPass"
 //Solicitud Generada
 val SOLGENERADA = "solicitud_generadas"
 val TERMOMETRO = "termometro_campo"
+val CATPHTRAZABLE = "cat_phTrazable"
+val CATPHCALIDAD = "cat_phCalidad"
+val CATTERMOMETRO = "cat_termometro"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -69,6 +72,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createSolicitudGenerada(db)
         createTablePhTrazable(db)
         createTablePhCalidad(db)
+        createTableCatTermometro(db)
+        createTableCatPhCalidad(db)
+        createTableCatPhTrazable(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
@@ -81,8 +87,6 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_muestreador + " INTEGER," +
                 User + " VARCHAR(100)," +
                 UserPass + " VARCHAR(100))"
-
-
         db?.execSQL(usuarios_app)
     }
     fun inserUsuario(usuarios: Usuarios) {
@@ -104,6 +108,41 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
     // Fin Usuario
+
+    fun createTableCatPhTrazable(db: SQLiteDatabase?)
+    {
+        val modelCatPhTrazable = "CREATE TABLE " + CATPHTRAZABLE + " (" +
+                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Ph VARCHAR(50)," +
+                "Marca VARCHAR(100)," +
+                "Lote VARCHAR(100)," +
+                "Inicio_caducidad VARCHAR(100)," +
+                "Fin_caducidad VARCHAR(100))"
+        db?.execSQL(modelCatPhTrazable)
+    }
+    fun createTableCatPhCalidad(db: SQLiteDatabase?)
+    {
+        val modelCatPhCalidad = "CREATE TABLE " + CATPHCALIDAD + " (" +
+                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Ph_calidad VARCHAR(50)," +
+                "Marca VARCHAR(100)," +
+                "Lote VARCHAR(100)," +
+                "Inicio_caducidad VARCHAR(100)," +
+                "Fin_caducidad VARCHAR(100))"
+        db?.execSQL(modelCatPhCalidad)
+    }
+    fun createTableCatTermometro(db: SQLiteDatabase?)
+    {
+        val modelCatPhTermometro = "CREATE TABLE " + CATTERMOMETRO + " (" +
+                "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_muestreador INTEGER," +
+                "Equipo VARCHAR(100)," +
+                "Marca VARCHAR(100)," +
+                "Modelo VARCHAR(100)," +
+                "Serie VARCHAR(100))"
+        db?.execSQL(modelCatPhTermometro)
+    }
+
     // Inicio SolicitudGenerada
     fun createSolicitudGenerada(db: SQLiteDatabase?){
         val solicitud = "CREATE TABLE "+ SOLGENERADA +" (" +
