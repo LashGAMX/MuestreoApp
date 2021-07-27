@@ -5,6 +5,7 @@ import android.R
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.location.Criteria
 import android.location.Location
 import android.location.LocationManager
@@ -32,6 +33,7 @@ import java.math.RoundingMode
          setContentView(bin.root)
 
          val context = this
+         con = DataBaseHandler(this)
 
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
              DialogVolver()
@@ -130,14 +132,43 @@ import java.math.RoundingMode
          startActivity(intent)
      }
      fun llenarSpinner() {
-         val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+         val termos : MutableList<String> = ArrayList()
+         val phTrazable : MutableList<String> = ArrayList()
+         val phCalidad : MutableList<String> = ArrayList()
+         val db: SQLiteDatabase = con.readableDatabase
+
+         val query = "SELECT * FROM TermometroCampo"
+         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+         val termometroModel = db.rawQuery(query, null)
+         if (termometroModel.moveToFirst()) {
+             do {
+                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
+                 termos.add(termometroModel.getString(2) + " " + termometroModel.getString(3) + " " + termometroModel.getString(4))
+             } while (termometroModel.moveToNext())
+             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         } else {
+             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
+         }
          val adTermo = ArrayAdapter(
              this,
              R.layout.simple_spinner_item, termos
          )
          bin.spnTermo.adapter = adTermo
 
-         val phTrazable = arrayOf("Select", "7")
+
+         val query = "SELECT * FROM TermometroCampo"
+         val termometroModel = db.rawQuery(query, null)
+         if (termometroModel.moveToFirst()) {
+             do {
+                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
+                 termos.add(termometroModel.getString(2) + " " + termometroModel.getString(3) + " " + termometroModel.getString(4))
+             } while (termometroModel.moveToNext())
+             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         } else {
+             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
+         }
+
+         //val phTrazable = arrayOf("Select", "7")
 
          val adPhTrazable = ArrayAdapter(
              this,

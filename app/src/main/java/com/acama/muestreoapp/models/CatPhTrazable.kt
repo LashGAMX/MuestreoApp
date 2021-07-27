@@ -8,8 +8,7 @@ class CatPhTrazable {
     var Inicio : String = ""
     var Fin : String = ""
 
-    constructor(Id_ph: Int,Ph: String,Marca:String,Lote:String,Inicio:String){
-        this.Id_ph = Id_ph
+    constructor(Ph: String,Marca:String,Lote:String,Inicio:String,Fin:String){
         this.Ph = Ph
         this.Marca = Marca
         this.Lote = Lote

@@ -8,8 +8,7 @@ class CatPhCalidad {
     var Inicio : String = ""
     var Fin : String = ""
 
-    constructor(Id_ph: Int,Ph_calidad: String,Marca:String,Lote:String,Inicio:String){
-        this.Id_ph = Id_ph
+    constructor(Ph_calidad: String,Marca:String,Lote:String,Inicio:String,Fin:String){
         this.Ph_calidad = Ph_calidad
         this.Marca = Marca
         this.Lote = Lote

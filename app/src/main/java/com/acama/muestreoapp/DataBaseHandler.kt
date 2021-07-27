@@ -58,7 +58,7 @@ val UserPass = "UserPass"
 
 //Solicitud Generada
 val SOLGENERADA = "solicitud_generadas"
-val TERMOMETRO = "termometro_campo"
+val TERMOMETRO = "TermometroCampo"
 val CATPHTRAZABLE = "cat_phTrazable"
 val CATPHCALIDAD = "cat_phCalidad"
 
@@ -83,7 +83,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Marca TEXT NOT NULL," +
                 "Lote TEXT NOT NULL," +
                 "Inicio_caducidad TEXT NOT NULL," +
-                "Fin_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
     }
@@ -126,7 +126,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Marca TEXT NOT NULL," +
                 "Lote TEXT NOT NULL," +
                 "Inicio_caducidad TEXT NOT NULL," +
-                "Fin_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
     }
@@ -161,6 +161,47 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
     // Fin Usuario
+
+    fun insertCatPhTrazable(ph: CatPhTrazable) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Ph",ph.Ph)
+        cv.put("Marca",ph.Marca)
+        cv.put("Lote",ph.Lote)
+        cv.put("Inicio",ph.Inicio)
+        cv.put("Fin",ph.Fin)
+
+        var result = db.insert(CATPHTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertCatPhCalidad(ph: CatPhCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Ph_calidad",ph.Ph_calidad)
+        cv.put("Marca",ph.Marca)
+        cv.put("Lote",ph.Lote)
+        cv.put("Inicio",ph.Inicio)
+        cv.put("Fin",ph.Fin)
+
+        var result = db.insert(CATPHCALIDAD, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
     // Inicio SolicitudGenerada
     fun createSolicitudGenerada(db: SQLiteDatabase?){
         val solicitud = "CREATE TABLE "+ SOLGENERADA +" (" +
@@ -216,7 +257,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Equipo TEXT NOT NULL," +
                 "Marca TEXT NOT NULL," +
                 "Modelo TEXT NOT NULL," +
-                "Serie TEXT NOT NULL," +
+                "Serie TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
     }
