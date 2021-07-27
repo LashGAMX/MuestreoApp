@@ -61,6 +61,8 @@ val SOLGENERADA = "solicitud_generadas"
 val TERMOMETRO = "TermometroCampo"
 val CATPHTRAZABLE = "cat_phTrazable"
 val CATPHCALIDAD = "cat_phCalidad"
+val CATCONTRAZABLE = "cat_conTrazable"
+val CATCONCALIDAD = "cat_conCalidad"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -87,42 +89,33 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 ")"
         db?.execSQL(model)
     }
-    fun insertPhTrazable(tra: CatPhTrazable) {
-        val db = this.writableDatabase
-        var cv = ContentValues()
-        cv.put("Ph",tra.Ph)
-        cv.put("Marca", tra.Marca)
-        cv.put("Lote", tra.Lote)
-        cv.put("Inicio_caducidad", tra.Inicio)
-        cv.put("Fin_caducidad", tra.Fin)
-        var result = db.insert(CATPHTRAZABLE, null,cv)
-        if( result == -1.toLong())
-        {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
-    }
-    fun insertPhCalidad(tra: CatPhCalidad) {
-        val db = this.writableDatabase
-        var cv = ContentValues()
-        cv.put("Ph_calidad",tra.Ph_calidad)
-        cv.put("Marca", tra.Marca)
-        cv.put("Lote", tra.Lote)
-        cv.put("Inicio_caducidad", tra.Inicio)
-        cv.put("Fin_caducidad", tra.Fin)
-        var result = db.insert(CATPHTRAZABLE, null,cv)
-        if( result == -1.toLong())
-        {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
-        }
-    }
+
     fun createCatPhCalidad(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ CATPHCALIDAD +" (" +
                 "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Ph_clidad TEXT NOT NULL," +
+                "Ph_calidad TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Lote TEXT NOT NULL," +
+                "Inicio_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun createCatConTrazable(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ CATCONTRAZABLE +" (" +
+                "Id_conductividad INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Conductividad TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Lote TEXT NOT NULL," +
+                "Inicio_caducidad TEXT NOT NULL," +
+                "Fin_caducidad TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun createCatConCalidad(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ CATCONCALIDAD +" (" +
+                "Id_conductividad INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Conductividad TEXT NOT NULL," +
                 "Marca TEXT NOT NULL," +
                 "Lote TEXT NOT NULL," +
                 "Inicio_caducidad TEXT NOT NULL," +
@@ -169,8 +162,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Ph",ph.Ph)
         cv.put("Marca",ph.Marca)
         cv.put("Lote",ph.Lote)
-        cv.put("Inicio",ph.Inicio)
-        cv.put("Fin",ph.Fin)
+        cv.put("Inicio_caducidad",ph.Inicio)
+        cv.put("Fin_caducidad",ph.Fin)
 
         var result = db.insert(CATPHTRAZABLE, null,cv)
         if( result == -1.toLong())
@@ -189,10 +182,50 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Ph_calidad",ph.Ph_calidad)
         cv.put("Marca",ph.Marca)
         cv.put("Lote",ph.Lote)
-        cv.put("Inicio",ph.Inicio)
-        cv.put("Fin",ph.Fin)
+        cv.put("Inicio_caducidad",ph.Inicio)
+        cv.put("Fin_caducidad",ph.Fin)
 
         var result = db.insert(CATPHCALIDAD, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertCaTConTrazable(con: CatConTrazable) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Conductividad",con.Conductividad)
+        cv.put("Marca",con.Marca)
+        cv.put("Lote",con.Lote)
+        cv.put("Inicio_caducidad",con.Inicio)
+        cv.put("Fin_caducidad",con.Fin)
+
+        var result = db.insert(CATCONTRAZABLE, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertCaTConCalidad(con: CatConCalidad) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Conductividad",con.Conductividad)
+        cv.put("Marca",con.Marca)
+        cv.put("Lote",con.Lote)
+        cv.put("Inicio_caducidad",con.Inicio)
+        cv.put("Fin_caducidad",con.Fin)
+
+        var result = db.insert(CATCONCALIDAD, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()

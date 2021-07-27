@@ -413,7 +413,7 @@ class ListaAguaActivity : AppCompatActivity(){
 
                 } while (phTrazableCampo.moveToNext())
             }else{
-                var phModel = CatPhTrazable(
+                var phTModel = CatPhTrazable(
                     phTrazable.getString("Ph"),
                     phTrazable.getString("Marca"),
                     phTrazable.getString("Lote"),
@@ -421,7 +421,7 @@ class ListaAguaActivity : AppCompatActivity(){
                     phTrazable.getString("Fin_caducidad")
                 )
                 var db = DataBaseHandler(this)
-                db.insertCatPhTrazable(phModel)
+                db.insertCatPhTrazable(phTModel)
             }
         }
         //Sincronizar ph Calidad
@@ -429,7 +429,7 @@ class ListaAguaActivity : AppCompatActivity(){
             val phCalidad = listaPhCalidad.getJSONObject(i)
             val ph = phCalidad.getString("Ph_calidad").toString()
             val lote = phCalidad.getString("Lote").toString()
-            val queryPhCal = "SELECT * FROM cat_phTrazable WHERE Ph_calidad = '$ph' AND Lote = '$lote'"
+            val queryPhCal = "SELECT * FROM cat_phCalidad WHERE Ph_calidad = '$ph' AND Lote = '$lote'"
             val phCalCampo = db.rawQuery(queryPhCal, null)
             //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
             var cont: Int = 0

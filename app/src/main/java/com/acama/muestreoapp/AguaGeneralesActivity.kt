@@ -137,9 +137,9 @@ import java.math.RoundingMode
          val phCalidad : MutableList<String> = ArrayList()
          val db: SQLiteDatabase = con.readableDatabase
 
-         val query = "SELECT * FROM TermometroCampo"
+         val queryTerm = "SELECT * FROM TermometroCampo"
          //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
-         val termometroModel = db.rawQuery(query, null)
+         val termometroModel = db.rawQuery(queryTerm, null)
          if (termometroModel.moveToFirst()) {
              do {
                  //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
@@ -155,29 +155,50 @@ import java.math.RoundingMode
          )
          bin.spnTermo.adapter = adTermo
 
-
-         val query = "SELECT * FROM TermometroCampo"
-         val termometroModel = db.rawQuery(query, null)
-         if (termometroModel.moveToFirst()) {
+         val qePhTazable = "SELECT * FROM cat_phTrazable"
+         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+         val phTModel = db.rawQuery(qePhTazable, null)
+         if (phTModel.moveToFirst()) {
              do {
                  //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
-                 termos.add(termometroModel.getString(2) + " " + termometroModel.getString(3) + " " + termometroModel.getString(4))
-             } while (termometroModel.moveToNext())
+                 phTrazable.add(phTModel.getString(1))
+             } while (phTModel.moveToNext())
              // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
          } else {
              // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
          }
-
-         //val phTrazable = arrayOf("Select", "7")
-
          val adPhTrazable = ArrayAdapter(
              this,
              R.layout.simple_spinner_item, phTrazable
          )
+
+         val qePhCalidad = "SELECT * FROM cat_phCalidad"
+         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+         val phCModel = db.rawQuery(qePhCalidad, null)
+         if (phCModel.moveToFirst()) {
+             do {
+                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
+                 phCalidad.add(phCModel.getString(1))
+             } while (phTModel.moveToNext())
+             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         } else {
+             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
+         }
+         val adPhCalidad = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, phCalidad
+         )
+
+         //val phTrazable = arrayOf("Select", "7")
+
+         /*val adPhTrazable = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, phTrazable
+         )*/
          bin.spnPhTrazable.adapter = adPhTrazable
          bin.spnPhTrazable2.adapter = adPhTrazable
-         bin.spnPhTrazableCalidad.adapter = adPhTrazable
-         bin.spnPhTrazableCalidad2.adapter = adPhTrazable
+         bin.spnPhTrazableCalidad.adapter = adPhCalidad
+         bin.spnPhTrazableCalidad2.adapter = adPhCalidad
 
          val conductividad = arrayOf("1412", "1315")
 
