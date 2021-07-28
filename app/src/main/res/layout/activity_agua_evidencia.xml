@@ -17,6 +17,7 @@
             android:layout_height="40dp"
             android:src="@drawable/outline_arrow_back_black_24dp"
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -26,11 +27,14 @@
             android:layout_height="1dp"
             android:background="@drawable/separador"
             />
+
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Foto 1"
             />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -50,12 +54,14 @@
                 android:text="Fecha captura: 01/06/2021"
                 />
         </LinearLayout>
+
         <ImageView
+            android:id="@+id/img1"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/alimentos"
-            />
+
+            app:srcCompat="?android:attr/galleryItemBackground" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -80,12 +86,35 @@
                 android:text="Fecha captura: 01/06/2021"
                 />
         </LinearLayout>
+
         <ImageView
+            android:id="@+id/img2"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/agua"
-            />
+            app:srcCompat="?android:attr/galleryItemBackground" />
+
+
+
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnGuardar"
+            style="@style/TextAppearance.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="200dp"
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:text="Guardar" />
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

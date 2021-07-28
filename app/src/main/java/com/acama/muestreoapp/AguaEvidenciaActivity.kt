@@ -1,15 +1,23 @@
 package com.acama.muestreoapp
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaEvidenciaBinding
-import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
+import kotlinx.android.synthetic.main.activity_agua_evidencia.*
 
 class AguaEvidenciaActivity : AppCompatActivity() {
+
+    private val SELECT_ACTIVITY = 50
+    private var imageUri: Uri? = null
 
     private lateinit var bin: ActivityAguaEvidenciaBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +28,13 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
+        bin.img1.setOnClickListener{
+            ImageController.selectPhotoFromGallery(this, SELECT_ACTIVITY)
+        }
+        bin.img2.setOnClickListener{
+            ImageController.selectPhotoFromGallery(this, SELECT_ACTIVITY)
+        }
+
     }
     fun DialogVolver(){
         val builder = AlertDialog.Builder(this)
@@ -38,5 +53,18 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         }
         builder.show()
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when {
+            requestCode == SELECT_ACTIVITY && resultCode  == Activity.RESULT_OK -> {
+                imageUri = data!!.data
+
+                bin.img1.setImageURI(imageUri)
+
+            }
+        }
     }
 }
