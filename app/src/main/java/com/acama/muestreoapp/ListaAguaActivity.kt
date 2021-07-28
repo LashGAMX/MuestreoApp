@@ -33,7 +33,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-class ListaAguaActivity : AppCompatActivity(){
+class ListaAguaActivity : AppCompatActivity() {
     private lateinit var bin: ActivityListaAguaBinding
     private lateinit var listaArr: MutableList<String>
     private lateinit var con: DataBaseHandler
@@ -226,7 +226,11 @@ class ListaAguaActivity : AppCompatActivity(){
                     sendDatosMuestra(idSol, folio)
                     Toast.makeText(this, "Los datos ya se pueden enviar", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, "No puedes enviar aun esta orden de muestra", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "No puedes enviar aun esta orden de muestra",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 //Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
@@ -304,12 +308,17 @@ class ListaAguaActivity : AppCompatActivity(){
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()
-                        Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            applicationContext,
+                            "Error en la solicitud",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                 },
                 Response.ErrorListener { volleyError ->
-                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                        .show()
                 }) {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
@@ -346,11 +355,12 @@ class ListaAguaActivity : AppCompatActivity(){
             val solGenModel = db.rawQuery(query, null)
             //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
             var cont: Int = 0
+            var idSolGen: Int = 0
             if (solGenModel.moveToFirst()) {
                 do {
 
                 } while (solGenModel.moveToNext())
-            }else{
+            } else {
                 var muestreoModel = SolicitudGenerada(
                     muestreo.getString("Folio_servicio"),
                     muestreo.getInt("Id_solicitud"),
@@ -372,6 +382,52 @@ class ListaAguaActivity : AppCompatActivity(){
                 var db = DataBaseHandler(this)
                 db.insertSolicitudGenerada(muestreoModel)
             }
+
+            val query2 = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+            val solGenModel2 = db.rawQuery(query2, null)
+            if (solGenModel2.moveToFirst()) {
+                do {
+                    idSolGen = solGenModel2.getInt(0)
+                    var generalModel = Generales(
+                        idSolGen,
+                        "",
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    var db = DataBaseHandler(this)
+                    db.insertGeneral(generalModel)
+                    // Crear Ph Trazable muestra
+                    var phTraModel = PhTrazable(
+                        idSolGen,
+                        0,
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    db.insertPhTrazable(phTraModel)
+                    db.insertPhTrazable(phTraModel)
+                    // Creat PhCalidad Muestra
+                    var phCalModel = PhCalidad(
+                        idSolGen,
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    db.insertPhCalidad(phCalModel)
+                    db.insertPhCalidad(phCalModel)
+
+                } while (solGenModel2.moveToNext())
+            }
+
         }
         //Sincronizar datos termometro
         for (i in 0 until listaTermometro.length()) {
@@ -385,14 +441,13 @@ class ListaAguaActivity : AppCompatActivity(){
                 do {
 
                 } while (termometroCampo.moveToNext())
-            }else{
+            } else {
                 var termometroModel = TermometroCampo(
                     termometro.getString("Id_muestreador").toInt(),
                     termometro.getString("Equipo"),
                     termometro.getString("Marca"),
                     termometro.getString("Modelo"),
                     termometro.getString("Serie")
-
                 )
                 var db = DataBaseHandler(this)
                 db.insertTermometroCampo(termometroModel)
@@ -412,7 +467,7 @@ class ListaAguaActivity : AppCompatActivity(){
                 do {
 
                 } while (phTrazableCampo.moveToNext())
-            }else{
+            } else {
                 var phTModel = CatPhTrazable(
                     phTrazable.getString("Ph"),
                     phTrazable.getString("Marca"),
@@ -429,7 +484,8 @@ class ListaAguaActivity : AppCompatActivity(){
             val phCalidad = listaPhCalidad.getJSONObject(i)
             val ph = phCalidad.getString("Ph_calidad").toString()
             val lote = phCalidad.getString("Lote").toString()
-            val queryPhCal = "SELECT * FROM cat_phCalidad WHERE Ph_calidad = '$ph' AND Lote = '$lote'"
+            val queryPhCal =
+                "SELECT * FROM cat_phCalidad WHERE Ph_calidad = '$ph' AND Lote = '$lote'"
             val phCalCampo = db.rawQuery(queryPhCal, null)
             //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
             var cont: Int = 0
@@ -437,7 +493,7 @@ class ListaAguaActivity : AppCompatActivity(){
                 do {
 
                 } while (phCalCampo.moveToNext())
-            }else{
+            } else {
                 var phModelCal = CatPhCalidad(
                     phCalidad.getString("Ph_calidad"),
                     phCalidad.getString("Marca"),
@@ -451,12 +507,14 @@ class ListaAguaActivity : AppCompatActivity(){
         }
 
     }
+
     @SuppressLint("ServiceCast")
     private fun hideKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(bin.edtBuscar.windowToken, 0)
     }
-    private fun searchFolio(){
+
+    private fun searchFolio() {
 
     }
 

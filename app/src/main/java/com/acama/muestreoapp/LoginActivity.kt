@@ -143,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
             db.inserUsuario(usuariosModel)
         }
 
-        var listaMuestreo = JSONArray(data.getString("solicitudes"))
+       /* var listaMuestreo = JSONArray(data.getString("solicitudes"))
 
         for(i in 0 until listaMuestreo.length()){
             var muestreo = listaMuestreo.getJSONObject(i)
@@ -167,7 +167,7 @@ class LoginActivity : AppCompatActivity() {
                 1
             )
             db.insertSolicitudGenerada(muestreoModel)
-        }
+        }*/
 
 
     }

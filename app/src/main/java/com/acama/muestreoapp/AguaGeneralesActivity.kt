@@ -24,8 +24,11 @@ import java.math.RoundingMode
  class AguaGeneralesActivity : AppCompatActivity() {
      private lateinit var bin: ActivityAguaGeneralesBinding
      private lateinit var con: DataBaseHandler
-
+     private  var idSol:Int = 0
+     private var folio:String = ""
      private var sw1 = false
+     private var datosMuestreo: MutableList<String> = mutableListOf()
+     private var datosGenerales: MutableList<String> = mutableListOf()
 
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,59 @@ import java.math.RoundingMode
 
          val context = this
          con = DataBaseHandler(this)
+         val db: SQLiteDatabase = con.readableDatabase
+
+         folio = intent.getStringExtra("folio").toString()
+         Log.d("folio",folio)
+         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+         val solGenModel = db.rawQuery(qrSolGenModel, null)
+
+         if (solGenModel.moveToFirst()) {
+             do {
+                 datosMuestreo.add(solGenModel.getString(0))
+                 datosMuestreo.add(solGenModel.getString(1))
+                 datosMuestreo.add(solGenModel.getString(2))
+                 datosMuestreo.add(solGenModel.getString(3))
+                 datosMuestreo.add(solGenModel.getString(4))
+                 datosMuestreo.add(solGenModel.getString(5))
+                 datosMuestreo.add(solGenModel.getString(6))
+                 datosMuestreo.add(solGenModel.getString(7))
+                 datosMuestreo.add(solGenModel.getString(8))
+                 datosMuestreo.add(solGenModel.getString(9))
+                 datosMuestreo.add(solGenModel.getString(10))
+                 datosMuestreo.add(solGenModel.getString(11))
+                 datosMuestreo.add(solGenModel.getString(12))
+                 datosMuestreo.add(solGenModel.getString(13))
+                 datosMuestreo.add(solGenModel.getString(14))
+                 datosMuestreo.add(solGenModel.getString(15))
+                 datosMuestreo.add(solGenModel.getString(16))
+             } while (solGenModel.moveToNext())
+             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         }
+         Log.d("datosGenerales",datosMuestreo.toString())
+         idSol = datosMuestreo[0].toInt()
+         val qrGeneral = "SELECT * FROM campo_generales WHERE Id_solicitud = '$idSol'"
+         val campoGeneral = db.rawQuery(qrGeneral, null)
+
+         if (campoGeneral.moveToFirst()) {
+             do {
+                 datosGenerales.add(campoGeneral.getString(0))
+                 datosGenerales.add(campoGeneral.getString(1))
+                 datosGenerales.add(campoGeneral.getString(2))
+                 datosGenerales.add(campoGeneral.getString(3))
+                 datosGenerales.add(campoGeneral.getString(4))
+                 datosGenerales.add(campoGeneral.getString(5))
+                 datosGenerales.add(campoGeneral.getString(6))
+                 datosGenerales.add(campoGeneral.getString(7))
+                 datosGenerales.add(campoGeneral.getString(8))
+                 datosGenerales.add(campoGeneral.getString(9))
+             } while (campoGeneral.moveToNext())
+             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         }
+
+         Log.d("Campo General",datosGenerales.toString())
+
+         mostrarDatosGenerales()
 
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
              DialogVolver()
@@ -74,6 +130,16 @@ import java.math.RoundingMode
          llenarSpinner()
 
      }
+     fun mostrarDatosGenerales(){
+         //Datos generales
+         bin.txtCliente.text = datosMuestreo[6]
+         bin.txtFolioServicio.text = datosMuestreo[1]
+         bin.txtNumTomas.text = datosMuestreo[14]
+         bin.txtTipoDescarga.text = datosMuestreo[11]
+
+         bin.edtLatitud.setText(datosGenerales[6])
+         bin.edtLongitud.setText(datosGenerales[7])
+     }
 
      fun generales() {
          var db = DataBaseHandler(this)
@@ -84,8 +150,8 @@ import java.math.RoundingMode
              1,
              "10°C",
              "10°C",
-             bin.latitud.text.toString(),
-             bin.longitud.text.toString(),
+             bin.edtLatitud.text.toString(),
+             bin.edtLongitud.text.toString(),
              "15",
              "Criterio"
          )
@@ -144,13 +210,20 @@ import java.math.RoundingMode
          val phCalidad : MutableList<String> = ArrayList()
          val db: SQLiteDatabase = con.readableDatabase
 
+         //val solGenModel = "SELECT * FROM campo_generales WHERE Id_solicitud = "
+
          val queryTerm = "SELECT * FROM TermometroCampo"
          //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
          val termometroModel = db.rawQuery(queryTerm, null)
+         var cont: Int = 0
          if (termometroModel.moveToFirst()) {
              do {
                  //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
-                 termos.add(termometroModel.getString(2) + " " + termometroModel.getString(3) + " " + termometroModel.getString(4))
+                     if (cont == 0){
+                         termos.add(termometroModel.getString(2))
+                     }
+                 termos.add(termometroModel.getString(2))
+                 cont++
              } while (termometroModel.moveToNext())
              // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
          } else {

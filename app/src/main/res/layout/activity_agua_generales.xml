@@ -43,9 +43,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cliente"
+                android:text="Cliente: "
                 />
             <TextView
+                android:id="@+id/txtCliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LABORATORIO ACAMA PRUEBA"
@@ -60,16 +61,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Folio servicio:"
+                android:text="Folio servicio: "
                 />
             <TextView
-                android:id="@+id/folioServicio"
+                android:id="@+id/txtFolioServicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="147-18/21"
                 />
         </LinearLayout>
-        <LinearLayout
+<!--        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -84,33 +85,76 @@
                 android:layout_height="wrap_content"
                 android:text="DESCARGA FINAL"
                 />
-        </LinearLayout>
+        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Muestreo:"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="14 Hrs"
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Muestreo:"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/txtHoraMuestreo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="14 Hrs"-->
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
-                android:text="Núm. muestra: 4"
+                android:text="Núm. muestra: "
                 />
             <TextView
+                android:id="@+id/txtNumTomas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="4"
                 />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="Temperatura:"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:hint="Temperatura ambiente"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <EditText
+                    android:id="@+id/edtTemperatura"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:hint="Temperatura buffer"
+                android:layout_marginLeft="10dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+                <EditText
+                    android:id="@+id/edtTemperaturaBuff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -124,6 +168,7 @@
                 android:text="Tipo descarga:"
                 />
             <TextView
+                android:id="@+id/txtTipoDescarga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Residual"
@@ -188,8 +233,9 @@
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
+
             <EditText
-                android:id="@+id/latitud"
+                android:id="@+id/edtLatitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -197,12 +243,13 @@
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:hint="Longitud"
+            android:id="@+id/tilLongitud"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
             <EditText
-                android:id="@+id/longitud"
+                android:id="@+id/edtLongitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

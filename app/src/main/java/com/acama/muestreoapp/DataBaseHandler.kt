@@ -22,7 +22,7 @@ val Pendiente = "Pendiente"
 val Criterio = "Criterio"
 
 //ph trazbale
-val PHTRAZABLE = "PhTrazable"
+val PHTRAZABLE = "ph_trazable"
 val Id_solicitudT = "Id_solicitud"
 val Id_phTrazable = "Id_phTrazable"
 val Lectura1 = "Lectura1"
@@ -31,7 +31,7 @@ val Lectura3 = "Lectura3"
 val Estado = "Estado"
 
 //ph calidad
-val PHCALIDAD = "PhCalidad"
+val PHCALIDAD = "ph_calidad"
 val Id_solicitudC = "Id_solicitud"
 val Id_phCalidad = "Id_phCalidad"
 val Lectura1C = "Lectura1"
@@ -349,23 +349,22 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
     }
     fun createTablePhTrazable(db: SQLiteDatabase?){
-        val phTrazable = "CREATE TABLE " + PHTRAZABLE + " (" +
-                Id_phTrazable + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                Id_solicitudT + " INTEGER," +
-                Lectura1 + " VARCHAR(100)," +
-                Lectura2 + " VARCHAR(100)," +
-                Lectura3 + " VARCHAR(100)," +
-                Estado + " VARCHAR(100))"
-
-
-        db?.execSQL(phTrazable)
+        val model = "CREATE TABLE " + PHTRAZABLE + " (" +
+                "Id_phTrazable INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER NOT NULL," +
+                "Lectura1 TEXT NOT NULL," +
+                "Lectura2 TEXT NOT NULL," +
+                "Lectura3 TEXT NOT NULL," +
+                "Estado TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
     }
     fun insertPhTrazable(phTrazable: PhTrazable) {
         val db = this.writableDatabase
         var cv = ContentValues()
         //put datos
-        cv.put(Id_solicitudT,phTrazable.Id_solicitud)
         cv.put(Id_phTrazable, phTrazable.Id_phTrazable)
+        cv.put(Id_solicitudT,phTrazable.Id_solicitud)
         cv.put(Lectura1, phTrazable.Lectura1)
         cv.put(Lectura2, phTrazable.Lectura2)
         cv.put(Lectura3, phTrazable.Lectura3)
@@ -419,7 +418,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun createTableConductividad(db: SQLiteDatabase?){
         val conductividad = "CREATE TABLE " + CONDUCTIVIDAD + " (" +
                 Id_Conductividad + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                Id_solicitudCond + " INTEGER," +
+                Id_solicitudCond + " INTEGER NOT NULL," +
                 Conductividad1 + " VARCHAR(100)," +
                 Conductividad2 + " VARCHAR(100)," +
                 Conductividad3 + " VARCHAR(100)," +
