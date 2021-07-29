@@ -213,7 +213,7 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 if (muestreoModel.moveToFirst()) {
                     do {
-                        if (muestreoModel.getInt(16) == 3) {
+                        if (muestreoModel.getInt(16) == 1) {
                             sw = true
                             idSol = muestreoModel.getInt(0)
                         } else {
@@ -269,6 +269,7 @@ class ListaAguaActivity : AppCompatActivity() {
             var cont: Int = 0
             if (generalModel.moveToFirst()) {
                 do {
+                    Log.d("Captura",generalModel.getString(2))
                     var jsonGeneral = "{" +
                             " \"Id_solicitud\" : \"" + generalModel.getInt(1) + "\"" +
                             ", \"Captura\" : \"" + generalModel.getString(2) + "\"" +
@@ -281,8 +282,10 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Pendiente\" : \"" + generalModel.getString(9) + "\"" +
                             ", \"Criterio\" : \"" + generalModel.getString(10) + "\"" +
                             "}"
+
                     listTemp.add(cont, jsonGeneral)
                     cont++
+                    Log.d("Lista Temp",listTemp.toString())
                 } while (generalModel.moveToNext())
             }
             campoGenModel.addAll(listTemp)

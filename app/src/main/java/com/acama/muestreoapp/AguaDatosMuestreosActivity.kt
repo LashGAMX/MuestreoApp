@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -29,6 +30,8 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
+
+
     }
 
     fun getNumTomas(){
@@ -45,7 +48,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         var cont:Int
         cont = numTomas
         for (i in 0 until numTomas){
-            listaTomas.add(0,MuestraSimple(cont.toString()))
+            listaTomas.add(0,MuestraSimple(cont.toString(),2))
             cont--
         }
 
@@ -60,6 +63,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         val bundle = intent.extras
         val fol = bundle?.get("folio")
         folio = fol.toString()
+        Log.d("Folio",folio)
     }
 
     fun DialogVolver(){

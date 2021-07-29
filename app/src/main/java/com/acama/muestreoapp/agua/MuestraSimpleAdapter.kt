@@ -1,10 +1,14 @@
 package com.acama.muestreoapp.agua
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.acama.muestreoapp.AguaCapturaActivity
+import com.acama.muestreoapp.MuestraSimpleActivity
 import com.acama.muestreoapp.R
 import com.acama.muestreoapp.databinding.ItemMuestrasimpleBinding
 
@@ -16,8 +20,8 @@ class MuestraSimpleAdapter(val muestrasimple: MutableList<MuestraSimple>) : Recy
         fun render(muestrasimple: MuestraSimple){
             bin.txtMuestra.text = "Muestra simple"
             bin.txtNumeroMuestra.text = muestrasimple.numToma
-            //bin.edtColor.setBackgroundColor(R.drawable._11_computer)
-            //view.setOnClickListener { Toast.makeText(view.context,"Has seleccionado ${muestrasimple.numToma}",Toast.LENGTH_SHORT).show() }
+
+            view.setOnClickListener { Toast.makeText(view.context,"Has seleccionado as ${muestrasimple.idSolicitud}",Toast.LENGTH_LONG).show() }
         }
     }
 
