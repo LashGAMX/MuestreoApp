@@ -105,7 +105,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:text="Núm. muestra: "
                 />
             <TextView
@@ -115,11 +114,16 @@
                 android:text="4"
                 />
         </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="Temperatura:"
+            android:text="Temperaturas:"
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -298,7 +302,7 @@
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/phTrazable2"
@@ -307,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/phTrazable3"
@@ -316,7 +320,7 @@
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -333,7 +337,7 @@
 
                 />
             <EditText
-                android:id="@+id/PromedioPhT1"
+                android:id="@+id/phEstado1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -372,7 +376,7 @@
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/ph2Trazable2"
@@ -381,7 +385,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/ph2Trazable3"
@@ -390,7 +394,7 @@
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -402,12 +406,12 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Promedio:"
+                android:text="Estado:"
                 android:layout_marginLeft="20dp"
 
                 />
             <EditText
-                android:id="@+id/PromedioPhT2"
+                android:id="@+id/phEstado2"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -462,7 +466,7 @@
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/phCalidad2"
@@ -471,7 +475,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/phCalidad3"
@@ -480,7 +484,7 @@
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
 
         </LinearLayout>
@@ -498,7 +502,7 @@
 
                 />
             <EditText
-                android:id="@+id/PromedioCalidad"
+                android:id="@+id/promCalidad1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -542,7 +546,7 @@
                 android:hint="Ph1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/ph2Calidad2"
@@ -551,7 +555,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Ph2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/ph2Calidad3"
@@ -560,7 +564,7 @@
                 android:hint="Ph3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -577,7 +581,7 @@
 
                 />
             <EditText
-                android:id="@+id/PromedioCalidad2"
+                android:id="@+id/promedioCalidad2"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -637,7 +641,7 @@
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/conductividad2"
@@ -646,7 +650,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"/>
+                android:maxLength="5"/>
             <EditText
                 android:id="@+id/conductividad3"
                 android:layout_width="100dp"
@@ -654,7 +658,7 @@
                 android:hint="Lectura 3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
         </LinearLayout>
         <LinearLayout
@@ -666,7 +670,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Promedio:"
+                android:text="Estado:"
                 android:layout_marginLeft="20dp"
 
                 />
@@ -723,7 +727,7 @@
                 android:hint="Lectura 1"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/conducti2"
@@ -732,7 +736,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Lectura 2"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
             <EditText
                 android:id="@+id/conducti3"
@@ -741,7 +745,7 @@
                 android:hint="Lectura 3"
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
-                android:maxLength="4"
+                android:maxLength="5"
                 />
         </LinearLayout>
         <LinearLayout

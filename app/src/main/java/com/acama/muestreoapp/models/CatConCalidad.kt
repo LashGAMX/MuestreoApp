@@ -1,7 +1,5 @@
 package com.acama.muestreoapp.models
 
-import com.acama.muestreoapp.Conductividad
-
 class CatConCalidad {
     var Id_conductividad : Int = 0
     var Conductividad : String = ""

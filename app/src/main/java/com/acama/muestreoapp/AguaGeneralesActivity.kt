@@ -3,6 +3,7 @@
 
 import android.R
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -13,6 +14,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
@@ -26,9 +29,20 @@ import java.math.RoundingMode
      private lateinit var con: DataBaseHandler
      private  var idSol:Int = 0
      private var folio:String = ""
+
      private var sw1 = false
+     private var sw2 = false
+     private var sw3 = false
+     private var sw4 = false
+
+
      private var datosMuestreo: MutableList<String> = mutableListOf()
      private var datosGenerales: MutableList<String> = mutableListOf()
+     private var datosPhTrazable1: MutableList<String> = mutableListOf()
+     private var datosPhTrazable2: MutableList<String> = mutableListOf()
+     private var datosPhCalidad1: MutableList<String> = mutableListOf()
+     private var datosPhCalidad2: MutableList<String> = mutableListOf()
+
 
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,11 +99,38 @@ import java.math.RoundingMode
                  datosGenerales.add(campoGeneral.getString(8))
                  datosGenerales.add(campoGeneral.getString(9))
              } while (campoGeneral.moveToNext())
-             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
+         }
+         val qrTrazable = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
+         val phTrazableModel = db.rawQuery(qrTrazable, null)
+
+         var cont = 0
+         if (phTrazableModel.moveToFirst()) {
+             do {
+                 if (cont == 0){
+                     datosPhTrazable1.add(phTrazableModel.getString(0))
+                     datosPhTrazable1.add(phTrazableModel.getString(1))
+                     datosPhTrazable1.add(phTrazableModel.getString(2))
+                     datosPhTrazable1.add(phTrazableModel.getString(3))
+                     datosPhTrazable1.add(phTrazableModel.getString(4))
+                     datosPhTrazable1.add(phTrazableModel.getString(5))
+                     datosPhTrazable1.add(phTrazableModel.getString(6))
+
+                 }else{
+                     datosPhTrazable2.add(phTrazableModel.getString(0))
+                     datosPhTrazable2.add(phTrazableModel.getString(1))
+                     datosPhTrazable2.add(phTrazableModel.getString(2))
+                     datosPhTrazable2.add(phTrazableModel.getString(3))
+                     datosPhTrazable2.add(phTrazableModel.getString(4))
+                     datosPhTrazable2.add(phTrazableModel.getString(5))
+                     datosPhTrazable2.add(phTrazableModel.getString(6))
+                 }
+                 cont++
+             } while (phTrazableModel.moveToNext())
          }
 
          Log.d("Campo General",datosGenerales.toString())
 
+         llenarSpinner()
          mostrarDatosGenerales()
 
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
@@ -97,37 +138,127 @@ import java.math.RoundingMode
          })
 
          bin.btnPromPhT1.setOnClickListener {
-             ValPhTrazable1()
+             if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
+                 Log.d("Val","Fue aceptado")
+                 sw1 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw1 = false
+             }
          }
          bin.btnPromPhT2.setOnClickListener {
-             ValPhTrazable2()
+             if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
+                 Log.d("Val","Fue aceptado")
+                 sw2 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw2 = false
+             }
          }
          bin.btnProbarCalidad1.setOnClickListener {
-             ValPhCalidad1()
+             if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
+                 Log.d("Val","Fue aceptado")
+                 sw3 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw3 = false
+             }
          }
          bin.btnProbarCalidad2.setOnClickListener {
-             ValPhCalidad2()
+             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.promedioCalidad2)){
+                 Log.d("Val","Fue aceptado")
+                 sw4 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw4 = false
+             }
          }
          bin.btnProbarConductividad.setOnClickListener {
-             ValConductividad()
+
          }
          bin.btnProbarConductividadCalidad.setOnClickListener {
-             ValConductiCalidad()
+
          }
 
 
          bin.btnGuardar.setOnClickListener {
+            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true){
+                var idPhTrazable : MutableList<String> = ArrayList()
+                var idPhCalidad : MutableList<String> = ArrayList()
+                var idConTrazable : MutableList<String> = ArrayList()
+                var idConCalidad : MutableList<String> = ArrayList()
 
-             // CoroutineScope(Dispatchers.IO).launch {
-             generales()
-             phtrazable()
-             phcalidad()
-             conductividad()
-             // }
-             //guardarDatos()
+                val dbw: SQLiteDatabase = con.writableDatabase
+                val dbr: SQLiteDatabase = con.readableDatabase
+
+                val cv = ContentValues()
+                cv.put("Captura","Movil")
+                cv.put("Id_equipo",bin.spnTermo.selectedItem.toString())
+                cv.put("Temperatura_a",bin.edtTemperatura.text.toString())
+                cv.put("Temperatura_b",bin.edtTemperaturaBuff.text.toString())
+                cv.put("Latitud",bin.edtLatitud.text.toString())
+                cv.put("Longitud",bin.edtLongitud.text.toString())
+                dbw.update("campo_generales",cv,"Id_solicitud = "+idSol,null)
+
+
+                val qrPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
+                val phTraModel = dbr.rawQuery(qrPhTra, null)
+                if (phTraModel.moveToFirst()) {
+                    do {
+                        idPhTrazable.add(phTraModel.getString(0))
+                    } while (phTraModel.moveToNext())
+                }
+
+                val qrPhCal = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
+                val phCalModel = dbr.rawQuery(qrPhCal, null)
+                if (phCalModel.moveToFirst()) {
+                    do {
+                        idPhCalidad.add(phCalModel.getString(0))
+                    } while (phCalModel.moveToNext())
+                }
+
+                //Updata Ph Trazable
+                val cv2 = ContentValues()
+                cv2.put("Id_phTrazable",bin.spnPhTrazable.selectedItem.toString())
+                cv2.put("Lectura1",bin.phTrazable1.text.toString())
+                cv2.put("Lectura2",bin.phTrazable2.text.toString())
+                cv2.put("Lectura3",bin.phTrazable3.text.toString())
+                cv2.put("Estado",bin.phEstado1.text.toString())
+                dbw.update("ph_trazable",cv2,"Id_ph ="+idPhTrazable[0],null)
+                val cv3 = ContentValues()
+                cv3.put("Id_phTrazable",bin.spnPhTrazable2.selectedItem.toString())
+                cv3.put("Lectura1",bin.ph2Trazable1.text.toString())
+                cv3.put("Lectura2",bin.ph2Trazable2.text.toString())
+                cv3.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv3.put("Estado",bin.phEstado2.text.toString())
+                dbw.update("ph_trazable",cv3,"Id_ph ="+idPhTrazable[1].toString(),null)
+
+                //Updata Ph Calidad
+                val cv4 = ContentValues()
+                cv4.put("Id_phCalidad",bin.spnPhTrazable.selectedItem.toString())
+                cv4.put("Lectura1",bin.phTrazable1.text.toString())
+                cv4.put("Lectura2",bin.phTrazable2.text.toString())
+                cv4.put("Lectura3",bin.phTrazable3.text.toString())
+                cv4.put("Estado","ACEPTADO")
+                cv4.put("Promedio",bin.promCalidad1.text.toString())
+                dbw.update("ph_calidad",cv4,"Id_ph ="+idPhCalidad[0],null)
+                val cv5 = ContentValues()
+                cv5.put("Id_phCalidad",bin.spnPhTrazable2.selectedItem.toString())
+                cv5.put("Lectura1",bin.ph2Trazable1.text.toString())
+                cv5.put("Lectura2",bin.ph2Trazable2.text.toString())
+                cv5.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv5.put("Estado","ACEPTADO")
+                cv4.put("Promedio",bin.promedioCalidad2.text.toString())
+                dbw.update("ph_calidad",cv5,"Id_ph ="+idPhCalidad[1].toString(),null)
+
+
+                //Toast.makeText(this,"Datos guardados",Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"No puedes guardaros los registros antes de capturar",Toast.LENGTH_SHORT).show()
+            }
          }
 
-         llenarSpinner()
+
 
      }
      fun mostrarDatosGenerales(){
@@ -139,66 +270,20 @@ import java.math.RoundingMode
 
          bin.edtLatitud.setText(datosGenerales[6])
          bin.edtLongitud.setText(datosGenerales[7])
+
+         bin.phTrazable1.setText(datosPhTrazable1[3])
+         bin.phTrazable2.setText(datosPhTrazable1[4])
+         bin.phTrazable3.setText(datosPhTrazable1[5])
+         bin.phEstado1.setText(datosPhTrazable1[6])
+
+         bin.ph2Trazable1.setText(datosPhTrazable2[3])
+         bin.ph2Trazable2.setText(datosPhTrazable2[4])
+         bin.ph2Trazable3.setText(datosPhTrazable2[5])
+         bin.phEstado2.setText(datosPhTrazable2[6])
      }
 
-     fun generales() {
-         var db = DataBaseHandler(this)
-         //Insertar en tabla generales
-         var generales = Generales(
-             1,
-             "Mobil",
-             1,
-             "10°C",
-             "10°C",
-             bin.edtLatitud.text.toString(),
-             bin.edtLongitud.text.toString(),
-             "15",
-             "Criterio"
-         )
-         db.insertGeneral(generales)
-     }
+     fun chageActivity() {
 
-     fun phtrazable() {
-         var db = DataBaseHandler(this)
-         //insertar en tabla PhTrasable
-         val phTrazable = PhTrazable(
-             1,
-             1,
-             bin.phTrazable1.text.toString(),
-             bin.phTrazable2.text.toString(),
-             bin.phTrazable3.text.toString(),
-             "estado"
-         )
-         db.insertPhTrazable(phTrazable)
-     }
-
-     fun phcalidad() {
-         var db = DataBaseHandler(this)
-         //insertar en tabla PhCalidad
-         val phCalidad = PhCalidad(
-             1,
-             1,
-             bin.ph2Calidad1.text.toString(),
-             bin.ph2Calidad2.text.toString(),
-             bin.ph2Calidad3.text.toString(),
-             "estado",
-             "14.5"
-         )
-         db.insertPhCalidad(phCalidad)
-     }
-
-     fun conductividad() {
-         var db = DataBaseHandler(this)
-         val conductividad = Conductividad(
-             1,
-             bin.conductividad1.text.toString(),
-             bin.conductividad2.text.toString(),
-             bin.conductividad3.text.toString(),
-             "3.15"
-         )
-     }
-
-     fun guardarDatos() {
          val intent = Intent(this, AguaCapturaActivity::class.java)
          Toast.makeText(applicationContext, "Datos guardados", Toast.LENGTH_SHORT).show()
          startActivity(intent)
@@ -210,24 +295,17 @@ import java.math.RoundingMode
          val phCalidad : MutableList<String> = ArrayList()
          val db: SQLiteDatabase = con.readableDatabase
 
-         //val solGenModel = "SELECT * FROM campo_generales WHERE Id_solicitud = "
-
          val queryTerm = "SELECT * FROM TermometroCampo"
-         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
          val termometroModel = db.rawQuery(queryTerm, null)
          var cont: Int = 0
          if (termometroModel.moveToFirst()) {
              do {
-                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
                      if (cont == 0){
                          termos.add(termometroModel.getString(2))
                      }
                  termos.add(termometroModel.getString(2))
                  cont++
              } while (termometroModel.moveToNext())
-             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
-         } else {
-             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
          }
          val adTermo = ArrayAdapter(
              this,
@@ -236,16 +314,11 @@ import java.math.RoundingMode
          bin.spnTermo.adapter = adTermo
 
          val qePhTazable = "SELECT * FROM cat_phTrazable"
-         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
          val phTModel = db.rawQuery(qePhTazable, null)
          if (phTModel.moveToFirst()) {
              do {
-                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
                  phTrazable.add(phTModel.getString(1))
              } while (phTModel.moveToNext())
-             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
-         } else {
-             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
          }
          val adPhTrazable = ArrayAdapter(
              this,
@@ -253,28 +326,20 @@ import java.math.RoundingMode
          )
 
          val qePhCalidad = "SELECT * FROM cat_phCalidad"
-         //val termos = arrayOf("Termo 1", "Termo 2", "Termo 3", "Termo 4", "Termo 5")
+
          val phCModel = db.rawQuery(qePhCalidad, null)
          if (phCModel.moveToFirst()) {
              do {
-                 //listaMuestreo.add("" + muestreoModel.getString(1) + "\n" + muestreoModel.getString(6))
+
                  phCalidad.add(phCModel.getString(1))
-             } while (phTModel.moveToNext())
-             // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
-         } else {
-             // Toast.makeText(this,"Usuario y/o contraseña incorrecto",Toast.LENGTH_SHORT).show()
+             } while (phCModel.moveToNext())
+
          }
          val adPhCalidad = ArrayAdapter(
              this,
              R.layout.simple_spinner_item, phCalidad
          )
 
-         //val phTrazable = arrayOf("Select", "7")
-
-         /*val adPhTrazable = ArrayAdapter(
-             this,
-             R.layout.simple_spinner_item, phTrazable
-         )*/
          bin.spnPhTrazable.adapter = adPhTrazable
          bin.spnPhTrazable2.adapter = adPhTrazable
          bin.spnPhTrazableCalidad.adapter = adPhCalidad
@@ -292,352 +357,216 @@ import java.math.RoundingMode
 
      }
 
-     //bloque 1
-     fun ValPhTrazable1() {
-         //validacion campos vacios
-         if (bin.phTrazable1.text.toString() == "" || bin.phTrazable2.text.toString() == "" || bin.phTrazable3.text.toString() == "") {
-             bin.PromedioPhT1.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioPhT1.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.phTrazable1.text.toString().toDouble()
-             var dos = bin.phTrazable2.text.toString().toDouble()
-             var tres = bin.phTrazable3.text.toString().toDouble()
-
-             var dif1: Double = dos - uno
-             var dif2: Double = dos - tres
-             var dif3: Double = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnPhTrazable.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (dif1.equals(0) && dif2.equals(0) && dif3.equals(0)) {
-                 bin.PromedioPhT1.setText("ACEPTADO")
-             } else {
-                 if (dif1 >= 3 || dif1 >= -3) {
-                     if (dif2 >= 3 || dif2 >= -3) {
-                         if (dif3 >= 3 || dif3 >= -3) {
-                             bin.PromedioPhT1.setText("ACEPTADO")
-                         }
-                     }
-                 } else {
-                     bin.PromedioPhT1.setText("RECHAZADO")
+     fun valPhTrazable(spn: Spinner,lec1:EditText,lec2:EditText,lec3:EditText,Estado:EditText): Boolean {
+         var sw:Boolean = false
+         var num:String = ""
+         var l1 :String = ""
+         var l2 :String = ""
+         var l3 :String = ""
+         var ph :String = ""
+         if (lec1.text.toString() != "" || lec2.text.toString() != ""|| lec3.text.toString() != ""){
+             ph = spn.selectedItem.toString()
+             num = lec1.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec1.setError("No esta en el rango del 4 al 9")
+                     sw = false
                  }
              }
-             //validacion sw1
-             if (bin.PromedioPhT1.equals("ACEPTADO")){
-                 sw1 = true
+             num = lec2.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec2.setError("No esta en el rango del 4 al 9")
+                     sw = false
+                 }
              }
+             num = lec3.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec3.setError("No esta en el rango del 4 al 9")
+                     sw = false
+                 }
+             }
+             l1 = lec1.text.toString()
+             l2 = lec2.text.toString()
+             l3 = lec3.text.toString()
+
+
+             if ((ph.toFloat() - l1.toFloat()) >= 0.5 || (ph.toFloat() - l1.toFloat()) <= 0.5 && (ph.toFloat() - l2.toFloat()) >= 0.5 || (ph.toFloat() - l2.toFloat()) <= 0.5 && (ph.toFloat() - l3.toFloat()) >= 0.5 || (ph.toFloat() - l3.toFloat()) <= 0.5){
+                 //Lectura 1
+                 if ((l1.toFloat() - l2.toFloat()) >= 0.03 || (l1.toFloat() - l2.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec2.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l1.toFloat() - l3.toFloat()) >= 0.03 || (l1.toFloat() - l3.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+
+                 //Lectura2
+                 if ((l2.toFloat() - l1.toFloat()) >= 0.03 || (l2.toFloat() - l1.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l2.toFloat() - l3.toFloat()) >= 0.03 || (l2.toFloat() - l3.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+
+                 //Lectura3
+                 if ((l3.toFloat() - l1.toFloat()) >= 0.03 || (l3.toFloat() - l1.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l3.toFloat() - l2.toFloat()) >= 0.03 || (l3.toFloat() - l2.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+             }else{
+                 sw = false
+                 Log.d("Val ph","El valor es mayor a 0.5")
+             }
+
+         }else{
+             Estado.setError("Los campos están vacios") //error de campos vacios
          }
+
+         if(sw == true){
+             Estado.setText("ACEPTADO")
+         }else{
+             Estado.setText("RECHAZADO")
+         }
+
+         return sw
      }
 
-     fun ValPhTrazable2() {
-         //validacion campos vacios
-         if (bin.ph2Trazable1.text.toString() == "" || bin.ph2Trazable2.text.toString() == "" || bin.ph2Trazable3.text.toString() == "") {
-             bin.PromedioPhT2.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioPhT2.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.ph2Trazable1.text.toString().toDouble()
-             var dos = bin.ph2Trazable2.text.toString().toDouble()
-             var tres = bin.ph2Trazable3.text.toString().toDouble()
-
-             var dif1: Double = dos - uno
-             var dif2: Double = dos - tres
-             var dif3: Double = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnPhTrazable2.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(
-                     PhTrazableSpn
-                 )
-             ) {
-                 Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
-                 if (dif1 <= 0.03 || dif1 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Trazable1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Trazable1.setError("valor invalido entre 1 y 2")
+     fun valPhCalidad(spn: Spinner,lec1:EditText,lec2:EditText,lec3:EditText,Promedio:EditText): Boolean {
+         var sw:Boolean = false
+         var num:String = ""
+         var l1 :String = ""
+         var l2 :String = ""
+         var l3 :String = ""
+         var ph :String = ""
+         if (lec1.text.toString() != "" || lec2.text.toString() != ""|| lec3.text.toString() != ""){
+             ph = spn.selectedItem.toString()
+             num = lec1.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec1.setError("No esta en el rango del 4 al 9")
+                     sw = false
                  }
-                 if (dif2 >= 0.03 || dif2 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Trazable2.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Trazable2.setError("valor invalido entre 1 y 3")
-                 }
-                 if (dif3 >= 0.03 || dif3 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Trazable1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Trazable1.setError("valor invalido entre 1 y 2")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(prom).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioPhT2.setText(promedio.toString())
-                 bin.PromedioPhT2!!.setEnabled(false)
-             } else {
-                 bin.PromedioPhT2.setError("El valor fuera de rango")
              }
+             num = lec2.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec2.setError("No esta en el rango del 4 al 9")
+                     sw = false
+                 }
+             }
+             num = lec3.text.toString()
+             when(num.toFloat()){
+                 in 4.0 .. 9.0 -> sw = true
+                 else -> {
+                     lec3.setError("No esta en el rango del 4 al 9")
+                     sw = false
+                 }
+             }
+             l1 = lec1.text.toString()
+             l2 = lec2.text.toString()
+             l3 = lec3.text.toString()
+
+
+             if ((ph.toFloat() - l1.toFloat()) >= 0.5 || (ph.toFloat() - l1.toFloat()) <= 0.5 && (ph.toFloat() - l2.toFloat()) >= 0.5 || (ph.toFloat() - l2.toFloat()) <= 0.5 && (ph.toFloat() - l3.toFloat()) >= 0.5 || (ph.toFloat() - l3.toFloat()) <= 0.5){
+                 //Lectura 1
+                 if ((l1.toFloat() - l2.toFloat()) >= 0.03 || (l1.toFloat() - l2.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec2.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l1.toFloat() - l3.toFloat()) >= 0.03 || (l1.toFloat() - l3.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+
+                 //Lectura2
+                 if ((l2.toFloat() - l1.toFloat()) >= 0.03 || (l2.toFloat() - l1.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l2.toFloat() - l3.toFloat()) >= 0.03 || (l2.toFloat() - l3.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+
+                 //Lectura3
+                 if ((l3.toFloat() - l1.toFloat()) >= 0.03 || (l3.toFloat() - l1.toFloat()) <= -0.03){
+                     sw = false
+                     lec1.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+                 if ((l3.toFloat() - l2.toFloat()) >= 0.03 || (l3.toFloat() - l2.toFloat()) <= -0.03){
+                     sw = false
+                     lec2.setError("Verifica los datos")
+                     lec3.setError("Verifica los datos")
+                 }else{
+                     sw = true
+                 }
+             }else{
+                 sw = false
+                 Log.d("Val ph","El valor es mayor a 0.5")
+             }
+
+         }else{
+             Promedio.setError("Los campos están vacios") //error de campos vacios
          }
+
+         if(sw == true){
+             val prom: Float
+             prom = (l1.toFloat() + l2.toFloat() + l3.toFloat()) / 3
+             Promedio.setText(prom.toString())
+         }else{
+             Promedio.setText("RECHAZADO")
+         }
+
+         return sw
      }
 
-     // bloque 2 Calidad
-     fun ValPhCalidad1() {
-         //validacion campos vacios
-         if (bin.phCalidad1.text.toString() == "" || bin.phCalidad2.text.toString() == "" || bin.phCalidad3.text.toString() == "") {
-             bin.PromedioCalidad.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioCalidad.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.phCalidad1.text.toString().toDouble()
-             var dos = bin.phCalidad2.text.toString().toDouble()
-             var tres = bin.phCalidad3.text.toString().toDouble()
-
-             var dif1: Double = dos - uno
-             var dif2: Double = dos - tres
-             var dif3: Double = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnPhTrazableCalidad.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(
-                     PhTrazableSpn
-                 )
-             ) {
-                 Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
-                 if (dif1 <= 0.03 || dif1 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.phCalidad1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.phCalidad2.setError("valor invalido entre 1 y 2")
-                 }
-                 if (dif2 >= 0.03 || dif2 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.phCalidad2.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.phCalidad2.setError("valor invalido entre 1 y 3")
-                 }
-                 if (dif3 >= 0.03 || dif3 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.phCalidad1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.phCalidad1.setError("valor invalido entre 1 y 2")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioCalidad.setText(promedio.toString())
-                 bin.PromedioCalidad!!.setEnabled(false)
-             } else {
-                 bin.PromedioCalidad.setError("El valor fuera de rango")
-             }
-         }
-     }
-
-     fun ValPhCalidad2() {
-         //validacion campos vacios
-         if (bin.ph2Calidad1.text.toString() == "" || bin.ph2Calidad2.text.toString() == "" || bin.ph2Calidad3.text.toString() == "") {
-             bin.PromedioCalidad2.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioCalidad2.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.ph2Calidad1.text.toString().toDouble()
-             var dos = bin.ph2Calidad2.text.toString().toDouble()
-             var tres = bin.ph2Calidad3.text.toString().toDouble()
-
-             var dif1: Double = dos - uno
-             var dif2: Double = dos - tres
-             var dif3: Double = uno - dos
-             var global1 = uno.toInt()
-             var global2 = dos.toInt()
-             var global3 = tres.toInt()
-             var PhTrazableSpn = bin.spnPhTrazableCalidad2.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (global1.equals(PhTrazableSpn) || global2.equals(PhTrazableSpn) || global3.equals(
-                     PhTrazableSpn
-                 )
-             ) {
-                 Toast.makeText(applicationContext, "pH coincide", Toast.LENGTH_SHORT).show()
-                 if (dif1 <= 0.03 || dif1 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Calidad1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Calidad2.setError("valor invalido entre 1 y 2")
-                 }
-                 if (dif2 >= 0.03 || dif2 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Calidad2.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Calidad2.setError("valor invalido entre 1 y 3")
-                 }
-                 if (dif3 >= 0.03 || dif3 >= -0.03) {
-                     Toast.makeText(applicationContext, "Valor aceptado", Toast.LENGTH_SHORT).show()
-                     bin.ph2Calidad1.setError(null)
-                 } else {
-                     Toast.makeText(
-                         applicationContext,
-                         "Error: Verifica los datos",
-                         Toast.LENGTH_LONG
-                     )
-                         .show()
-                     bin.ph2Calidad1.setError("valor invalido entre 1 y 2")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioCalidad2.setText(promedio.toString())
-                 bin.PromedioCalidad2!!.setEnabled(false)
-             } else {
-                 bin.PromedioCalidad2.setError("El valor fuera de rango")
-             }
-         }
-     }     //bloque 3 conductividad
-
-     fun ValConductividad() {
-         //validacion campos vacios
-         if (bin.conductividad1.text.toString() == "" || bin.conductividad2.text.toString() == "" || bin.conductividad3.text.toString() == "") {
-             bin.PromedioPhT1.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioPhT1.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.conductividad1.text.toString().toInt()
-             var dos = bin.conductividad2.text.toString().toInt()
-             var tres = bin.conductividad3.text.toString().toInt()
-
-             var dif1 = dos - uno
-             var dif2 = dos - tres
-             var dif3 = uno - tres
-
-             Log.d("dif1", dif1.toString())
-             Log.d("dif2", dif2.toString())
-             Log.d("dif3", dif3.toString())
-
-
-             var PhTrazableSpn = bin.spnConductividad.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-
-             if (dif1 == 0 && dif2 == 0 && dif3 == 0) {
-                 bin.PromedioConductividad.setText("ACEPTADO")
-             } else {
-                 if (dif1 >= 5 || dif1 >= -5) {
-                     if (dif2 >= 5 || dif2 >= -5) {
-                         if (dif3 >= 5 || dif3 >= -5) {
-                             bin.PromedioConductividad.setText("ACEPTADO")
-                         }
-                     }
-                 } else {
-                     bin.PromedioConductividad.setText("RECHAZADO")
-                 }
-                 //Promedio
-
-//                 val result = uno + dos + tres
-//                 val prom = result / 3
-//                 val promedio = BigDecimal(prom).setScale(2, RoundingMode.HALF_EVEN)
-//                 //bin.PromedioConductividad.setText(promedio.toString())
-//                 bin.PromedioConductividad!!.setEnabled(false)
-             }
-         }
-     }
-
-     fun ValConductiCalidad() {
-         //validacion campos vacios
-         if (bin.conducti1.text.toString() == "" || bin.conducti2.text.toString() == "" || bin.conducti3.text.toString() == "") {
-             bin.PromedioConductividadCalidad.setError("Los campos están vacios") //error de campos vacios
-         } else {
-             bin.PromedioConductividadCalidad.setError(null)
-             // Declaración d evariables para las comprobaciones y operaciones
-             var uno = bin.conducti1.text.toString().toInt()
-             var dos = bin.conducti2.text.toString().toInt()
-             var tres = bin.conducti3.text.toString().toInt()
-
-             var dif1 = dos - uno
-             var dif2 = dos - tres
-             var dif3 = uno - tres
-             var PhTrazableSpn = bin.spnConductividadCalidad.selectedItem.toString().toInt()
-
-             //Validacion de tolerancia entre datos
-             if (dif1 == 0 && dif2 == 0 && dif3 == 0) {
-                 bin.PromedioConductividad.setText("ACEPTADO")
-             } else {
-                 if (dif1 >= 5 || dif1 >= -5) {
-                     if (dif2 >= 5 || dif2 >= -5) {
-                         if (dif3 >= 5 || dif3 >= -5) {
-                             bin.PromedioConductividad.setText("ACEPTADO")
-                         }
-                     }
-                 } else {
-                     bin.PromedioConductividad.setText("RECHAZADO")
-                 }
-                 //Promedio
-                 val result = uno + dos + tres
-                 val prom = result / 3
-                 val promedio = BigDecimal(result).setScale(2, RoundingMode.HALF_EVEN)
-                 bin.PromedioConductividad.setText(promedio.toString())
-                 bin.PromedioConductividad!!.setEnabled(false)
-             }
-         }
-     }
 
      //Funcion para salir de la activity
      fun DialogVolver() {
@@ -661,4 +590,5 @@ import java.math.RoundingMode
          }
          builder.show()
      }
+
  }

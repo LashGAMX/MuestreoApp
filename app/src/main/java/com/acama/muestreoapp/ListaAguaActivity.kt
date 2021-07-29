@@ -401,17 +401,6 @@ class ListaAguaActivity : AppCompatActivity() {
                     )
                     var db = DataBaseHandler(this)
                     db.insertGeneral(generalModel)
-                    // Crear Ph Trazable muestra
-                    var phTraModel = PhTrazable(
-                        idSolGen,
-                        0,
-                        "",
-                        "",
-                        "",
-                        ""
-                    )
-                    db.insertPhTrazable(phTraModel)
-                    db.insertPhTrazable(phTraModel)
                     // Creat PhCalidad Muestra
                     var phCalModel = PhCalidad(
                         idSolGen,
@@ -424,6 +413,38 @@ class ListaAguaActivity : AppCompatActivity() {
                     )
                     db.insertPhCalidad(phCalModel)
                     db.insertPhCalidad(phCalModel)
+                    // Crear Ph Trazable muestra
+                    var phTraModel = PhTrazable(
+                        idSolGen,
+                        0,
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    db.insertPhTrazable(phTraModel)
+                    db.insertPhTrazable(phTraModel)
+
+                    var conTraModel = ConTrazable(
+                        idSolGen,
+                        0,
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    db.insertConTrazable(conTraModel)
+                    var conCalModel = ConCalidad(
+                        idSolGen,
+                        0,
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    )
+                    db.insertConTrazable(conTraModel)
+
 
                 } while (solGenModel2.moveToNext())
             }
