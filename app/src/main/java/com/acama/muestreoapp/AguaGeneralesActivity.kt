@@ -174,6 +174,13 @@ import java.math.RoundingMode
              }
          }
          bin.btnProbarConductividad.setOnClickListener {
+             if (valPhCalidad(bin.spnConductividad,bin.conducti1,bin.conducti2,bin.conducti3,bin.PromedioConductividad)){
+                 Log.d("Val","Fue aceptado")
+                 sw4 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw4 = false
+             }
 
          }
          bin.btnProbarConductividadCalidad.setOnClickListener {

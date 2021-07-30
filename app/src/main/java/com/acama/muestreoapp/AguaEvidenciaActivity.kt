@@ -25,6 +25,9 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin = ActivityAguaEvidenciaBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        var imagen1 = bin.img1
+        var imagen2 = bin.img2
+
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
@@ -34,7 +37,6 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin.img2.setOnClickListener{
             ImageController.selectPhotoFromGallery(this, SELECT_ACTIVITY)
         }
-
     }
     fun DialogVolver(){
         val builder = AlertDialog.Builder(this)
@@ -62,7 +64,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
             requestCode == SELECT_ACTIVITY && resultCode  == Activity.RESULT_OK -> {
                 imageUri = data!!.data
 
-                bin.img1.setImageURI(imageUri)
+               bin.img1.setImageURI(imageUri)
 
             }
         }
