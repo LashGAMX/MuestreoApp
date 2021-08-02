@@ -34,6 +34,8 @@ import java.math.RoundingMode
      private var sw2 = false
      private var sw3 = false
      private var sw4 = false
+     private var sw5 = false
+     private var sw6 = false
 
 
      private var datosMuestreo: MutableList<String> = mutableListOf()
@@ -137,6 +139,8 @@ import java.math.RoundingMode
              DialogVolver()
          })
 
+
+
          bin.btnPromPhT1.setOnClickListener {
              if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
                  Log.d("Val","Fue aceptado")
@@ -174,22 +178,28 @@ import java.math.RoundingMode
              }
          }
          bin.btnProbarConductividad.setOnClickListener {
-             if (valPhCalidad(bin.spnConductividad,bin.conducti1,bin.conducti2,bin.conducti3,bin.PromedioConductividad)){
+             if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
                  Log.d("Val","Fue aceptado")
-                 sw4 = true
+                 sw5 = true
              }else{
                  Log.d("Val","No Fue aceptado")
-                 sw4 = false
+                 sw5 = false
              }
 
          }
          bin.btnProbarConductividadCalidad.setOnClickListener {
-
+             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.edtEstadoConTra)){
+                 Log.d("Val","Fue aceptado")
+                 sw6 = true
+             }else{
+                 Log.d("Val","No Fue aceptado")
+                 sw6 = false
+             }
          }
 
 
          bin.btnGuardar.setOnClickListener {
-            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true){
+            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true && sw5 == true && sw6 == true){
                 var idPhTrazable : MutableList<String> = ArrayList()
                 var idPhCalidad : MutableList<String> = ArrayList()
                 var idConTrazable : MutableList<String> = ArrayList()
@@ -270,15 +280,24 @@ import java.math.RoundingMode
                 cv5.put("Lectura2",bin.ph2Trazable2.text.toString())
                 cv5.put("Lectura3",bin.ph2Trazable3.text.toString())
                 cv5.put("Estado","ACEPTADO")
-                cv4.put("Promedio",bin.promedioCalidad2.text.toString())
+                cv5.put("Promedio",bin.promedioCalidad2.text.toString())
                 dbw.update("ph_calidad",cv5,"Id_ph ="+idPhCalidad[1].toString(),null)
+
+                //Updata Conductividad Trazable
                 val cv6 = ContentValues()
                 cv6.put("Id_conTrazable",bin.spnConductividad.selectedItem.toString())
-                cv6.put("Lectura1",bin.ph2Trazable1.text.toString())
-                cv6.put("Lectura2",bin.ph2Trazable2.text.toString())
-                cv6.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv6.put("Lectura1",bin.edtCon1Tra.text.toString())
+                cv6.put("Lectura2",bin.edtCon2Tra.text.toString())
+                cv6.put("Lectura3",bin.edtCon3Tra.text.toString())
                 cv6.put("Estado","ACEPTADO")
-                dbw.update("cat_conTrazable",cv5,"Id_conductividad ="+idPhCalidad[1].toString(),null)
+                dbw.update("con_trazable",cv6,"Id_conductividad ="+idConTrazable[0],null)
+                val cv7 = ContentValues()
+                cv7.put("Id_conCalidad",bin.spnConductividadCalidad.selectedItem.toString())
+                cv7.put("Lectura1",bin.edtCon1Cal.text.toString())
+                cv7.put("Lectura2",bin.ph2Trazable2.text.toString())
+                cv7.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv7.put("Promedio",bin.PromedioConductividadCalidad.toString())
+                dbw.update("con_calidad",cv7,"Id_conductividad ="+idConCalidad[0],null)
 
 
                 //Toast.makeText(this,"Datos guardados",Toast.LENGTH_SHORT).show()
@@ -397,7 +416,7 @@ import java.math.RoundingMode
              ph = spn.selectedItem.toString()
              num = lec1.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec1.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -405,7 +424,7 @@ import java.math.RoundingMode
              }
              num = lec2.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec2.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -413,7 +432,7 @@ import java.math.RoundingMode
              }
              num = lec3.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec3.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -501,7 +520,7 @@ import java.math.RoundingMode
              ph = spn.selectedItem.toString()
              num = lec1.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec1.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -509,7 +528,7 @@ import java.math.RoundingMode
              }
              num = lec2.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec2.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -517,7 +536,7 @@ import java.math.RoundingMode
              }
              num = lec3.text.toString()
              when(num.toFloat()){
-                 in 4.0 .. 9.0 -> sw = true
+                 in 0.0 .. 14.0 -> sw = true
                  else -> {
                      lec3.setError("No esta en el rango del 4 al 9")
                      sw = false
@@ -527,8 +546,9 @@ import java.math.RoundingMode
              l2 = lec2.text.toString()
              l3 = lec3.text.toString()
 
+             var porPh = (ph.toFloat() * 2)/100
 
-             if ((ph.toFloat() - l1.toFloat()) >= 0.5 || (ph.toFloat() - l1.toFloat()) <= 0.5 && (ph.toFloat() - l2.toFloat()) >= 0.5 || (ph.toFloat() - l2.toFloat()) <= 0.5 && (ph.toFloat() - l3.toFloat()) >= 0.5 || (ph.toFloat() - l3.toFloat()) <= 0.5){
+             if ((ph.toFloat() - l1.toFloat()) >= porPh || (ph.toFloat() - l1.toFloat()) <= porPh && (ph.toFloat() - l2.toFloat()) >= porPh || (ph.toFloat() - l2.toFloat()) <= porPh && (ph.toFloat() - l3.toFloat()) >= porPh || (ph.toFloat() - l3.toFloat()) <= porPh){
                  //Lectura 1
                  if ((l1.toFloat() - l2.toFloat()) >= 0.03 || (l1.toFloat() - l2.toFloat()) <= -0.03){
                      sw = false
@@ -595,6 +615,93 @@ import java.math.RoundingMode
 
          return sw
      }
+
+
+     fun valConTrazable(spn: Spinner,lec1:EditText,lec2:EditText,lec3:EditText,Estado:EditText): Boolean {
+         var sw:Boolean = false
+         var num:String = ""
+         var l1 :String = ""
+         var l2 :String = ""
+         var l3 :String = ""
+         var con :String = ""
+         if (lec1.text.toString() != "" || lec2.text.toString() != ""|| lec3.text.toString() != ""){
+             con = spn.selectedItem.toString()
+             num = lec1.text.toString()
+
+             l1 = lec1.text.toString()
+             l2 = lec2.text.toString()
+             l3 = lec3.text.toString()
+
+             var porCon = ((con.toFloat() * 5) /100 )
+             Log.d("Porcen ConTra",porCon.toString())
+
+
+
+             if ((con.toFloat() - l1.toFloat()) >= porCon || (con.toFloat() - l1.toFloat()) <= porCon && (con.toFloat() - l2.toFloat()) >= porCon || (con.toFloat() - l2.toFloat()) <= porCon && (con.toFloat() - l3.toFloat()) >= porCon || (con.toFloat() - l3.toFloat()) <= porCon){
+                 //Lectura 1
+                sw = true
+             }else{
+                 sw = false
+                 //Log.d("Val ph","El valor es mayor a 0.5")
+                 Estado.setError("Por favor revisa tus lecturas") //error de campos vacios
+             }
+
+         }else{
+             sw = false
+             Estado.setError("Los campos están vacios") //error de campos vacios
+         }
+
+         if(sw == true){
+             Estado.setText("ACEPTADO")
+             Estado.clearFocus()
+         }else{
+             Estado.setText("RECHAZADO")
+         }
+
+         return sw
+     }
+
+     fun valConCalidad(spn: Spinner,lec1:EditText,lec2:EditText,lec3:EditText,Estado:EditText): Boolean {
+         var sw:Boolean = false
+         var num:String = ""
+         var l1 :String = ""
+         var l2 :String = ""
+         var l3 :String = ""
+         var con :String = ""
+         if (lec1.text.toString() != "" || lec2.text.toString() != ""|| lec3.text.toString() != ""){
+             con = spn.selectedItem.toString()
+             num = lec1.text.toString()
+
+             l1 = lec1.text.toString()
+             l2 = lec2.text.toString()
+             l3 = lec3.text.toString()
+
+             var porCon = ((con.toFloat() * 5) /100 )
+
+
+             if ((con.toFloat() - l1.toFloat()) >= porCon || (con.toFloat() - l1.toFloat()) <= porCon && (con.toFloat() - l2.toFloat()) >= porCon || (con.toFloat() - l2.toFloat()) <= porCon && (con.toFloat() - l3.toFloat()) >= porCon || (con.toFloat() - l3.toFloat()) <= porCon){
+                 //Lectura 1
+                 sw= true
+             }else{
+                 sw = false
+                 //Log.d("Val ph","El valor es mayor a 0.5")
+                 Estado.setError("Por favor revisa tus lecturas") //error de campos vacios
+             }
+
+         }else{
+             Estado.setError("Los campos están vacios") //error de campos vacios
+         }
+
+         if(sw == true){
+             val prom = (l1.toFloat() + l2.toFloat()+ l3.toFloat()) / 3
+             Estado.setText(prom.toString())
+         }else{
+             Estado.setText("RECHAZADO")
+         }
+
+         return sw
+     }
+
 
 
      //Funcion para salir de la activity

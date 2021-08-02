@@ -40,6 +40,10 @@ val CATPHTRAZABLE = "cat_phTrazable"
 val CATPHCALIDAD = "cat_phCalidad"
 val CATCONTRAZABLE = "cat_conTrazable"
 val CATCONCALIDAD = "cat_conCalidad"
+val PHMUESTRA = "ph_muestra"
+val TEMPMUESTRA = "temperatura_muestra"
+val CONMUESTRA = "conductividad_muestra"
+val GASTOMUESTRA = "gasto_muestra"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -435,7 +439,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val conductividad = "CREATE TABLE " + CONCALIDAD + " (" +
                 "Id_conductividad INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
-                "Id_conTrazable INTEGER," +
+                "Id_conCalidad INTEGER," +
                 "Lectura1 VARCHAR(100)," +
                 "Lectura2 VARCHAR(100)," +
                 "Lectura3 VARCHAR(100)," +
@@ -451,7 +455,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud", conductividad.Id_solicitud)
-        cv.put("Id_conTrazable", conductividad.Id_conTrazable)
+        cv.put("Id_conCalidad", conductividad.Id_conCalidad)
         cv.put("Lectura1", conductividad.Lectura1)
         cv.put("Lectura2", conductividad.Lectura2)
         cv.put("Lectura3", conductividad.Lectura3)
@@ -467,5 +471,21 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
+    }
+    fun createPhMuestra(db: SQLiteDatabase?){
+        val ph = "CREATE TABLE " + PHMUESTRA + " (" +
+                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Materia VARCHAR(100)," +
+                "Olor VARCHAR(100)," +
+                "Color VARCHAR(100)," +
+                "Ph1 FLOAT," +
+                "Ph2 FLOAT," +
+                "Ph3 FLOAT," +
+                "Promedio FLOAT," +
+                "Fecha VARCHAR(100)" +
+                ")"
+
+        db?.execSQL(ph)
     }
 }

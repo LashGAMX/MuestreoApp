@@ -446,7 +446,7 @@ class ListaAguaActivity : AppCompatActivity() {
                         "",
                         ""
                     )
-                    db.insertConTrazable(conTraModel)
+                    db.insertConCalidad(conCalModel)
 
 
                 } while (solGenModel2.moveToNext())

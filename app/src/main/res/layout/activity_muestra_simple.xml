@@ -7,8 +7,6 @@
     tools:context=".MuestraSimpleActivity"
     android:layout_margin="10dp">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +28,7 @@
                 android:text="Toma simple" />
 
             <TextView
-                android:id="@+id/NumMuestreo"
+                android:id="@+id/txtNumMuestra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -58,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PH"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <View
@@ -142,21 +141,21 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/ph1"
+                android:id="@+id/edtPh1"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/ph2"
+                android:id="@+id/edtPh2"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/ph3"
+                android:id="@+id/edtPh3"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
@@ -211,21 +210,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/temp1"
+            android:id="@+id/edtTemp1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/temp2"
+            android:id="@+id/edtTemp2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/temp3"
+            android:id="@+id/edtTemp3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -274,21 +273,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/cond1"
+            android:id="@+id/edtCon1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/cond2"
+            android:id="@+id/edtCon2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/cond3"
+            android:id="@+id/edtCon3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -337,21 +336,21 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/gasto1"
+            android:id="@+id/edtGasto1"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/gasto2"
+            android:id="@+id/edtGasto2"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/gasto3"
+            android:id="@+id/edtGasto3"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
@@ -375,7 +374,6 @@
                 android:layout_marginTop="500dp"
                 />
         </LinearLayout>
-
 
 
 </FrameLayout>

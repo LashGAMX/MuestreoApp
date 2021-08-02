@@ -1,5 +1,6 @@
 package com.acama.muestreoapp
 
+import android.R
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,15 +11,16 @@ import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 class MuestraSimpleActivity : AppCompatActivity() {
 
     private  lateinit var bin: ActivityMuestraSimpleBinding
-
-    var materiaFlotante = bin.spnMateriaFlotante
-    var olor = bin.spnOlor
-    var color = bin.spnColor
+    private lateinit var folio:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         bin = ActivityMuestraSimpleBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(bin.root)
+
+        folio = intent.getStringExtra("folio").toString()
+
+        //Toast.makeText(this,"Folio"+folio,Toast.LENGTH_SHORT).show()
 
         bin.btnRegresar.setOnClickListener{
             DialogVolver()
@@ -33,30 +35,18 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     }
     fun LlenarSpinners(){
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.materia_flotante,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            materiaFlotante.adapter = adapter
-        }
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.olor,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            olor.adapter = adapter
-        }
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.color,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            color.adapter = adapter
-        }
+
+        val arrMateriaFloante = listOf<String>("Ausente","Presente")
+        val arrColor = listOf<String>("Rojo","Verde","Amarrillo","Negro","Cafe")
+        val arrOlor = listOf<String>("Si","No")
+
+        val adaptador1 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrMateriaFloante)
+        val adaptador2 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrColor)
+        val adaptador3 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrOlor)
+
+        bin.spnMateriaFlotante.adapter = adaptador1
+        bin.spnColor.adapter = adaptador2
+        bin.spnOlor.adapter = adaptador3
     }
     fun DialogVolver() {
         val builder = AlertDialog.Builder(this)

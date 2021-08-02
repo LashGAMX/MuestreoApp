@@ -54,7 +54,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
 
         bin.rvMuestraSimple.layoutManager = LinearLayoutManager(this)
-        val adapter = MuestraSimpleAdapter(listaTomas)
+        val adapter = MuestraSimpleAdapter(listaTomas,folio.toString())
         bin.rvMuestraSimple.adapter = adapter
     }
 
