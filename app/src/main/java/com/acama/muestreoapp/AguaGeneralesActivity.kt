@@ -224,6 +224,21 @@ import java.math.RoundingMode
                     } while (phCalModel.moveToNext())
                 }
 
+                val qrConTra = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
+                val conTraModel = dbr.rawQuery(qrConTra, null)
+                if (conTraModel.moveToFirst()) {
+                    do {
+                        idConTrazable.add(conTraModel.getString(0))
+                    } while (conTraModel.moveToNext())
+                }
+                val qrConCal = "SELECT * FROM con_calidad WHERE Id_solicitud = '$idSol'"
+                val conCalModel = dbr.rawQuery(qrConCal, null)
+                if (conCalModel.moveToFirst()) {
+                    do {
+                        idConCalidad.add(conCalModel.getString(0))
+                    } while (conCalModel.moveToNext())
+                }
+
                 //Updata Ph Trazable
                 val cv2 = ContentValues()
                 cv2.put("Id_phTrazable",bin.spnPhTrazable.selectedItem.toString())
@@ -257,6 +272,13 @@ import java.math.RoundingMode
                 cv5.put("Estado","ACEPTADO")
                 cv4.put("Promedio",bin.promedioCalidad2.text.toString())
                 dbw.update("ph_calidad",cv5,"Id_ph ="+idPhCalidad[1].toString(),null)
+                val cv6 = ContentValues()
+                cv6.put("Id_conTrazable",bin.spnConductividad.selectedItem.toString())
+                cv6.put("Lectura1",bin.ph2Trazable1.text.toString())
+                cv6.put("Lectura2",bin.ph2Trazable2.text.toString())
+                cv6.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv6.put("Estado","ACEPTADO")
+                dbw.update("cat_conTrazable",cv5,"Id_conductividad ="+idPhCalidad[1].toString(),null)
 
 
                 //Toast.makeText(this,"Datos guardados",Toast.LENGTH_SHORT).show()
