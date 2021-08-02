@@ -40,6 +40,7 @@ val CATPHTRAZABLE = "cat_phTrazable"
 val CATPHCALIDAD = "cat_phCalidad"
 val CATCONTRAZABLE = "cat_conTrazable"
 val CATCONCALIDAD = "cat_conCalidad"
+
 val PHMUESTRA = "ph_muestra"
 val TEMPMUESTRA = "temperatura_muestra"
 val CONMUESTRA = "conductividad_muestra"
@@ -485,7 +486,123 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Promedio FLOAT," +
                 "Fecha VARCHAR(100)" +
                 ")"
-
         db?.execSQL(ph)
+    }
+    fun insertPhMuestra(phMuestra: PhMuestra) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", phMuestra.Id_solicitud)
+        cv.put("Materia", phMuestra.Materia)
+        cv.put("Olor", phMuestra.Olor)
+        cv.put("Color", phMuestra.Color)
+        cv.put("Ph1", phMuestra.Ph1)
+        cv.put("Ph2", phMuestra.Ph2)
+        cv.put("Ph3", phMuestra.Ph3)
+        cv.put("Promedio", phMuestra.Promedio)
+        cv.put("Fecha", phMuestra.Fecha)
+
+        var result = db.insert(PHMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createConMuestra(db: SQLiteDatabase?){
+        val conduc = "CREATE TABLE " + CONMUESTRA + " (" +
+                "Id_conductividad INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Conductividad1 FLOAT," +
+                "Conductividad2 FLOAT," +
+                "Conductividad3 FLOAT," +
+                "Promedio FLOAT," +
+                ")"
+        db?.execSQL(conduc)
+    }
+    fun insertConMuestra(conMuestra: ConMuestra) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", conMuestra.Id_solicitud)
+        cv.put("Conductividad1", conMuestra.Con1)
+        cv.put("Conductividad2", conMuestra.Con2)
+        cv.put("Conductividad3", conMuestra.Con3)
+        cv.put("Promedio", conMuestra.Promedio)
+
+        var result = db.insert(CONMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createTempMuestra(db: SQLiteDatabase?){
+        val ph = "CREATE TABLE " + TEMPMUESTRA + " (" +
+                "Id_temperatura INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Temp1 FLOAT," +
+                "Temp2 FLOAT," +
+                "Temp3 FLOAT," +
+                "Promedio FLOAT," +
+                ")"
+        db?.execSQL(ph)
+    }
+    fun insertTempMuestra(tempMuestra: TempMuestra) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", tempMuestra.Id_solicitud)
+        cv.put("Temp1", tempMuestra.Temp1)
+        cv.put("Temp2", tempMuestra.Temp2)
+        cv.put("Temp3", tempMuestra.Temp3)
+        cv.put("Promedio", tempMuestra.Promedio)
+
+        var result = db.insert(TEMPMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createGastoMuestra(db: SQLiteDatabase?){
+        val ph = "CREATE TABLE " + GASTOMUESTRA + " (" +
+                "Id_gasto INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Gasto1 FLOAT," +
+                "Gasto2 FLOAT," +
+                "Gasto3 FLOAT," +
+                "Promedio FLOAT," +
+                ")"
+        db?.execSQL(ph)
+    }
+    fun insertGastoMuestra(gastoMuestra: GastoMuestra) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", gastoMuestra.Id_solicitud)
+        cv.put("Gasto1", gastoMuestra.Gasto1)
+        cv.put("Gasto2", gastoMuestra.Gasto2)
+        cv.put("Gasto3", gastoMuestra.Gasto3)
+        cv.put("Promedio", gastoMuestra.Promedio)
+
+        var result = db.insert(GASTOMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -12,7 +12,7 @@ class PhMuestra {
     var Promedio : String = ""
     var Fecha : String = ""
 
-    constructor(Id_solicitud: Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promerio:String,Fecha:String){
+    constructor(Id_solicitud: Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promedio:String,Fecha:String){
         this.Id_solicitud = Id_solicitud
         this.Materia = Materia
         this.Olor = Olor
