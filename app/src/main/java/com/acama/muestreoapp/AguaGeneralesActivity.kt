@@ -1,16 +1,22 @@
 
  package com.acama.muestreoapp
 
+import android.Manifest
 import android.R
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
 import android.location.Criteria
 import android.location.Location
 import android.location.LocationManager
+import android.media.audiofx.BassBoost
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -18,15 +24,20 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_agua_generales.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 
  class AguaGeneralesActivity : AppCompatActivity() {
      private lateinit var bin: ActivityAguaGeneralesBinding
      private lateinit var con: DataBaseHandler
+     lateinit var mFusedLocationClient: FusedLocationProviderClient
+     val PERMISSION_ID = 42
+
      private  var idSol:Int = 0
      private var folio:String = ""
 
@@ -47,6 +58,7 @@ import java.math.RoundingMode
 
 
 
+     @SuppressLint("MissingPermission")
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
          bin = ActivityAguaGeneralesBinding.inflate(layoutInflater)
@@ -196,7 +208,15 @@ import java.math.RoundingMode
                  sw6 = false
              }
          }
+         bin.ImgCoordenadas.setOnClickListener{
+            if (allPermissionGrantedGPS()){
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+                ubicacionActual()
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+            }
 
+         }
 
          bin.btnGuardar.setOnClickListener {
             if (sw1 == true && sw2 == true && sw3 == true && sw4 == true && sw5 == true && sw6 == true){
@@ -725,6 +745,93 @@ import java.math.RoundingMode
              ).show()
          }
          builder.show()
+     }
+
+     //FUNCNONES DE LOCALIZACIÓN
+     private fun allPermissionGrantedGPS() = Companion.REQUIRED_PERMISSIONS_GPS.all{
+         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+     }
+
+     private fun ubicacionActual(){
+         if (checkPermission()){
+             if (isLocationEnabled()){
+                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                     mFusedLocationClient.lastLocation.addOnCompleteListener(this){ task ->
+                         var location: Location? = task.result
+                         if(location == null){
+                             requestNewLocationData()
+                         } else {
+                             bin.edtLatitud.setText(location.latitude.toString())
+                             bin.edtLongitud.setText(location.longitude.toString())
+
+                         }
+
+                     }
+                 }
+
+             }else{
+                 Toast.makeText(this, "Activa la ubicación", Toast.LENGTH_SHORT).show()
+                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+             }
+         } else {
+             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_ID)
+
+         }
+     }
+
+     private fun requestNewLocationData(){
+         var mLocationRequest = LocationRequest()
+         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+         mLocationRequest.interval = 0
+         mLocationRequest.fastestInterval = 0
+         mLocationRequest.numUpdates = 1
+         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+         if (ActivityCompat.checkSelfPermission(
+                 this,
+                 Manifest.permission.ACCESS_FINE_LOCATION
+             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                 this,
+                 Manifest.permission.ACCESS_COARSE_LOCATION
+             ) != PackageManager.PERMISSION_GRANTED
+         ) {
+             // TODO: Consider calling
+             //    ActivityCompat#requestPermissions
+             // here to request the missing permissions, and then overriding
+             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+             //                                          int[] grantResults)
+             // to handle the case where the user grants the permission. See the documentation
+             // for ActivityCompat#requestPermissions for more details.
+             return
+         }
+         mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper())
+     }
+     private val mLocationCallBack = object : LocationCallback(){
+        override fun onLocationResult(locationResult: LocationResult){
+             var mLastLocation : Location = locationResult.lastLocation
+             bin.edtLatitud.setText(mLastLocation.latitude.toString())
+             bin.edtLongitud.setText(mLastLocation.longitude.toString())
+
+         }
+     }
+     private fun isLocationEnabled(): Boolean {
+         var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+             LocationManager.NETWORK_PROVIDER
+         )
+     }
+
+
+     private fun checkPermission(): Boolean {
+         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+         ){
+             return true
+         }
+         return false
+     }
+
+     companion object{
+         private val REQUIRED_PERMISSIONS_GPS = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
      }
 
  }
