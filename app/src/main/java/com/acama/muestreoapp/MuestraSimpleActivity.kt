@@ -9,12 +9,16 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
+import com.acama.muestreoapp.models.ConMuestra
+import com.acama.muestreoapp.models.GastoMuestra
+import com.acama.muestreoapp.models.PhMuestra
+import com.acama.muestreoapp.models.TempMuestra
 
 class MuestraSimpleActivity : AppCompatActivity() {
 
     private  lateinit var bin: ActivityMuestraSimpleBinding
     private lateinit var folio:String
-    private lateinit var idSol:Int
+    private var idSol:Int = 0
     private lateinit var con: DataBaseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
-
+            guardarDatos()
         }
 
        LlenarSpinners()
@@ -48,23 +52,45 @@ class MuestraSimpleActivity : AppCompatActivity() {
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
 
-        //Guardar Ph
-        val cv = ContentValues()
-        cv.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
-        cv.put("Olor",bin.spnOlor.selectedItem.toString())
-        cv.put("Color",bin.spnColor.selectedItem.toString())
-        cv.put("Ph1",bin.edtPh1.text.toString())
-        cv.put("Ph2",bin.edtPh1.text.toString())
-        cv.put("Ph3",bin.edtPh1.text.toString())
-        cv.put("Promedio",bin..text.toString())
-        cv.put("Fecha",bin.edtPh1.text.toString())
-        dbw.update("ph_muestra",cv,"Id_solicitud = "+idSol,null)
-        //Guarda Temp
-        val cv2 = ContentValues()
-        cv.put("Ph1",bin.edtPh1.text.toString())
-        cv.put("Ph2",bin.edtPh1.text.toString())
-        cv.put("Ph3",bin.edtPh1.text.toString())
-        dbw.update("temperatura_muestra",cv,"Id_solicitud = "+idSol,null)
+        var cvModel = PhMuestra(
+            idSol,
+            bin.spnMateriaFlotante.selectedItem.toString(),
+            bin.spnOlor.selectedItem.toString(),
+            bin.spnColor.selectedItem.toString(),
+            bin.edtPh1.text.toString(),
+            bin.edtPh2.text.toString(),
+            bin.edtPh3.text.toString(),
+            "",
+            ""
+        )
+        con.insertPhMuestra(cvModel)
+    // Guardar TempMuestra
+        val cv2Model = TempMuestra(
+            idSol,
+            bin.edtTemp1.text.toString(),
+            bin.edtTemp2.text.toString(),
+            bin.edtTemp3.text.toString(),
+            "",
+        )
+        con.insertTempMuestra(cv2Model)
+        //Guardar Conductividad
+        val cv3Model = ConMuestra(
+            idSol,
+            bin.edtCon1.text.toString(),
+            bin.edtCon2.text.toString(),
+            bin.edtCon3.text.toString(),
+            "",
+        )
+        con.insertConMuestra(cv3Model)
+        //Guardar Gasto
+        val cv4Model = GastoMuestra(
+            idSol,
+            bin.edtCon1.text.toString(),
+            bin.edtCon2.text.toString(),
+            bin.edtCon3.text.toString(),
+            "",
+        )
+        con.insertGastoMuestra(cv4Model)
     }
     fun LlenarSpinners(){
 

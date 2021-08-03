@@ -46,6 +46,8 @@ val TEMPMUESTRA = "temperatura_muestra"
 val CONMUESTRA = "conductividad_muestra"
 val GASTOMUESTRA = "gasto_muestra"
 
+val CAMPOCOMPUESTO = "campo_compuesto"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
@@ -55,9 +57,16 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createTablePhCalidad(db)
         createCatPhTrazable(db)
         createCatPhCalidad(db)
+        createCatConTrazable(db)
+        createCatConCalidad(db)
         createTermometro(db)
         createConTrazable(db)
         createConCalidad(db)
+        createPhMuestra(db)
+        createGastoMuestra(db)
+        createConMuestra(db)
+        createTempMuestra(db)
+        createCampoCompuesto(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
@@ -519,7 +528,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Conductividad1 FLOAT," +
                 "Conductividad2 FLOAT," +
                 "Conductividad3 FLOAT," +
-                "Promedio FLOAT," +
+                "Promedio FLOAT" +
                 ")"
         db?.execSQL(conduc)
     }
@@ -550,7 +559,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Temp1 FLOAT," +
                 "Temp2 FLOAT," +
                 "Temp3 FLOAT," +
-                "Promedio FLOAT," +
+                "Promedio FLOAT" +
                 ")"
         db?.execSQL(ph)
     }
@@ -581,7 +590,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Gasto1 FLOAT," +
                 "Gasto2 FLOAT," +
                 "Gasto3 FLOAT," +
-                "Promedio FLOAT," +
+                "Promedio FLOAT" +
                 ")"
         db?.execSQL(ph)
     }
@@ -596,6 +605,46 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Promedio", gastoMuestra.Promedio)
 
         var result = db.insert(GASTOMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun createCampoCompuesto(db: SQLiteDatabase?){
+        val ph = "CREATE TABLE " + CAMPOCOMPUESTO + " (" +
+                "Id_campo INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Metodo_aforo TEXT," +
+                "Con_tratamiento TEXT," +
+                "Tipo_tratamiento TEXT," +
+                "Proce_muestreo TEXT," +
+                "Observaciones TEXT," +
+                "Obser_solicitud TEXT," +
+                "Ph_muestraComp TEXT," +
+                "Volumen_calculado TEXT" +
+                ")"
+        db?.execSQL(ph)
+    }
+    fun insertCampoCompuesto(campoMuestra: CampoCompuesto) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", campoMuestra.Id_solicitud)
+        cv.put("Metodo_aforo", campoMuestra.Aforo)
+        cv.put("Con_tratamiento", campoMuestra.ConTratamiento)
+        cv.put("Tipo_tratamiento", campoMuestra.TipoTratamiento)
+        cv.put("Proce_muestreo", campoMuestra.ProcMuestreo)
+        cv.put("Observaciones", campoMuestra.Observaciones)
+        cv.put("Obser_solicitud", campoMuestra.ObserSolicitud)
+        cv.put("Ph_muestraComp", campoMuestra.PhMuestraCom)
+        cv.put("Volumen_calculado", campoMuestra.VolCalculado)
+
+
+        var result = db.insert(CAMPOCOMPUESTO, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()

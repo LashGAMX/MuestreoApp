@@ -347,6 +347,9 @@ class ListaAguaActivity : AppCompatActivity() {
         var listaPhTrazable = JSONArray(data.getString("phTrazable"))
         var listaPhCalidad = JSONArray(data.getString("phCalidad"))
         var listaTermometro = JSONArray(data.getString("termometro"))
+        var listaConTrazable = JSONArray(data.getString("conTrazable"))
+        var listaConCalidad = JSONArray(data.getString("conCalidad"))
+
         val db: SQLiteDatabase = con.readableDatabase
 
 
@@ -527,6 +530,57 @@ class ListaAguaActivity : AppCompatActivity() {
                 )
                 var db = DataBaseHandler(this)
                 db.insertCatPhCalidad(phModelCal)
+            }
+        }
+
+        //Sincronizar con Trazable
+        for (i in 0 until listaConTrazable.length()) {
+            val conTrazable = listaConTrazable.getJSONObject(i)
+            val cond = conTrazable.getString("Conductividad").toString()
+            val queryConTra =
+                "SELECT * FROM cat_conTrazable WHERE Conductividad = '$cond'"
+            val conTraCamp = db.rawQuery(queryConTra, null)
+            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+            var cont: Int = 0
+            if (conTraCamp.moveToFirst()) {
+                do {
+
+                } while (conTraCamp.moveToNext())
+            } else {
+                var conTraModel = CatConTrazable(
+                    conTrazable.getString("Conductividad"),
+                    conTrazable.getString("Marca"),
+                    conTrazable.getString("Lote"),
+                    conTrazable.getString("Inicio_caducidad"),
+                    conTrazable.getString("Fin_caducidad")
+                )
+                var db = DataBaseHandler(this)
+                db.insertCaTConTrazable(conTraModel)
+            }
+        }
+        //Sincronizar con Calidad
+        for (i in 0 until listaConCalidad.length()) {
+            val conCalidad = listaConCalidad.getJSONObject(i)
+            val condC = conCalidad.getString("Conductividad").toString()
+            val queryConTra =
+                "SELECT * FROM cat_conTrazable WHERE Conductividad = '$condC'"
+            val conTraCamp = db.rawQuery(queryConTra, null)
+            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
+            var cont: Int = 0
+            if (conTraCamp.moveToFirst()) {
+                do {
+
+                } while (conTraCamp.moveToNext())
+            } else {
+                var conCalModel = CatConCalidad(
+                    conCalidad.getString("Conductividad"),
+                    conCalidad.getString("Marca"),
+                    conCalidad.getString("Lote"),
+                    conCalidad.getString("Inicio_caducidad"),
+                    conCalidad.getString("Fin_caducidad")
+                )
+                var db = DataBaseHandler(this)
+                db.insertCaTConCalidad(conCalModel)
             }
         }
 

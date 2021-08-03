@@ -4,23 +4,39 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.acama.muestreoapp.databinding.ActivityAguaCompuestosBinding
-
+import com.acama.muestreoapp.models.CampoCompuesto
 
 
 class AguaCompuestosActivity : AppCompatActivity() {
     private lateinit var bin: ActivityAguaCompuestosBinding
+    private lateinit var con: DataBaseHandler
+    private lateinit var folio:String
+    private var idSol:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaCompuestosBinding.inflate(layoutInflater)
         setContentView(bin.root)
+        con = DataBaseHandler(this)
+        val db: SQLiteDatabase = con.readableDatabase
+        getExtras()
+        val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+        val solGenModel = db.rawQuery(qrSolGenModel, null)
+        if (solGenModel.moveToFirst()) {
+            do {
+                idSol = solGenModel.getInt(0)
+            } while (solGenModel.moveToNext())
+        }
+
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
@@ -30,8 +46,28 @@ class AguaCompuestosActivity : AppCompatActivity() {
         llenarSpinner()
     }
     fun guardarDatos() {
-        val intent = Intent(this,AguaCapturaActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this,AguaCapturaActivity::class.java)
+//        startActivity(intent)
+
+        var cv = CampoCompuesto(
+            idSol,
+            bin.spnAforo.selectedItem.toString(),
+            bin.spnConTratamiento.selectedItem.toString(),
+            bin.spnTipoTratamiento.selectedItem.toString(),
+            "",
+            bin.edtObservaciones.text.toString(),
+            "",
+            bin.edtPhCompuesto.text.toString(),
+            "",
+        )
+        con.insertCampoCompuesto(cv)
+    }
+
+    fun getExtras(){
+        val bundle = intent.extras
+        val fol = bundle?.get("folio")
+        folio = fol.toString()
+        Log.d("Folio",folio)
     }
     fun llenarSpinner() {
         val aforos = arrayOf("Aforo 1","Aforo 2","Aforo 3")

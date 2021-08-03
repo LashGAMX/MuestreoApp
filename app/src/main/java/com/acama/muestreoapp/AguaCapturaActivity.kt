@@ -30,6 +30,7 @@ class AguaCapturaActivity : AppCompatActivity() {
             })
             bin.btnCompuesto.setOnClickListener(View.OnClickListener { v: View? ->
                 val intent = Intent(this,AguaCompuestosActivity::class.java)
+                intent.putExtra("folio",folio)
                 startActivity(intent)
             })
             bin.btnEvidencia.setOnClickListener(View.OnClickListener { v: View? ->

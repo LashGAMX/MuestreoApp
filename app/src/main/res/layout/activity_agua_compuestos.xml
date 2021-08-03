@@ -89,6 +89,7 @@
                     android:text="Procedimiento de muestreo PE-10-02-"/>
 
                 <EditText
+                    android:id="@+id/edtProcedimiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Procedimiento" />
@@ -102,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="Observaciones"/>
                 <EditText
+                    android:id="@+id/edtObservaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Observaciones"
@@ -128,6 +130,7 @@
                     android:layout_height="wrap_content"
                     android:text="Norma: NOM-001"/>
                 <EditText
+                    android:id="@+id/edtVolCalculado"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Volumen calculado"
@@ -148,6 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="PH muestra compuesta"/>
                 <EditText
+                    android:id="@+id/edtPhCompuesto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="PH muestra"
@@ -162,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:text="Temperatura muestra compuesta"/>
                 <EditText
+                    android:id="@+id/edtTempCompuesta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Temperatura C°"
