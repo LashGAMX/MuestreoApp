@@ -224,7 +224,7 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 if (sw == true) {
                     sendDatosMuestra(idSol, folio)
-                    Toast.makeText(this, "Los datos ya se pueden enviar", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Datos guardados correctamete", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(
                         this,
@@ -259,12 +259,21 @@ class ListaAguaActivity : AppCompatActivity() {
             val db: SQLiteDatabase = con.readableDatabase
             // val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
             val queryGeneral = "SELECT * FROM campo_generales WHERE Id_solicitud = '$idSol'"
+            val queryPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
+            val queryPhCal = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
+            val queryConTra = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
+            val queryConCal = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
 
             var listTemp: MutableList<String> = ArrayList()
 
             var solGenModel: MutableList<String> = ArrayList()
             var campoGenModel: MutableList<String> = ArrayList()
+            var phTrazable: MutableList<String> = ArrayList()
+            var phCalidad: MutableList<String> = ArrayList()
+            var conTrazable: MutableList<String> = ArrayList()
+            var conCalidad: MutableList<String> = ArrayList()
 
+            //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
             var cont: Int = 0
             if (generalModel.moveToFirst()) {
@@ -278,9 +287,8 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Temperatura_b\" : \"" + generalModel.getString(5) + "\"" +
                             ", \"Latitud\" : \"" + generalModel.getString(6) + "\"" +
                             ", \"Longitud\" : \"" + generalModel.getString(7) + "\"" +
-                            ", \"Altitud\" : \"" + generalModel.getString(8) + "\"" +
-                            ", \"Pendiente\" : \"" + generalModel.getString(9) + "\"" +
-                            ", \"Criterio\" : \"" + generalModel.getString(10) + "\"" +
+                            ", \"Pendiente\" : \"" + generalModel.getString(8) + "\"" +
+                            ", \"Criterio\" : \"" + generalModel.getString(9) + "\"" +
                             "}"
 
                     listTemp.add(cont, jsonGeneral)
@@ -289,9 +297,96 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (generalModel.moveToNext())
             }
             campoGenModel.addAll(listTemp)
+            //Llenar trazable/calidad generales
+            var listTempPhT: MutableList<String> = ArrayList()
+            val phTraModel = db.rawQuery(queryPhTra, null)
+            cont = 0
+            if (phTraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonPhTra = "{" +
+                            " \"Id_solicitud\" : \"" + phTraModel.getInt(1) + "\"" +
+                            ", \"Id_phTrazable\" : \"" + phTraModel.getString(2) + "\"" +
+                            ", \"Lectura1\" : \"" + phTraModel.getInt(3) + "\"" +
+                            ", \"Lectura2\" : \"" + phTraModel.getString(4) + "\"" +
+                            ", \"Lectura3\" : \"" + phTraModel.getString(5) + "\"" +
+                            ", \"Estado\" : \"" + phTraModel.getString(6) + "\"" +
+                            "}"
 
+                    listTempPhT.add(cont, jsonPhTra)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (phTraModel.moveToNext())
+            }
+            phTrazable.addAll(listTempPhT)
 
-            //Log.d("campoGenModel",campoGenModel.toString())
+            var listTempPhC: MutableList<String> = ArrayList()
+            val phCalModel = db.rawQuery(queryPhCal, null)
+            cont = 0
+            if (phCalModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonPhCal = "{" +
+                            " \"Id_solicitud\" : \"" + phCalModel.getInt(1) + "\"" +
+                            ", \"Id_phCalidad\" : \"" + phCalModel.getString(2) + "\"" +
+                            ", \"Lectura1\" : \"" + phCalModel.getInt(3) + "\"" +
+                            ", \"Lectura2\" : \"" + phCalModel.getString(4) + "\"" +
+                            ", \"Lectura3\" : \"" + phCalModel.getString(5) + "\"" +
+                            ", \"Estado\" : \"" + phCalModel.getString(6) + "\"" +
+                            ", \"Promedio\" : \"" + phCalModel.getString(7) + "\"" +
+                            "}"
+
+                    listTempPhC.add(cont, jsonPhCal)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (phCalModel.moveToNext())
+            }
+            phCalidad.addAll(listTempPhC)
+
+            var listTempConT: MutableList<String> = ArrayList()
+            val conTraModel = db.rawQuery(queryConTra, null)
+            cont = 0
+            if (conTraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonConTra = "{" +
+                            " \"Id_solicitud\" : \"" + conTraModel.getInt(1) + "\"" +
+                            ", \"Id_conTrazable\" : \"" + conTraModel.getString(2) + "\"" +
+                            ", \"Lectura1\" : \"" + conTraModel.getInt(3) + "\"" +
+                            ", \"Lectura2\" : \"" + conTraModel.getString(4) + "\"" +
+                            ", \"Lectura3\" : \"" + conTraModel.getString(5) + "\"" +
+                            ", \"Estado\" : \"" + conTraModel.getString(6) + "\"" +
+                            "}"
+
+                    listTempConT.add(cont, jsonConTra)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (conTraModel.moveToNext())
+            }
+            conTrazable.addAll(listTempConT)
+
+            var listTempConC: MutableList<String> = ArrayList()
+            val conCalModel = db.rawQuery(queryConTra, null)
+            cont = 0
+            if (conCalModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonConCal = "{" +
+                            " \"Id_solicitud\" : \"" + conCalModel.getInt(1) + "\"" +
+                            ", \"Id_conCalidad\" : \"" + conCalModel.getString(2) + "\"" +
+                            ", \"Lectura1\" : \"" + conCalModel.getInt(3) + "\"" +
+                            ", \"Lectura2\" : \"" + conCalModel.getString(4) + "\"" +
+                            ", \"Lectura3\" : \"" + conCalModel.getString(5) + "\"" +
+                            ", \"Estado\" : \"" + conCalModel.getString(6) + "\"" +
+                            ", \"Promedio\" : \"" + conCalModel.getString(6) + "\"" +
+                            "}"
+
+                    listTempConC.add(cont, jsonConCal)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (conCalModel.moveToNext())
+            }
+            conCalidad.addAll(listTempConC)
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
@@ -327,6 +422,10 @@ class ListaAguaActivity : AppCompatActivity() {
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
                     params.put("campoGenerales", campoGenModel.toString())
+                    params.put("phTrazable", phTrazable.toString())
+                    params.put("phCalidad", phCalidad.toString())
+                    params.put("conTrazable", conTrazable.toString())
+                    params.put("conCalidad", conCalidad.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("folio", folio)
                     return params

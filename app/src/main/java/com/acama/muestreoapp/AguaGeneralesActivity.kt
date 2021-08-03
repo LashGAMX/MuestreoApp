@@ -200,7 +200,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
          }
          bin.btnProbarConductividadCalidad.setOnClickListener {
-             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.edtEstadoConTra)){
+             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
                  Log.d("Val","Fue aceptado")
                  sw6 = true
              }else{
@@ -235,6 +235,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv.put("Temperatura_b",bin.edtTemperaturaBuff.text.toString())
                 cv.put("Latitud",bin.edtLatitud.text.toString())
                 cv.put("Longitud",bin.edtLongitud.text.toString())
+                cv.put("Pendiente",bin.edtLongitud.text.toString())
+                cv.put("Criterio",bin.edtLongitud.text.toString())
                 dbw.update("campo_generales",cv,"Id_solicitud = "+idSol,null)
 
 
@@ -316,7 +318,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv7.put("Lectura1",bin.edtCon1Cal.text.toString())
                 cv7.put("Lectura2",bin.ph2Trazable2.text.toString())
                 cv7.put("Lectura3",bin.ph2Trazable3.text.toString())
-                cv7.put("Promedio",bin.PromedioConductividadCalidad.toString())
+                cv7.put("Promedio",bin.PromedioConductividadCalidad.text.toString())
                 dbw.update("con_calidad",cv7,"Id_conductividad ="+idConCalidad[0],null)
 
 
@@ -421,6 +423,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              conductividad
          )
          bin.spnConductividad.adapter = adpConductividad
+         bin.spnConductividadCalidad.adapter = adpConductividad
 
 
      }
