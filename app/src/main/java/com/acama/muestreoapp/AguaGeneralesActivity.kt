@@ -55,6 +55,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
      private var datosPhTrazable2: MutableList<String> = mutableListOf()
      private var datosPhCalidad1: MutableList<String> = mutableListOf()
      private var datosPhCalidad2: MutableList<String> = mutableListOf()
+     private var datosConTrazable: MutableList<String> = mutableListOf()
+     private var datosConCalidad: MutableList<String> = mutableListOf()
 
 
 
@@ -141,6 +143,67 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                  cont++
              } while (phTrazableModel.moveToNext())
          }
+
+         val qrPhCalidad = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
+         val phCalidadModel = db.rawQuery(qrPhCalidad, null)
+         cont = 0
+         if (phCalidadModel.moveToFirst()) {
+             do {
+                 if (cont == 0){
+                     datosPhCalidad1.add(phCalidadModel.getString(0))
+                     datosPhCalidad1.add(phCalidadModel.getString(1))
+                     datosPhCalidad1.add(phCalidadModel.getString(2))
+                     datosPhCalidad1.add(phCalidadModel.getString(3))
+                     datosPhCalidad1.add(phCalidadModel.getString(4))
+                     datosPhCalidad1.add(phCalidadModel.getString(5))
+                     datosPhCalidad1.add(phCalidadModel.getString(6))
+                     datosPhCalidad1.add(phCalidadModel.getString(7))
+
+                 }else{
+                     datosPhCalidad2.add(phCalidadModel.getString(0))
+                     datosPhCalidad2.add(phCalidadModel.getString(1))
+                     datosPhCalidad2.add(phCalidadModel.getString(2))
+                     datosPhCalidad2.add(phCalidadModel.getString(3))
+                     datosPhCalidad2.add(phCalidadModel.getString(4))
+                     datosPhCalidad2.add(phCalidadModel.getString(5))
+                     datosPhCalidad2.add(phCalidadModel.getString(6))
+                     datosPhCalidad2.add(phCalidadModel.getString(7))
+                 }
+                 cont++
+             } while (phCalidadModel.moveToNext())
+         }
+
+         val qrConTrazable = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
+         val conCalidadTrazableModel = db.rawQuery(qrConTrazable, null)
+         if (conCalidadTrazableModel.moveToFirst()) {
+             do {
+                     datosConTrazable.add(conCalidadTrazableModel.getString(0))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(1))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(2))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(3))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(4))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(5))
+                 datosConTrazable.add(conCalidadTrazableModel.getString(6))
+
+             } while (conCalidadTrazableModel.moveToNext())
+         }
+
+         val qrConCalidad = "SELECT * FROM con_calidad WHERE Id_solicitud = '$idSol'"
+         val conCalidadModel = db.rawQuery(qrConCalidad, null)
+         if (conCalidadModel.moveToFirst()) {
+             do {
+                 datosConCalidad.add(conCalidadModel.getString(0))
+                 datosConCalidad.add(conCalidadModel.getString(1))
+                 datosConCalidad.add(conCalidadModel.getString(2))
+                 datosConCalidad.add(conCalidadModel.getString(3))
+                 datosConCalidad.add(conCalidadModel.getString(4))
+                 datosConCalidad.add(conCalidadModel.getString(5))
+                 datosConCalidad.add(conCalidadModel.getString(6))
+                 datosConCalidad.add(conCalidadModel.getString(7))
+
+             } while (conCalidadModel.moveToNext())
+         }
+
 
          Log.d("Campo General",datosGenerales.toString())
 
@@ -326,6 +389,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
             }else{
                 Toast.makeText(this,"No puedes guardaros los registros antes de capturar",Toast.LENGTH_SHORT).show()
             }
+             onBackPressed()
          }
 
 
@@ -337,6 +401,9 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.txtFolioServicio.text = datosMuestreo[1]
          bin.txtNumTomas.text = datosMuestreo[14]
          bin.txtTipoDescarga.text = datosMuestreo[11]
+
+         bin.edtTemperatura.setText(datosGenerales[4])
+         bin.edtTemperaturaBuff.setText(datosGenerales[5])
 
          bin.edtLatitud.setText(datosGenerales[6])
          bin.edtLongitud.setText(datosGenerales[7])
@@ -350,6 +417,26 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.ph2Trazable2.setText(datosPhTrazable2[4])
          bin.ph2Trazable3.setText(datosPhTrazable2[5])
          bin.phEstado2.setText(datosPhTrazable2[6])
+
+         bin.phCalidad1.setText(datosPhCalidad1[3])
+         bin.phCalidad2.setText(datosPhCalidad1[4])
+         bin.phCalidad3.setText(datosPhCalidad1[5])
+         bin.promCalidad1.setText(datosPhCalidad1[7])
+
+         bin.ph2Calidad1.setText(datosPhCalidad2[3])
+         bin.ph2Calidad2.setText(datosPhCalidad2[4])
+         bin.ph2Calidad3.setText(datosPhCalidad2[5])
+         bin.promedioCalidad2.setText(datosPhCalidad2[7])
+
+         bin.edtCon1Tra.setText(datosConTrazable[3])
+         bin.edtCon2Tra.setText(datosConTrazable[4])
+         bin.edtCon3Tra.setText(datosConTrazable[5])
+         bin.edtEstadoConTra.setText(datosConTrazable[7])
+
+         bin.edtCon1Cal.setText(datosConTrazable[3])
+         bin.edtCon2Cal.setText(datosConTrazable[4])
+         bin.edtCon3Cal.setText(datosConTrazable[5])
+         bin.edtEstadoConTra.setText(datosConTrazable[7])
      }
 
      fun chageActivity() {
