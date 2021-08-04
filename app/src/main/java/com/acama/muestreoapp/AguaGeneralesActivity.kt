@@ -384,12 +384,11 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv7.put("Promedio",bin.PromedioConductividadCalidad.text.toString())
                 dbw.update("con_calidad",cv7,"Id_conductividad ="+idConCalidad[0],null)
 
-
+                onBackPressed()
                 //Toast.makeText(this,"Datos guardados",Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(this,"No puedes guardaros los registros antes de capturar",Toast.LENGTH_SHORT).show()
             }
-             onBackPressed()
          }
 
 

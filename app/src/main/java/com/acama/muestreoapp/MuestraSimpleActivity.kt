@@ -91,6 +91,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             "",
         )
         con.insertGastoMuestra(cv4Model)
+        onBackPressed()
     }
     fun LlenarSpinners(){
 
