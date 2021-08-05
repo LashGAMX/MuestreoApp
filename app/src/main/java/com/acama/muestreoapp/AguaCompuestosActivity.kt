@@ -61,6 +61,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
             "",
         )
         con.insertCampoCompuesto(cv)
+        onBackPressed()
     }
 
     fun getExtras(){
