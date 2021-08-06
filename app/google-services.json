@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "522905032476",
+    "project_id": "imagenes-ce01b",
+    "storage_bucket": "imagenes-ce01b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522905032476:android:8ea9e2eccf09b2df218cd9",
+        "android_client_info": {
+          "package_name": "com.acama.muestreoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522905032476-cjb9tq1se66ght335app6tib783o7jks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJrGpTvjO8Hu211BrJ4yRBi44PYq9miIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522905032476-cjb9tq1se66ght335app6tib783o7jks.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

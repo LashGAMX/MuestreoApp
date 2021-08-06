@@ -62,38 +62,6 @@
             android:layout_gravity="center_horizontal"
 
             app:srcCompat="?android:attr/galleryItemBackground" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Foto 2"
-            />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Tomo: Usuario 1"
-                />
-            <TextView
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Fecha captura: 01/06/2021"
-                />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/img2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            app:srcCompat="?android:attr/galleryItemBackground" />
-
 
 
     </LinearLayout>
@@ -109,9 +77,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
-            android:layout_marginTop="200dp"
             android:drawableLeft="@android:drawable/ic_menu_save"
-            android:text="Guardar" />
+            android:text="SUBIR" />
 
     </LinearLayout>
 
