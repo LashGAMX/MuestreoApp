@@ -430,12 +430,12 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.edtCon1Tra.setText(datosConTrazable[3])
          bin.edtCon2Tra.setText(datosConTrazable[4])
          bin.edtCon3Tra.setText(datosConTrazable[5])
-         bin.edtEstadoConTra.setText(datosConTrazable[7])
+         bin.edtEstadoConTra.setText(datosConTrazable[6])
 
-         bin.edtCon1Cal.setText(datosConTrazable[3])
-         bin.edtCon2Cal.setText(datosConTrazable[4])
-         bin.edtCon3Cal.setText(datosConTrazable[5])
-         bin.edtEstadoConTra.setText(datosConTrazable[7])
+         bin.edtCon1Cal.setText(datosConCalidad[3])
+         bin.edtCon2Cal.setText(datosConCalidad[4])
+         bin.edtCon3Cal.setText(datosConCalidad[5])
+         bin.edtEstadoConTra.setText(datosConCalidad[7])
      }
 
      fun chageActivity() {
