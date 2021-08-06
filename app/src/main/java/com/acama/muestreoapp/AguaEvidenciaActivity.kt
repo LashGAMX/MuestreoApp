@@ -25,16 +25,11 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin = ActivityAguaEvidenciaBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
-        var imagen1 = bin.img1
-        var imagen2 = bin.img2
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
         bin.img1.setOnClickListener{
-            ImageController.selectPhotoFromGallery(this, SELECT_ACTIVITY)
-        }
-        bin.img2.setOnClickListener{
             ImageController.selectPhotoFromGallery(this, SELECT_ACTIVITY)
         }
     }
