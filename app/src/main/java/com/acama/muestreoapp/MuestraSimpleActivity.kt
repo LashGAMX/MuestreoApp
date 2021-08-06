@@ -19,6 +19,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
     private  lateinit var bin: ActivityMuestraSimpleBinding
     private lateinit var folio:String
     private var idSol:Int = 0
+    private lateinit var numToma:String
     private lateinit var con: DataBaseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +30,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val db: SQLiteDatabase = con.readableDatabase
 
         folio = intent.getStringExtra("folio").toString()
+        numToma = intent.getStringExtra("numToma").toString()
+
         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
         val solGenModel = db.rawQuery(qrSolGenModel, null)
         if (solGenModel.moveToFirst()) {
@@ -43,7 +46,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
-            guardarDatos()
+            //guardarDatos()
         }
 
        LlenarSpinners()
@@ -54,6 +57,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         var cvModel = PhMuestra(
             idSol,
+            numToma.toInt(),
             bin.spnMateriaFlotante.selectedItem.toString(),
             bin.spnOlor.selectedItem.toString(),
             bin.spnColor.selectedItem.toString(),
@@ -67,6 +71,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
     // Guardar TempMuestra
         val cv2Model = TempMuestra(
             idSol,
+            numToma.toInt(),
             bin.edtTemp1.text.toString(),
             bin.edtTemp2.text.toString(),
             bin.edtTemp3.text.toString(),
@@ -76,6 +81,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         //Guardar Conductividad
         val cv3Model = ConMuestra(
             idSol,
+            numToma.toInt(),
             bin.edtCon1.text.toString(),
             bin.edtCon2.text.toString(),
             bin.edtCon3.text.toString(),
@@ -85,6 +91,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         //Guardar Gasto
         val cv4Model = GastoMuestra(
             idSol,
+            numToma.toInt(),
             bin.edtCon1.text.toString(),
             bin.edtCon2.text.toString(),
             bin.edtCon3.text.toString(),
@@ -130,3 +137,4 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     }
 }
+

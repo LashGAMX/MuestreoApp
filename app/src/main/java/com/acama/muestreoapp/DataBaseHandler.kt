@@ -486,6 +486,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val ph = "CREATE TABLE " + PHMUESTRA + " (" +
                 "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
                 "Materia VARCHAR(100)," +
                 "Olor VARCHAR(100)," +
                 "Color VARCHAR(100)," +
@@ -525,6 +526,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val conduc = "CREATE TABLE " + CONMUESTRA + " (" +
                 "Id_conductividad INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
                 "Conductividad1 FLOAT," +
                 "Conductividad2 FLOAT," +
                 "Conductividad3 FLOAT," +
@@ -556,6 +558,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val ph = "CREATE TABLE " + TEMPMUESTRA + " (" +
                 "Id_temperatura INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
                 "Temp1 FLOAT," +
                 "Temp2 FLOAT," +
                 "Temp3 FLOAT," +
@@ -587,6 +590,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val ph = "CREATE TABLE " + GASTOMUESTRA + " (" +
                 "Id_gasto INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
                 "Gasto1 FLOAT," +
                 "Gasto2 FLOAT," +
                 "Gasto3 FLOAT," +

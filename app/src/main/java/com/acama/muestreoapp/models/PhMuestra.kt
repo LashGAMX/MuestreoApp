@@ -3,6 +3,7 @@ package com.acama.muestreoapp.models
 class PhMuestra {
 
     var Id_solicitud : Int = 0
+    var Num_muestra : Int = 0
     var Materia : String = ""
     var Olor : String = ""
     var Color : String = ""
@@ -12,8 +13,9 @@ class PhMuestra {
     var Promedio : String = ""
     var Fecha : String = ""
 
-    constructor(Id_solicitud: Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promedio:String,Fecha:String){
+    constructor(Id_solicitud: Int,Num_muestra:Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promedio:String,Fecha:String){
         this.Id_solicitud = Id_solicitud
+        this.Num_muestra = Num_muestra
         this.Materia = Materia
         this.Olor = Olor
         this.Color = Color
