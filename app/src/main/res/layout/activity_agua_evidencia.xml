@@ -57,11 +57,15 @@
 
         <ImageView
             android:id="@+id/img1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_marginTop="60dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
 
             app:srcCompat="?android:attr/galleryItemBackground" />
+
+            />
+
 
 
     </LinearLayout>
@@ -72,13 +76,14 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:id="@+id/btnGuardar"
+            android:id="@+id/btHecho"
             style="@style/TextAppearance.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
-            android:drawableLeft="@android:drawable/ic_menu_save"
-            android:text="SUBIR" />
+            android:layout_marginTop="200dp"
+            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:text="Hecho" />
 
     </LinearLayout>
 
