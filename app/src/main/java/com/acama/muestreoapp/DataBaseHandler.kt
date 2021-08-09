@@ -503,6 +503,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud", phMuestra.Id_solicitud)
+        cv.put("Num_toma", phMuestra.Num_muestra)
         cv.put("Materia", phMuestra.Materia)
         cv.put("Olor", phMuestra.Olor)
         cv.put("Color", phMuestra.Color)
@@ -539,6 +540,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud", conMuestra.Id_solicitud)
+        cv.put("Num_toma", conMuestra.Num_muestra)
         cv.put("Conductividad1", conMuestra.Con1)
         cv.put("Conductividad2", conMuestra.Con2)
         cv.put("Conductividad3", conMuestra.Con3)
@@ -571,6 +573,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud", tempMuestra.Id_solicitud)
+        cv.put("Num_toma", tempMuestra.Num_muestra)
         cv.put("Temp1", tempMuestra.Temp1)
         cv.put("Temp2", tempMuestra.Temp2)
         cv.put("Temp3", tempMuestra.Temp3)
@@ -603,6 +606,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud", gastoMuestra.Id_solicitud)
+        cv.put("Num_toma", gastoMuestra.Num_muestra)
         cv.put("Gasto1", gastoMuestra.Gasto1)
         cv.put("Gasto2", gastoMuestra.Gasto2)
         cv.put("Gasto3", gastoMuestra.Gasto3)

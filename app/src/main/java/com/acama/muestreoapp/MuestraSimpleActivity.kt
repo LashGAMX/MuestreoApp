@@ -47,7 +47,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
-            //guardarDatos()
+            guardarDatos()
         }
 
        LlenarSpinners()
