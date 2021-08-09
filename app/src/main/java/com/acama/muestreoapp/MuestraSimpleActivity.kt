@@ -31,6 +31,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         folio = intent.getStringExtra("folio").toString()
         numToma = intent.getStringExtra("numToma").toString()
+        bin.txtNumMuestra.text = numToma
 
         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
         val solGenModel = db.rawQuery(qrSolGenModel, null)
@@ -46,7 +47,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
-            //guardarDatos()
+            guardarDatos()
         }
 
        LlenarSpinners()

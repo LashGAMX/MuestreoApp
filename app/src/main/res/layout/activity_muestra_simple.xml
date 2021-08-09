@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="100dp"
-                    android:text="Toma simple" />
+                    android:text="Toma simple: " />
 
                 <TextView
                     android:id="@+id/txtNumMuestra"
