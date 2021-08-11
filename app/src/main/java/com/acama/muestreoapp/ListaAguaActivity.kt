@@ -114,7 +114,7 @@ class ListaAguaActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Error en la solicitud",
+                                "Error en obtener los datos",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
