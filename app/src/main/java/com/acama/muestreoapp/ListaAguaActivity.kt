@@ -19,6 +19,7 @@ import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
 import com.acama.muestreoapp.models.*
+import com.acama.muestreoapp.preference.Prefs
 import com.acama.muestreoapp.preference.UserApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.AuthFailureError
@@ -96,9 +97,10 @@ class ListaAguaActivity : AppCompatActivity() {
                     cont++
                 } while (result.moveToNext())
             }
-            solGenModel.addAll(listSol)
+            //solGenModel.addAll(listSol)
 
-            Log.d("json", solGenModel.toString())
+            //Log.d("json", solGenModel.toString())
+            Log.d("idMuestreador",UserApplication.prefs.getMuestreadorId())
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "sycnDatos",
@@ -138,7 +140,7 @@ class ListaAguaActivity : AppCompatActivity() {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
-                    params.put("solicitudesModel", solGenModel.toString())
+                    //params.put("solicitudesModel", solGenModel.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     return params
                 }
