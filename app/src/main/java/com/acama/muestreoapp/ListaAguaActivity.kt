@@ -368,7 +368,7 @@ class ListaAguaActivity : AppCompatActivity() {
             conTrazable.addAll(listTempConT)
 
             var listTempConC: MutableList<String> = ArrayList()
-            val conCalModel = db.rawQuery(queryConTra, null)
+            val conCalModel = db.rawQuery(queryConCal, null)
             cont = 0
             if (conCalModel.moveToFirst()) {
                 do {
@@ -389,6 +389,8 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (conCalModel.moveToNext())
             }
             conCalidad.addAll(listTempConC)
+
+
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",

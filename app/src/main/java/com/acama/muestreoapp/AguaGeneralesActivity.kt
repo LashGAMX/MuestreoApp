@@ -47,6 +47,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
      private var sw4 = false
      private var sw5 = false
      private var sw6 = false
+     private var sw7 = false
 
 
      private var datosMuestreo: MutableList<String> = mutableListOf()
@@ -271,6 +272,15 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                  sw6 = false
              }
          }
+         bin.btnPendiente.setOnClickListener {
+             when(bin.edtPendiente.text.toString().toFloat()){
+                 in 94.0 .. 105.0 -> sw7 = true
+                 else -> {
+                     bin.edtPendiente.setError("La pendiente supera el valor permitido")
+                     sw7 = false
+                 }
+             }
+         }
          bin.ImgCoordenadas.setOnClickListener{
             if (allPermissionGrantedGPS()){
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -282,7 +292,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          }
 
          bin.btnGuardar.setOnClickListener {
-            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true && sw5 == true && sw6 == true){
+            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true && sw5 == true && sw6 == true && sw7 == true){
                 var idPhTrazable : MutableList<String> = ArrayList()
                 var idPhCalidad : MutableList<String> = ArrayList()
                 var idConTrazable : MutableList<String> = ArrayList()
@@ -298,8 +308,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv.put("Temperatura_b",bin.edtTemperaturaBuff.text.toString())
                 cv.put("Latitud",bin.edtLatitud.text.toString())
                 cv.put("Longitud",bin.edtLongitud.text.toString())
-                cv.put("Pendiente",bin.edtLongitud.text.toString())
-                cv.put("Criterio",bin.edtLongitud.text.toString())
+                cv.put("Pendiente",bin.edtPendiente.text.toString())
+                cv.put("Criterio","ACEPTADO")
                 dbw.update("campo_generales",cv,"Id_solicitud = "+idSol,null)
 
 
