@@ -49,8 +49,14 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.btnGuardar.setOnClickListener{
             guardarDatos()
         }
+        bin.btnCancelar.setOnClickListener{
+            CancelarMuestra()
+        }
 
        LlenarSpinners()
+
+    }
+    fun CancelarMuestra(){
 
     }
     fun guardarDatos(){
