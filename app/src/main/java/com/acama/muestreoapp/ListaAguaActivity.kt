@@ -19,6 +19,7 @@ import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
 import com.acama.muestreoapp.models.*
+import com.acama.muestreoapp.preference.Prefs
 import com.acama.muestreoapp.preference.UserApplication
 import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.AuthFailureError
@@ -96,9 +97,10 @@ class ListaAguaActivity : AppCompatActivity() {
                     cont++
                 } while (result.moveToNext())
             }
-            solGenModel.addAll(listSol)
+            //solGenModel.addAll(listSol)
 
-            Log.d("json", solGenModel.toString())
+            //Log.d("json", solGenModel.toString())
+            Log.d("idMuestreador",UserApplication.prefs.getMuestreadorId())
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "sycnDatos",
@@ -114,7 +116,7 @@ class ListaAguaActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Error en la solicitud",
+                                "Error en obtener los datos",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -138,7 +140,7 @@ class ListaAguaActivity : AppCompatActivity() {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
-                    params.put("solicitudesModel", solGenModel.toString())
+                    //params.put("solicitudesModel", solGenModel.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     return params
                 }
@@ -263,6 +265,11 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryPhCal = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
             val queryConTra = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
             val queryConCal = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
+            val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
+            val queryTempMuestra = "SELECT * FROM temperatura_muestra WHERE Id_solicitud = '$idSol'"
+            val queryConMuestra = "SELECT * FROM conductividad_muestra WHERE Id_solicitud = '$idSol'"
+            val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
+            val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
 
             var listTemp: MutableList<String> = ArrayList()
 
@@ -272,6 +279,11 @@ class ListaAguaActivity : AppCompatActivity() {
             var phCalidad: MutableList<String> = ArrayList()
             var conTrazable: MutableList<String> = ArrayList()
             var conCalidad: MutableList<String> = ArrayList()
+            var phMuestra : MutableList<String> = ArrayList()
+            var tempMuestra : MutableList<String> = ArrayList()
+            var conMuestra : MutableList<String> = ArrayList()
+            var gastoMuestra : MutableList<String> = ArrayList()
+            var campoCompuesto:MutableList<String> = ArrayList()
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
@@ -366,7 +378,7 @@ class ListaAguaActivity : AppCompatActivity() {
             conTrazable.addAll(listTempConT)
 
             var listTempConC: MutableList<String> = ArrayList()
-            val conCalModel = db.rawQuery(queryConTra, null)
+            val conCalModel = db.rawQuery(queryConCal, null)
             cont = 0
             if (conCalModel.moveToFirst()) {
                 do {
@@ -388,6 +400,123 @@ class ListaAguaActivity : AppCompatActivity() {
             }
             conCalidad.addAll(listTempConC)
 
+            var listTempPhM: MutableList<String> = ArrayList()
+            val phMuestraModel = db.rawQuery(queryPhMuestra, null)
+            cont = 0
+            if (phMuestraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonPhMu = "{" +
+                            " \"Id_solicitud\" : \"" + phMuestraModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + phMuestraModel.getString(2) + "\"" +
+                            ", \"Materia\" : \"" + phMuestraModel.getInt(3) + "\"" +
+                            ", \"Olor\" : \"" + phMuestraModel.getString(4) + "\"" +
+                            ", \"Color\" : \"" + phMuestraModel.getString(5) + "\"" +
+                            ", \"Ph1\" : \"" + phMuestraModel.getString(6) + "\"" +
+                            ", \"Ph2\" : \"" + phMuestraModel.getString(7) + "\"" +
+                            ", \"Ph3\" : \"" + phMuestraModel.getString(8) + "\"" +
+                            ", \"Promedio\" : \"" + phMuestraModel.getString(9) + "\"" +
+                            ", \"Fecha\" : \"" + phMuestraModel.getString(10) + "\"" +
+                            "}"
+
+                    listTempPhM.add(cont, jsonPhMu)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (phMuestraModel.moveToNext())
+            }
+            phMuestra.addAll(listTempPhM)
+
+            var listTempTempM: MutableList<String> = ArrayList()
+            val tempMuestraModel = db.rawQuery(queryTempMuestra, null)
+            cont = 0
+            if (tempMuestraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonTempM = "{" +
+                            " \"Id_solicitud\" : \"" + tempMuestraModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + tempMuestraModel.getString(2) + "\"" +
+                            ", \"Temp1\" : \"" + tempMuestraModel.getString(3) + "\"" +
+                            ", \"Temp2\" : \"" + tempMuestraModel.getString(4) + "\"" +
+                            ", \"Temp3\" : \"" + tempMuestraModel.getString(5) + "\"" +
+                            ", \"Promedio\" : \"" + tempMuestraModel.getString(6) + "\"" +
+                            "}"
+
+                    listTempTempM.add(cont, jsonTempM)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (tempMuestraModel.moveToNext())
+            }
+            tempMuestra.addAll(listTempTempM)
+
+            var listTempConM: MutableList<String> = ArrayList()
+            val conMuestraModel = db.rawQuery(queryConMuestra, null)
+            cont = 0
+            if (conMuestraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonConM = "{" +
+                            " \"Id_solicitud\" : \"" + conMuestraModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + conMuestraModel.getString(2) + "\"" +
+                            ", \"Conductividad1\" : \"" + conMuestraModel.getString(3) + "\"" +
+                            ", \"Conductividad2\" : \"" + conMuestraModel.getString(4) + "\"" +
+                            ", \"Conductividad3\" : \"" + conMuestraModel.getString(5) + "\"" +
+                            ", \"Promedio\" : \"" + conMuestraModel.getString(6) + "\"" +
+                            "}"
+
+                    listTempConM.add(cont, jsonConM)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (conMuestraModel.moveToNext())
+            }
+            conMuestra.addAll(listTempConM)
+
+            var listTempGastoM: MutableList<String> = ArrayList()
+            val gastoMuestraModel = db.rawQuery(queryGastoMuestra, null)
+            cont = 0
+            if (gastoMuestraModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonGastoM = "{" +
+                            " \"Id_solicitud\" : \"" + gastoMuestraModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + gastoMuestraModel.getString(2) + "\"" +
+                            ", \"Gasto1\" : \"" + gastoMuestraModel.getString(3) + "\"" +
+                            ", \"Gasto2\" : \"" + gastoMuestraModel.getString(4) + "\"" +
+                            ", \"Gasto3\" : \"" + gastoMuestraModel.getString(5) + "\"" +
+                            ", \"Promedio\" : \"" + gastoMuestraModel.getString(6) + "\"" +
+                            "}"
+
+                    listTempGastoM.add(cont, jsonGastoM)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (gastoMuestraModel.moveToNext())
+            }
+            gastoMuestra.addAll(listTempGastoM)
+
+            var listTempCampoComp: MutableList<String> = ArrayList()
+            val campoCompuestoModel = db.rawQuery(queryCampoCompuesto, null)
+            cont = 0
+            if (campoCompuestoModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonCampoC = "{" +
+                            " \"Id_solicitud\" : \"" + campoCompuestoModel.getInt(1) + "\"" +
+                            ", \"Metodo_aforo\" : \"" + campoCompuestoModel.getString(2) + "\"" +
+                            ", \"Con_tratamiento\" : \"" + campoCompuestoModel.getString(3) + "\"" +
+                            ", \"Tipo_tratamiento\" : \"" + campoCompuestoModel.getString(4) + "\"" +
+                            ", \"Proce_muestreo\" : \"" + campoCompuestoModel.getString(5) + "\"" +
+                            ", \"Observaciones\" : \"" + campoCompuestoModel.getString(6) + "\"" +
+                            ", \"Obser_solicitud\" : \"" + campoCompuestoModel.getString(7) + "\"" +
+                            ", \"Ph_muestraComp\" : \"" + campoCompuestoModel.getString(8) + "\"" +
+                            ", \"Volumen_calculado\" : \"" + campoCompuestoModel.getString(9) + "\"" +
+                            "}"
+
+                    listTempGastoM.add(cont, jsonCampoC)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (campoCompuestoModel.moveToNext())
+            }
+            campoCompuesto.addAll(listTempCampoComp)
+
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
                 Response.Listener<String> { response ->
@@ -395,7 +524,7 @@ class ListaAguaActivity : AppCompatActivity() {
                         val obj = JSONObject(response)
                         Log.d("Response", response)
                         if (obj.getBoolean("response") == true) {
-                            Log.d("datos", obj.getString("dato"))
+                          //  Log.d("datos", obj.getString("dato"))
 
                         } else {
                             Toast.makeText(
@@ -426,6 +555,11 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("phCalidad", phCalidad.toString())
                     params.put("conTrazable", conTrazable.toString())
                     params.put("conCalidad", conCalidad.toString())
+                    params.put("phMuestra", phMuestra.toString())
+                    params.put("tempMuestra", tempMuestra.toString())
+                    params.put("conMuestra", conMuestra.toString())
+                    params.put("gastoMuestra", gastoMuestra.toString())
+                    params.put("datosCompuestos", campoCompuesto.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("folio", folio)
                     return params

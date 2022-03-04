@@ -799,11 +799,35 @@
                 android:inputType="numberDecimal"
                 />
         </LinearLayout>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Promedio:"
-            />
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Pendiente:"
+                android:layout_marginLeft="20dp"
+
+                />
+            <EditText
+                android:id="@+id/edtPendiente"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:inputType="numberDecimal"
+                />
+            <Button
+                android:id="@+id/btnPendiente"
+                android:layout_marginLeft="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Validar"
+                android:inputType="numberDecimal"
+                />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnGuardar"
