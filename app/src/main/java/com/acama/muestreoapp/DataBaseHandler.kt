@@ -48,6 +48,9 @@ val GASTOMUESTRA = "gasto_muestra"
 
 val CAMPOCOMPUESTO = "campo_compuesto"
 
+val OBSGENERAL = "observacion_general"
+val Id_obsGeneral = "Id_odsGeneral"
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
@@ -67,9 +70,16 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createConMuestra(db)
         createTempMuestra(db)
         createCampoCompuesto(db)
+        createObservacionGeneral(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+    }
+    fun createObservacionGeneral(db: SQLiteDatabase?){
+        val model = "CREATE TABLE" + OBSGENERAL +" (" +
+                "Id_obsGeneral INTEGER PRIMARY KEY AUTOICREMENT," +
+                "Observacion TEXT NOT NULL" +
+                ")"
     }
     fun createCatPhTrazable(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ CATPHTRAZABLE +" (" +

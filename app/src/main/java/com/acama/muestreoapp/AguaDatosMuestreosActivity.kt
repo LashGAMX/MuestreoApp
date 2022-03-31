@@ -31,6 +31,9 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
             DialogVolver()
         })
 
+        bin.btnGuardar.setOnClickListener(){
+
+        }
 
     }
 
