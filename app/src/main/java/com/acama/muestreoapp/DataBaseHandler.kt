@@ -81,6 +81,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Observacion TEXT NOT NULL" +
                 ")"
     }
+
     fun createCatPhTrazable(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ CATPHTRAZABLE +" (" +
                 "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -137,6 +138,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
 
         db?.execSQL(usuarios_app)
+    }
+    fun insertObsGeneral(obsGeneral: obsModel){
+
     }
     fun inserUsuario(usuarios: Usuarios) {
         val db = this.writableDatabase

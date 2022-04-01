@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.agua.MuestraSimpleAdapter
+import com.acama.muestreoapp.models.ObservacionGeneral
 import com.acama.muestreoapp.databinding.ActivityAguaDatosMuestreosBinding
 
 class AguaDatosMuestreosActivity : AppCompatActivity() {
@@ -32,9 +33,18 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         })
 
         bin.btnGuardar.setOnClickListener(){
-
+            guardarObservacion()
         }
 
+    }
+    fun guardarObservacion(){
+        val dbw: SQLiteDatabase = con.writableDatabase
+
+        var obsModel = ObsGeneral(
+            folio,
+            bin.edtObservacion.text.toString(),
+        )
+        con.insertObsGeneral(obsModel)
     }
 
     fun getNumTomas(){
