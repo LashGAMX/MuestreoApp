@@ -32,20 +32,21 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
             DialogVolver()
         })
 
+        //GUARDADO DE OBSERVACIONES GENERALES DE LAS MUESTRAS
         bin.btnGuardar.setOnClickListener(){
-            guardarObservacion()
+           // guardarObservacion()
         }
 
     }
-    fun guardarObservacion(){
-        val dbw: SQLiteDatabase = con.writableDatabase
-
-        var obsModel = ObsGeneral(
-            folio,
-            bin.edtObservacion.text.toString(),
-        )
-        con.insertObsGeneral(obsModel)
-    }
+//    fun guardarObservacion(){
+//        val dbw: SQLiteDatabase = con.writableDatabase
+//
+//        var obsModel = ObsGeneral(
+//            folio,
+//            bin.edtObservacion.text.toString(),
+//        )
+//        con.insertObsGeneral(obsModel)
+//    }
 
     fun getNumTomas(){
         var listaTomas: MutableList<MuestraSimple> = mutableListOf()

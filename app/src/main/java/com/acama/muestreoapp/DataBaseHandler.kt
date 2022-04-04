@@ -139,9 +139,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
         db?.execSQL(usuarios_app)
     }
-    fun insertObsGeneral(obsGeneral: obsModel){
-
-    }
+//    fun insertObsGeneral(obsGeneral: obsModel){
+//
+//    }
     fun inserUsuario(usuarios: Usuarios) {
         val db = this.writableDatabase
         var cv = ContentValues()
