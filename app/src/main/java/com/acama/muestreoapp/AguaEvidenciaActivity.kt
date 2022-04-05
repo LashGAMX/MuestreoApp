@@ -3,9 +3,7 @@ package com.acama.muestreoapp
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -18,6 +16,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_agua_evidencia.*
 import java.util.HashMap
+
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import android.util.Base64
 
 class AguaEvidenciaActivity : AppCompatActivity() {
 
@@ -87,20 +90,11 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     if (requestCode == File) {
         if (resultCode == RESULT_OK) {
             val FileUri = data!!.data
-            val Folder: StorageReference =
-                FirebaseStorage.getInstance().getReference().child("Campo")
-            val file_name: StorageReference = Folder.child("file" + FileUri!!.lastPathSegment)
-            file_name.putFile(FileUri).addOnSuccessListener { taskSnapshot ->
-                file_name.getDownloadUrl().addOnSuccessListener { uri ->
-                    val hashMap =
-                        HashMap<String, String>()
-                    hashMap["link"] = java.lang.String.valueOf(uri)
-                    myRef.setValue(hashMap)
-                    Log.d("Mensaje", "Se subió correctamente")
-                    Toast.makeText(this, "Se subió correctamente", Toast.LENGTH_SHORT).show()
+
+
                     bin.img1.setImageURI(FileUri)
-                }
-            }
+
+
         }
     }
 }
