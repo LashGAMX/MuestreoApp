@@ -1,26 +1,21 @@
 package com.acama.muestreoapp
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaEvidenciaBinding
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_agua_evidencia.*
-import java.util.HashMap
+import java.io.ByteArrayOutputStream
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Bundle
-import android.util.Base64
 
 class AguaEvidenciaActivity : AppCompatActivity() {
 
@@ -90,8 +85,12 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     if (requestCode == File) {
         if (resultCode == RESULT_OK) {
             val FileUri = data!!.data
-
-
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, FileUri)
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val bytes = stream.toByteArray()
+            val sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
+            bin.edtCodigo.text = sImage
                     bin.img1.setImageURI(FileUri)
 
 
