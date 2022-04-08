@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityAguaEvidenciaBinding
+import com.acama.muestreoapp.models.Evidencia
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_agua_evidencia.*
@@ -21,6 +22,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 
     private val SELECT_ACTIVITY = 50
     private var imageUri: Uri? = null
+    private lateinit var folio:String
 
     private val File = 1
     private val database = Firebase.database
@@ -32,6 +34,8 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin = ActivityAguaEvidenciaBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        folio = intent.getStringExtra("folio").toString()
+        bin.textFolio.text = "Folio: "+folio
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
@@ -49,6 +53,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         intent.type = "image/*"
         startActivityForResult(intent, File)
     }
+
     fun DialogVolver(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cuidado")
@@ -80,6 +85,10 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 ////            }
 ////        }
 ////    }
+    fun guardarImagen() {
+
+
+    }
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == File) {

@@ -51,6 +51,7 @@ val CAMPOCOMPUESTO = "campo_compuesto"
 val OBSGENERAL = "observacion_general"
 val Id_obsGeneral = "Id_odsGeneral"
 
+
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
