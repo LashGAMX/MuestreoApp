@@ -163,6 +163,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     cv.put("Folio",evidencia.FolioEvidencia)
     cv.put("Codigo",evidencia.Codigo)
 
+    var result = db.insert(EVIDENCIA, null,cv)
     }
 
     fun inserUsuario(usuarios: Usuarios) {

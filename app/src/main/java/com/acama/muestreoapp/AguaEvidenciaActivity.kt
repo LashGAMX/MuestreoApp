@@ -115,7 +115,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             bin.edtCodigo.text = sImage
             cod = sImage
                     bin.img1.setImageURI(FileUri)
-            Log.v("Codigo", cod)
+
 
         }
     }
