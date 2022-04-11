@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.math.log
 
 
 class ListaAguaActivity : AppCompatActivity() {
@@ -151,7 +152,7 @@ class ListaAguaActivity : AppCompatActivity() {
     }
 
     fun llenarLista() {
-
+        Log.d("Function:","Entro a funcion de llanar lista")
         val listaMuestreo: MutableList<String> = mutableListOf()
         val listaIdMuestreo: MutableList<String> = mutableListOf()
 
