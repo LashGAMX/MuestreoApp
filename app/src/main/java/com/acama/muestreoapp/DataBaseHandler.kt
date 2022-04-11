@@ -55,7 +55,7 @@ val Id_obsGeneral = "Id_odsGeneral"
 
 val EVIDENCIA = "evidencia"
 
-class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
+class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 2){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
         createTableUsuariosApp(db)
@@ -81,7 +81,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     }
     fun createEvidencia(db: SQLiteDatabase?){
-        val model = "CREATE TABLE" + EVIDENCIA + " (" +
+        val model = "CREATE TABLE " + EVIDENCIA + " (" +
                 "Id_evidencia INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Folio TEXT NOT NULL," +
                 "Codigo TEXT NOT NULL" +
@@ -89,7 +89,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         db?.execSQL(model)
     }
     fun createObservacionGeneral(db: SQLiteDatabase?){
-        val model = "CREATE TABLE" + OBSGENERAL +" (" +
+        val model = "CREATE TABLE " + OBSGENERAL +" (" +
                 "Id_obsGeneral INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Observacion TEXT NOT NULL" +
                 ")"
