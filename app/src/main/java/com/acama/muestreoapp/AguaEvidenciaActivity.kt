@@ -50,9 +50,10 @@ class AguaEvidenciaActivity : AppCompatActivity() {
             fileUpload()
         }
         bin.btHecho.setOnClickListener{
-            guardarImagen()
-            Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
-            onBackPressed()
+            //guardarImagen()
+
+            //Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
+            //onBackPressed()
         }
     }
     fun fileUpload() {
@@ -95,7 +96,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     fun guardarImagen() {
         val cvModel = Evidencia(
              folio,
-             bin.edtCodigo.text.toString(),
+             cod,
     )
     con.insertEvidencia(cvModel)
 
@@ -114,7 +115,8 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             bin.edtCodigo.text = sImage
             cod = sImage
                     bin.img1.setImageURI(FileUri)
-            Log.v("Codigo", cod)
+
+
         }
     }
 }
