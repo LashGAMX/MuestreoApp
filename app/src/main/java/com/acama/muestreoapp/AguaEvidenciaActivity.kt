@@ -38,6 +38,8 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         bin = ActivityAguaEvidenciaBinding.inflate(layoutInflater)
         setContentView(bin.root)
 
+        con = DataBaseHandler(this)
+
         folio = intent.getStringExtra("folio").toString()
         bin.textFolio.text = "Folio: "+folio
 
@@ -50,10 +52,10 @@ class AguaEvidenciaActivity : AppCompatActivity() {
             fileUpload()
         }
         bin.btHecho.setOnClickListener{
-            //guardarImagen()
+            guardarImagen()
 
-            //Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
-            //onBackPressed()
+            Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
+            onBackPressed()
         }
     }
     fun fileUpload() {
@@ -98,8 +100,8 @@ class AguaEvidenciaActivity : AppCompatActivity() {
              folio,
              cod,
     )
-    con.insertEvidencia(cvModel)
-
+    var db = DataBaseHandler(this)
+    db.insertEvidencia(cvModel)
 
     }
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
