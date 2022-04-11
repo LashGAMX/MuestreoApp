@@ -98,7 +98,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     fun guardarImagen() {
         val cvModel = Evidencia(
              folio,
-             cod,
+             bin.edtCodigo.text.toString(),
     )
     var db = DataBaseHandler(this)
     db.insertEvidencia(cvModel)
@@ -114,8 +114,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val bytes = stream.toByteArray()
             val sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
-            bin.edtCodigo.text = sImage
-            cod = sImage
+
                     bin.img1.setImageURI(FileUri)
 
 

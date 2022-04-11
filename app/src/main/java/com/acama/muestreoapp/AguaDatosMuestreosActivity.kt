@@ -28,6 +28,8 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         getExtras()
         getNumTomas()
 
+        folio = intent.getStringExtra("folio").toString()
+
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
@@ -38,15 +40,15 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         }
 
     }
-//    fun guardarObservacion(){
-//        val dbw: SQLiteDatabase = con.writableDatabase
-//
-//        var obsModel = ObsGeneral(
-//            folio,
-//            bin.edtObservacion.text.toString(),
-//        )
-//        con.insertObsGeneral(obsModel)
-//    }
+   fun guardarObservacion(){
+        val obsModel = ObservacionGeneral(
+            folio,
+            bin.edtObservacion.text.toString()
+
+        )
+       var db = DataBaseHandler(this)
+       db.insertEvidencia(obsModel)
+   }
 
     fun getNumTomas(){
         var listaTomas: MutableList<MuestraSimple> = mutableListOf()

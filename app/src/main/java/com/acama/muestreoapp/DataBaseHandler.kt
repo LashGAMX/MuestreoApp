@@ -164,6 +164,14 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     cv.put("Codigo",evidencia.Codigo)
 
     var result = db.insert(EVIDENCIA, null,cv)
+    if( result == -1.toLong())
+    {
+        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+    }
+    else
+    {
+        Toast.makeText(context, "Imagen guardada", Toast.LENGTH_SHORT).show()
+    }
     }
 
     fun inserUsuario(usuarios: Usuarios) {
