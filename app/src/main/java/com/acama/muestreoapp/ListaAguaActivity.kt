@@ -270,6 +270,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryConMuestra = "SELECT * FROM conductividad_muestra WHERE Id_solicitud = '$idSol'"
             val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
+            val queryEvidencia = "SELECT * FROM evidencia WHERE FolioEvidencia = '$folio'"
 
             var listTemp: MutableList<String> = ArrayList()
 
@@ -284,10 +285,30 @@ class ListaAguaActivity : AppCompatActivity() {
             var conMuestra : MutableList<String> = ArrayList()
             var gastoMuestra : MutableList<String> = ArrayList()
             var campoCompuesto:MutableList<String> = ArrayList()
+            var evidencia:MutableList<String> = ArrayList()
+
+
+            //Llenar datos evidencias
+            val evidenciaModel = db.rawQuery(queryEvidencia, null)
+            var cont: Int = 0
+            if (evidenciaModel.moveToFirst()) {
+                do {
+                    Log.d("Evidencia",evidenciaModel.getString(2))
+                    var jsonEvidencia = "{" +
+                            " \"FolioEvidencia\" : \"" + evidenciaModel.getString(1) + "\"" +
+                            ", \"Codigo\" : \"" + evidenciaModel.getString(2) + "\"" +
+                            "}"
+
+                    listTemp.add(cont, jsonEvidencia)
+                    cont++
+                    Log.d("Lista Temp",listTemp.toString())
+                } while (evidenciaModel.moveToNext())
+            }
+            evidencia.addAll(listTemp)
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
-            var cont: Int = 0
+            cont = 0
             if (generalModel.moveToFirst()) {
                 do {
                     Log.d("Captura",generalModel.getString(2))
@@ -562,6 +583,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("datosCompuestos", campoCompuesto.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("folio", folio)
+                    params.put("evidencia",evidenciaModel.toString())
                     return params
                 }
             }

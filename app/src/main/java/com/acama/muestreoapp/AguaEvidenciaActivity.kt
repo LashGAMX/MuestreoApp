@@ -23,6 +23,8 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     private val SELECT_ACTIVITY = 50
     private var imageUri: Uri? = null
     private lateinit var folio:String
+    private lateinit var con: DataBaseHandler
+    private var idEvidencia: Int = 0
 
     private val File = 1
     private val database = Firebase.database
@@ -37,6 +39,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         folio = intent.getStringExtra("folio").toString()
         bin.textFolio.text = "Folio: "+folio
 
+
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
@@ -45,6 +48,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
             fileUpload()
         }
         bin.btHecho.setOnClickListener{
+            guardarImagen()
             onBackPressed()
         }
     }
@@ -86,7 +90,13 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 ////        }
 ////    }
     fun guardarImagen() {
+        val cvModel = Evidencia(
+             folio,
+             bin.edtCodigo.text.toString(),
+    )
+    con.insertEvidencia(cvModel)
 
+    Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show()
 
     }
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

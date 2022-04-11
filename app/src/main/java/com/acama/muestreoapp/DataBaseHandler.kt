@@ -4,8 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.strictmode.SqliteObjectLeakedViolation
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.contentValuesOf
 import com.acama.muestreoapp.models.*
 
 
@@ -51,6 +53,7 @@ val CAMPOCOMPUESTO = "campo_compuesto"
 val OBSGENERAL = "observacion_general"
 val Id_obsGeneral = "Id_odsGeneral"
 
+val EVIDENICA = "evidencia"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -72,9 +75,17 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createTempMuestra(db)
         createCampoCompuesto(db)
         createObservacionGeneral(db)
+        createEvidencia(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+    }
+    fun createEvidencia(db: SQLiteDatabase?){
+        val model = "CREATE TABLE" + EVIDENICA + " (" +
+                "Id_evidencia INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Folio TEXT NOT NULL," +
+                "Codigo TEXT NOT NULL" +
+                ")"
     }
     fun createObservacionGeneral(db: SQLiteDatabase?){
         val model = "CREATE TABLE" + OBSGENERAL +" (" +
@@ -143,6 +154,15 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 //    fun insertObsGeneral(obsGeneral: obsModel){
 //
 //    }
+    fun insertEvidencia(evidencia: Evidencia){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+
+    cv.put("Folio",evidencia.FolioEvidencia)
+    cv.put("Codigo",evidencia.Codigo)
+
+    }
+
     fun inserUsuario(usuarios: Usuarios) {
         val db = this.writableDatabase
         var cv = ContentValues()
