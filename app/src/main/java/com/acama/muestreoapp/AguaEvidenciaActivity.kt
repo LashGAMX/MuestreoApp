@@ -49,6 +49,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         }
         bin.btHecho.setOnClickListener{
             guardarImagen()
+            Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show()
             onBackPressed()
         }
     }
@@ -96,7 +97,6 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     )
     con.insertEvidencia(cvModel)
 
-    Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show()
 
     }
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

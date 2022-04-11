@@ -53,7 +53,7 @@ val CAMPOCOMPUESTO = "campo_compuesto"
 val OBSGENERAL = "observacion_general"
 val Id_obsGeneral = "Id_odsGeneral"
 
-val EVIDENICA = "evidencia"
+val EVIDENCIA = "evidencia"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -81,17 +81,19 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     }
     fun createEvidencia(db: SQLiteDatabase?){
-        val model = "CREATE TABLE" + EVIDENICA + " (" +
+        val model = "CREATE TABLE" + EVIDENCIA + " (" +
                 "Id_evidencia INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Folio TEXT NOT NULL," +
                 "Codigo TEXT NOT NULL" +
                 ")"
+        db?.execSQL(model)
     }
     fun createObservacionGeneral(db: SQLiteDatabase?){
         val model = "CREATE TABLE" + OBSGENERAL +" (" +
-                "Id_obsGeneral INTEGER PRIMARY KEY AUTOICREMENT," +
+                "Id_obsGeneral INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Observacion TEXT NOT NULL" +
                 ")"
+        db?.execSQL(model)
     }
 
     fun createCatPhTrazable(db: SQLiteDatabase?){
