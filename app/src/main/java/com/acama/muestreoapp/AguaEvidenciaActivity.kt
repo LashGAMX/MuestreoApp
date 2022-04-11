@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     private lateinit var con: DataBaseHandler
     private var idEvidencia: Int = 0
 
+    private var cod : String = ""
     private val File = 1
     private val database = Firebase.database
     val myRef = database.getReference("user")
@@ -48,9 +50,10 @@ class AguaEvidenciaActivity : AppCompatActivity() {
             fileUpload()
         }
         bin.btHecho.setOnClickListener{
-            guardarImagen()
-            Toast.makeText(this, "Imagen guardada", Toast.LENGTH_SHORT).show()
-            onBackPressed()
+            //guardarImagen()
+
+            //Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
+            //onBackPressed()
         }
     }
     fun fileUpload() {
@@ -93,7 +96,7 @@ class AguaEvidenciaActivity : AppCompatActivity() {
     fun guardarImagen() {
         val cvModel = Evidencia(
              folio,
-             bin.edtCodigo.text.toString(),
+             cod,
     )
     con.insertEvidencia(cvModel)
 
@@ -110,8 +113,9 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             val bytes = stream.toByteArray()
             val sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
             bin.edtCodigo.text = sImage
+            cod = sImage
                     bin.img1.setImageURI(FileUri)
-
+            Log.v("Codigo", cod)
 
         }
     }
