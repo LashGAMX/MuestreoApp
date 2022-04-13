@@ -23,11 +23,11 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 
     private val SELECT_ACTIVITY = 50
     private var imageUri: Uri? = null
-    private lateinit var folio:String
+    private lateinit var folioEvidencia:String
     private lateinit var con: DataBaseHandler
-    private var idEvidencia: Int = 0
 
-    private var cod : String = ""
+
+    private var codigo : String = ""
     private val File = 1
     private val database = Firebase.database
     val myRef = database.getReference("user")
@@ -40,8 +40,8 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 
         con = DataBaseHandler(this)
 
-        folio = intent.getStringExtra("folio").toString()
-        bin.textFolio.text = "Folio: "+folio
+        folioEvidencia = intent.getStringExtra("folio").toString()
+        bin.textFolio.text = "Folio: "+folioEvidencia
 
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
@@ -53,8 +53,6 @@ class AguaEvidenciaActivity : AppCompatActivity() {
         }
         bin.btHecho.setOnClickListener{
             guardarImagen()
-
-            Toast.makeText(this, ""+ cod , Toast.LENGTH_SHORT).show()
             onBackPressed()
         }
     }
@@ -97,13 +95,13 @@ class AguaEvidenciaActivity : AppCompatActivity() {
 ////    }
     fun guardarImagen() {
         val cvModel = Evidencia(
-             folio,
-             bin.edtCodigo.text.toString(),
-    )
+            folioEvidencia,
+            codigo,
+        )
     var db = DataBaseHandler(this)
     db.insertEvidencia(cvModel)
-
     }
+
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == File) {
@@ -114,7 +112,8 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val bytes = stream.toByteArray()
             val sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
-
+            codigo = sImage
+            //bin.edtCode.setText(codigo)
                     bin.img1.setImageURI(FileUri)
 
 

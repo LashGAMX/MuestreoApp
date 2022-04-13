@@ -36,7 +36,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
         //GUARDADO DE OBSERVACIONES GENERALES DE LAS MUESTRAS
         bin.btnGuardar.setOnClickListener(){
-           // guardarObservacion()
+            guardarObservacion()
         }
 
     }
@@ -47,7 +47,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
         )
        var db = DataBaseHandler(this)
-       db.insertEvidencia(obsModel)
+       db.insertObsGeneral(obsModel)
    }
 
     fun getNumTomas(){

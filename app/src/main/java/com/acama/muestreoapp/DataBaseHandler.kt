@@ -91,6 +91,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun createObservacionGeneral(db: SQLiteDatabase?){
         val model = "CREATE TABLE " + OBSGENERAL +" (" +
                 "Id_obsGeneral INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Folio TEXT NOT NULL" +
                 "Observacion TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
@@ -153,9 +154,23 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
         db?.execSQL(usuarios_app)
     }
-//    fun insertObsGeneral(obsGeneral: obsModel){
-//
-//    }
+
+    fun insertObsGeneral(obs: ObservacionGeneral){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+    cv.put("Folio", obs.Folio)
+    cv.put("Observacion", obs.Observacion)
+    var result = db.insert(EVIDENCIA, null,cv)
+    if( result == -1.toLong())
+    {
+        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+    }
+    else
+    {
+        Toast.makeText(context, "Observacion guardada", Toast.LENGTH_SHORT).show()
+    }
+}
+
     fun insertEvidencia(evidencia: Evidencia){
         val db = this.writableDatabase
         var cv = ContentValues()

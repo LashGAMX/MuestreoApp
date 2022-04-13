@@ -39,6 +39,7 @@ class ListaAguaActivity : AppCompatActivity() {
     private lateinit var bin: ActivityListaAguaBinding
     private lateinit var listaArr: MutableList<String>
     private lateinit var con: DataBaseHandler
+    private var pruebaCod : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityListaAguaBinding.inflate(layoutInflater)
@@ -855,5 +856,7 @@ class ListaAguaActivity : AppCompatActivity() {
     private fun searchFolio() {
 
     }
+
+
 
 }
