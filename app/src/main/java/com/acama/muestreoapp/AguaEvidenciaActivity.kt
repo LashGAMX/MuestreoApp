@@ -109,11 +109,11 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             val FileUri = data!!.data
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, FileUri)
             val stream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream)
             val bytes = stream.toByteArray()
             val sImage = Base64.encodeToString(bytes, Base64.DEFAULT)
             codigo = sImage
-            //bin.edtCode.setText(codigo)
+          //bin.edtCode.setText(sImage)
                     bin.img1.setImageURI(FileUri)
 
 
