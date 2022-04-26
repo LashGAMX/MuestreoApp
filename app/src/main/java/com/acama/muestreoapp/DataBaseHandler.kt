@@ -91,7 +91,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun createObservacionGeneral(db: SQLiteDatabase?){
         val model = "CREATE TABLE " + OBSGENERAL +" (" +
                 "Id_obsGeneral INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Folio TEXT NOT NULL" +
+                "Folio TEXT NOT NULL," +
                 "Observacion TEXT NOT NULL" +
                 ")"
         db?.execSQL(model)
