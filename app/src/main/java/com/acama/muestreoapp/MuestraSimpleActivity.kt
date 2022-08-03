@@ -10,10 +10,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
-import com.acama.muestreoapp.models.ConMuestra
-import com.acama.muestreoapp.models.GastoMuestra
-import com.acama.muestreoapp.models.PhMuestra
-import com.acama.muestreoapp.models.TempMuestra
+import com.acama.muestreoapp.models.*
 import java.util.*
 
 class MuestraSimpleActivity : AppCompatActivity() {
@@ -23,6 +20,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
     private var idSol:Int = 0
     private lateinit var numToma:String
     private lateinit var con: DataBaseHandler
+
+    private var estado:Int = 0
 
     private var sw1 = false
     private var sw2 = false
@@ -48,6 +47,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
             } while (solGenModel.moveToNext())
         }
 
+        bin.btnCancelar.setOnClickListener{
+            cancelar()
+        }
         bin.btnRegresar.setOnClickListener{
             DialogVolver()
         }
@@ -211,6 +213,18 @@ class MuestraSimpleActivity : AppCompatActivity() {
             dpd.show()
         }
     }
+    fun cancelar(){
+        val dbw: SQLiteDatabase = con.writableDatabase
+
+        var modelCan = Canceladas(
+            estado.toString(),
+            numToma.toInt(),
+            idSol
+
+        )
+        con.insertCanceladas(modelCan)
+    }
+
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
 

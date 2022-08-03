@@ -51,9 +51,9 @@ val GASTOMUESTRA = "gasto_muestra"
 val CAMPOCOMPUESTO = "campo_compuesto"
 
 val OBSGENERAL = "observacion_general"
-val Id_obsGeneral = "Id_odsGeneral"
 
 val EVIDENCIA = "evidencia"
+val CANCELADAS = "canceladas"
 
 class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 2){
     override fun onCreate(db: SQLiteDatabase?) {
@@ -76,9 +76,19 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createCampoCompuesto(db)
         createObservacionGeneral(db)
         createEvidencia(db)
+        createCanceladas(db)
     }
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+    }
+    fun createCanceladas(db: SQLiteDatabase?){
+        val model = "CREATE TABLE " + CANCELADAS + " (" +
+                "Id_cancelada INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Folio TEXT NOT NULL" +
+                "Muestra INTEGER NOT NULL" +
+                "Estado INTEGER NOT NULL" +
+                ")"
+        db?.execSQL(model)
     }
     fun createEvidencia(db: SQLiteDatabase?){
         val model = "CREATE TABLE " + EVIDENCIA + " (" +
@@ -154,13 +164,29 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
         db?.execSQL(usuarios_app)
     }
+    fun insertCanceladas (can: Canceladas){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Folio", can.Folio)
+        cv.put("Muestra", can.Muestra)
+        cv.put("Estado", can.Estado)
+        var result = db.insert(CANCELADAS, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Observacion guardada", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     fun insertObsGeneral(obs: ObservacionGeneral){
         val db = this.writableDatabase
         var cv = ContentValues()
     cv.put("Folio", obs.Folio)
     cv.put("Observacion", obs.Observacion)
-    var result = db.insert(EVIDENCIA, null,cv)
+    var result = db.insert(OBSGENERAL, null,cv)
     if( result == -1.toLong())
     {
         Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()

@@ -41,13 +41,15 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
     }
    fun guardarObservacion(){
-        val obsModel = ObservacionGeneral(
+       val dbw: SQLiteDatabase = con.writableDatabase
+
+        var obsModel = ObservacionGeneral(
+
+            bin.edtObservacion.text.toString(),
             folio,
-            bin.edtObservacion.text.toString()
 
         )
-       var db = DataBaseHandler(this)
-       db.insertObsGeneral(obsModel)
+      con.insertObsGeneral(obsModel)
    }
 
     fun getNumTomas(){
