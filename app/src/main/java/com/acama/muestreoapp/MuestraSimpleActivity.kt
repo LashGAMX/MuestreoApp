@@ -22,6 +22,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
     private lateinit var con: DataBaseHandler
 
     private var estado:Int = 0
+    private var state = 0
+    private var toma = 0
 
     private var sw1 = false
     private var sw2 = false
@@ -39,6 +41,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
         numToma = intent.getStringExtra("numToma").toString()
         bin.txtNumMuestra.text = numToma
 
+        ValCancelada()
+
         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
         val solGenModel = db.rawQuery(qrSolGenModel, null)
         if (solGenModel.moveToFirst()) {
@@ -47,8 +51,10 @@ class MuestraSimpleActivity : AppCompatActivity() {
             } while (solGenModel.moveToNext())
         }
 
+
         bin.btnCancelar.setOnClickListener{
-            cancelar()
+            estado = 1
+            DialogCancelar()
         }
         bin.btnRegresar.setOnClickListener{
             DialogVolver()
@@ -217,12 +223,13 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val dbw: SQLiteDatabase = con.writableDatabase
 
         var modelCan = Canceladas(
-            estado.toString(),
+            folio,
             numToma.toInt(),
-            idSol
+            estado.toInt(),
 
         )
         con.insertCanceladas(modelCan)
+
     }
 
     fun guardarDatos(){
@@ -306,6 +313,62 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 android.R.string.no, Toast.LENGTH_SHORT
             ).show()
         }
+        builder.show()
+
+    }
+    fun ValCancelada() {
+
+        val db: SQLiteDatabase = con.readableDatabase
+        val query = "SELECT * FROM canceladas WHERE Folio = '$folio'"
+        val model = db.rawQuery(query, null)
+        if (model.getCount() > 0) {
+            model.moveToFirst()
+            state = model.getInt(model.getColumnIndex("Estado"))
+            toma = model.getInt(model.getColumnIndex("Muestra"))
+        }
+        model.close()
+
+            if (toma == numToma.toInt() && state == 1) {
+
+                    DialogDesactivado()
+
+            }
+
+    }
+    fun DialogCancelar() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Cuidado")
+        builder.setMessage("¿Seguro de que quieres cancelar esta muestra?")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+            cancelar()
+            onBackPressed()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
+        }
+        builder.show()
+
+    }
+    fun DialogDesactivado(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Muestra cancelada")
+        builder.setMessage("Esta muestra ha sido cancelada!")
+
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.ok, Toast.LENGTH_SHORT).show()
+            onBackPressed()
+        }
+
         builder.show()
 
     }

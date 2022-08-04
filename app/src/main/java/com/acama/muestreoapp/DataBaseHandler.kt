@@ -84,8 +84,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun createCanceladas(db: SQLiteDatabase?){
         val model = "CREATE TABLE " + CANCELADAS + " (" +
                 "Id_cancelada INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Folio TEXT NOT NULL" +
-                "Muestra INTEGER NOT NULL" +
+                "Folio TEXT NOT NULL," +
+                "Muestra INTEGER NOT NULL," +
                 "Estado INTEGER NOT NULL" +
                 ")"
         db?.execSQL(model)

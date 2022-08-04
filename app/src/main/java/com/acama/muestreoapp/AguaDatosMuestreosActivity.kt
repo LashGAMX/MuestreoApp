@@ -20,6 +20,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
     private  lateinit var folio:String
     private  lateinit var con: DataBaseHandler
     private var numTomas:Int = 0
+    private var obsGuardada: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaDatosMuestreosBinding.inflate(layoutInflater)
@@ -27,6 +28,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         con = DataBaseHandler(this)
         getExtras()
         getNumTomas()
+        getObservacion()
 
         folio = intent.getStringExtra("folio").toString()
 
@@ -51,6 +53,17 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         )
       con.insertObsGeneral(obsModel)
    }
+    fun getObservacion(){
+        val db: SQLiteDatabase = con.readableDatabase
+        val query = "SELECT * FROM observacion_general WHERE Folio = '$folio'"
+        val model = db.rawQuery(query, null)
+        if (model.getCount() > 0){
+            model.moveToFirst()
+            obsGuardada = model.getString(model.getColumnIndex("Observacion"))
+        }
+        model.close()
+        bin.edtObservacion.setText(obsGuardada)
+    }
 
     fun getNumTomas(){
         var listaTomas: MutableList<MuestraSimple> = mutableListOf()
@@ -102,5 +115,6 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         builder.show()
 
     }
+
 }
 
