@@ -207,10 +207,26 @@
                 android:id="@+id/btnFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:text="Fecha"
                 android:textColor="@color/white"
                 />
+            <TextView
+                android:id="@+id/txtHora"
+                android:layout_marginLeft="30dp"
 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00-00-00"
+                />
+            <Button
+                android:id="@+id/btnHora"
+                android:layout_marginLeft="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora"
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
             <View

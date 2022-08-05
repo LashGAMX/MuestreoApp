@@ -3,15 +3,17 @@ package com.acama.muestreoapp
 import android.R
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.ContentValues
+import android.app.TimePickerDialog
 import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
 import java.util.*
+
+
 
 class MuestraSimpleActivity : AppCompatActivity() {
 
@@ -219,6 +221,21 @@ class MuestraSimpleActivity : AppCompatActivity() {
             dpd.show()
         }
     }
+    fun getHora(){
+        val c = Calendar.getInstance()
+        val mHour = c.get(Calendar.HOUR_OF_DAY)
+        val mMinute = c.get(Calendar.MINUTE)
+        bin.btnHora.setOnClickListener {
+            val timePickerDialog = TimePickerDialog(this,
+                { view, hourOfDay, minute -> bin.txtHora.setText("$hourOfDay:$minute") },
+                mHour,
+                mMinute,
+                false
+            )
+            timePickerDialog.show()
+        }
+
+    }
     fun cancelar(){
         val dbw: SQLiteDatabase = con.writableDatabase
 
@@ -319,7 +336,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
     fun ValCancelada() {
 
         val db: SQLiteDatabase = con.readableDatabase
-        val query = "SELECT * FROM canceladas WHERE Folio = '$folio'"
+        val query = "SELECT * FROM canceladas WHERE Muestra = '$numToma'"
         val model = db.rawQuery(query, null)
         if (model.getCount() > 0) {
             model.moveToFirst()
