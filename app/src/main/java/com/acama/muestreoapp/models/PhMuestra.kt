@@ -12,8 +12,9 @@ class PhMuestra {
     var Ph3 : String = ""
     var Promedio : String = ""
     var Fecha : String = ""
+    var Hora : String = ""
 
-    constructor(Id_solicitud: Int,Num_muestra:Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promedio:String,Fecha:String){
+    constructor(Id_solicitud: Int,Num_muestra:Int,Materia:String,Olor:String,Color:String,Ph1:String,Ph2:String,Ph3:String,Promedio:String,Fecha:String, Hora:String){
         this.Id_solicitud = Id_solicitud
         this.Num_muestra = Num_muestra
         this.Materia = Materia
@@ -24,5 +25,6 @@ class PhMuestra {
         this.Ph3 = Ph3
         this.Promedio = Promedio
         this.Fecha = Fecha
+        this.Hora = Hora
     }
 }

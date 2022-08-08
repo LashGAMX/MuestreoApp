@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
+import kotlinx.android.synthetic.main.activity_muestra_simple.*
 import java.util.*
 
 
@@ -54,9 +55,21 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
 
 
+        bin.btnHora.setOnClickListener {
+            getHora()
+        }
+
         bin.btnCancelar.setOnClickListener{
-            estado = 1
-            DialogCancelar()
+            if (bin.txtFecha.text.equals("00-00-00")){
+                Toast.makeText(this, "Ingresa una fecha", Toast.LENGTH_SHORT).show()
+            }else if (bin.txtHora.text.equals("00-00-00")){
+                Toast.makeText(this, "Ingresa una hora", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                estado = 1
+                DialogCancelar()
+            }
+
         }
         bin.btnRegresar.setOnClickListener{
             DialogVolver()
@@ -262,7 +275,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtPh2.text.toString(),
             bin.edtPh3.text.toString(),
             bin.txtPromPh.text.toString(),
-            bin.txtFecha.text.toString()
+            bin.txtFecha.text.toString(),
+            bin.txtHora.text.toString()
         )
         con.insertPhMuestra(cvModel)
     // Guardar TempMuestra
@@ -362,7 +376,24 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 applicationContext,
                 android.R.string.yes, Toast.LENGTH_SHORT
             ).show()
-            cancelar()
+            //GUARDAR FECHA Y HORA AL MOMENTO DE CANCELAR
+
+            var cvModel = PhMuestra(
+                idSol,
+                numToma.toInt(),
+               "",
+                "",
+               "",
+                "",
+                "",
+                "",
+                "",
+                bin.txtFecha.text.toString(),
+                bin.txtHora.text.toString()
+            )
+            con.insertPhMuestra(cvModel)
+
+            cancelar() //Agrega datos a tabal cancelados
             onBackPressed()
         }
 

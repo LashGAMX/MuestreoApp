@@ -201,8 +201,7 @@
                 android:id="@+id/txtFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00-00-00"
-                />
+                android:text="00-00-00" />
             <Button
                 android:id="@+id/btnFecha"
                 android:layout_width="wrap_content"

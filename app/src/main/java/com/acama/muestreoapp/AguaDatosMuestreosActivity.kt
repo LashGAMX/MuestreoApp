@@ -28,7 +28,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         con = DataBaseHandler(this)
         getExtras()
         getNumTomas()
-        getObservacion()
+        bin.edtObservacion.setText(getObservacion()) // obtiene la observacion guardada
 
         folio = intent.getStringExtra("folio").toString()
 
@@ -38,22 +38,27 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
 
         //GUARDADO DE OBSERVACIONES GENERALES DE LAS MUESTRAS
         bin.btnGuardar.setOnClickListener(){
-            guardarObservacion()
+            if(obsGuardada.isEmpty()){
+                guardarObservacion()
+                // Guarda la observación cuando no existe una ya por defecto
+            } else {
+                Toast.makeText(this, "Ya se registró una observación", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }
    fun guardarObservacion(){
-       val dbw: SQLiteDatabase = con.writableDatabase
+          var obsModel = ObservacionGeneral(
 
-        var obsModel = ObservacionGeneral(
+              bin.edtObservacion.text.toString(),
+              folio,
+          )
+          con.insertObsGeneral(obsModel)
 
-            bin.edtObservacion.text.toString(),
-            folio,
-
-        )
-      con.insertObsGeneral(obsModel)
+      
    }
-    fun getObservacion(){
+    fun getObservacion(): String {
         val db: SQLiteDatabase = con.readableDatabase
         val query = "SELECT * FROM observacion_general WHERE Folio = '$folio'"
         val model = db.rawQuery(query, null)
@@ -62,7 +67,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
             obsGuardada = model.getString(model.getColumnIndex("Observacion"))
         }
         model.close()
-        bin.edtObservacion.setText(obsGuardada)
+        return obsGuardada
     }
 
     fun getNumTomas(){

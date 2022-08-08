@@ -197,6 +197,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     }
 }
 
+
     fun insertEvidencia(evidencia: Evidencia){
         val db = this.writableDatabase
         var cv = ContentValues()
@@ -581,7 +582,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Ph2 FLOAT," +
                 "Ph3 FLOAT," +
                 "Promedio FLOAT," +
-                "Fecha VARCHAR(100)" +
+                "Fecha VARCHAR(100)," +
+                "Hora VARCHAR(100)" +
                 ")"
         db?.execSQL(ph)
     }
@@ -599,6 +601,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Ph3", phMuestra.Ph3)
         cv.put("Promedio", phMuestra.Promedio)
         cv.put("Fecha", phMuestra.Fecha)
+        cv.put("Hora", phMuestra.Hora)
 
         var result = db.insert(PHMUESTRA, null,cv)
         if( result == -1.toLong())
