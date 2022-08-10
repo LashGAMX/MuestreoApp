@@ -6,9 +6,11 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
 import kotlinx.android.synthetic.main.activity_muestra_simple.*
@@ -76,37 +78,15 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
 
         bin.btnValPH.setOnClickListener {
-            val ph1 = bin.edtPh1.text.toString()
-            val ph2 = bin.edtPh2.text.toString()
-            val ph3 = bin.edtPh3.text.toString()
-            var sw = false
-        if ((ph1.toFloat() - ph2.toFloat() >= 0.05 || ph1.toFloat() - ph2.toFloat() <= 0.05) && (ph1.toFloat() - ph3.toFloat() >= 0.05 || ph1.toFloat() - ph3.toFloat() <= 0.05)){
-            sw = true
-        }else{
-            sw = false
-        }
-        if ((ph2.toFloat() - ph1.toFloat() >= 0.05 || ph2.toFloat() - ph1.toFloat() <= 0.05) && (ph2.toFloat() - ph3.toFloat() >= 0.05 || ph2.toFloat() - ph3.toFloat() <= 0.05)){
-            sw = true
-        }else{
-            sw = false
-        }
-        if ((ph3.toFloat() - ph1.toFloat() >= 0.05 || ph3.toFloat() - ph1.toFloat() <= 0.05) && (ph3.toFloat() - ph1.toFloat() >= 0.05 || ph3.toFloat() - ph1.toFloat() <= 0.05)){
-            sw = true
-        }else{
-            sw = false
-        }
+            try {
+                validarPH()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
 
-        if (sw == true){
-            sw1 = true
-            bin.txtPromPh.text = ((ph1.toFloat() + ph2.toFloat() + ph3.toFloat()) / 3).toString()
-        }else{
-            sw1 = false
-            bin.edtPh1.setError("Comprueba los datos")
-            bin.edtPh2.setError("Comprueba los datos")
-            bin.edtPh3.setError("Comprueba los datos")
-        }
 
-    }
+          }
+        
 
         bin.btnValProm.setOnClickListener {
             val temp1 = bin.edtTemp1.text.toString()
@@ -220,6 +200,37 @@ class MuestraSimpleActivity : AppCompatActivity() {
        LlenarSpinners()
         getDate()
 
+    }
+    fun validarPH(){
+        val ph1 = bin.edtPh1.text.toString()
+        val ph2 = bin.edtPh2.text.toString()
+        val ph3 = bin.edtPh3.text.toString()
+        var sw = false
+        if ((ph1.toFloat() - ph2.toFloat() >= 0.05 || ph1.toFloat() - ph2.toFloat() <= 0.05) && (ph1.toFloat() - ph3.toFloat() >= 0.05 || ph1.toFloat() - ph3.toFloat() <= 0.05)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((ph2.toFloat() - ph1.toFloat() >= 0.05 || ph2.toFloat() - ph1.toFloat() <= 0.05) && (ph2.toFloat() - ph3.toFloat() >= 0.05 || ph2.toFloat() - ph3.toFloat() <= 0.05)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((ph3.toFloat() - ph1.toFloat() >= 0.05 || ph3.toFloat() - ph1.toFloat() <= 0.05) && (ph3.toFloat() - ph1.toFloat() >= 0.05 || ph3.toFloat() - ph1.toFloat() <= 0.05)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw1 = true
+            bin.txtPromPh.text = ((ph1.toFloat() + ph2.toFloat() + ph3.toFloat()) / 3).toString()
+        }else{
+            sw1 = false
+            bin.edtPh1.setError("Comprueba los datos")
+            bin.edtPh2.setError("Comprueba los datos")
+            bin.edtPh3.setError("Comprueba los datos")
+        }
     }
     fun getDate(){
         val c = Calendar.getInstance()
