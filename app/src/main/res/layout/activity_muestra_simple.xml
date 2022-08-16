@@ -213,18 +213,34 @@
             <TextView
                 android:id="@+id/txtHora"
                 android:layout_marginLeft="30dp"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00-00-00"
-                />
-            <Button
-                android:id="@+id/btnHora"
-                android:layout_marginLeft="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hora"
-                android:textColor="@color/white"
+                />
+            <EditText
+                android:id="@+id/edtHora"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="00"
+                android:textColor="@color/black"
+                />
+
+            <TextView
+                android:id="@+id/txtDosPuntos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text=":"
+                android:textSize="30dp"
+                android:textColor="@color/black" />
+             <EditText
+                android:id="@+id/txtMin"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="00"
+                android:textColor="@color/black"
                 />
 
         </LinearLayout>

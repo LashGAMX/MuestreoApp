@@ -57,9 +57,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
 
 
-        bin.btnHora.setOnClickListener {
-            getHora()
-        }
+       // bin.btnHora.setOnClickListener {
+         //   getHora()
+        //}
 
         bin.btnCancelar.setOnClickListener{
             if (bin.txtFecha.text.equals("00-00-00")){
@@ -83,106 +83,30 @@ class MuestraSimpleActivity : AppCompatActivity() {
             } catch (e: Exception){
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
             }
-
-
           }
-        
 
         bin.btnValProm.setOnClickListener {
-            val temp1 = bin.edtTemp1.text.toString()
-            val temp2 = bin.edtTemp2.text.toString()
-            val temp3 = bin.edtTemp3.text.toString()
-            var sw = false
-            if ((temp1.toFloat() - temp2.toFloat() >= 1 || temp1.toFloat() - temp2.toFloat() <= 1) && (temp1.toFloat() - temp3.toFloat() >= 1 || temp1.toFloat() - temp3.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
+            try {
+                valProm()
+            } catch (e: Exception){
+                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
-            if ((temp2.toFloat() - temp1.toFloat() >= 1 || temp2.toFloat() - temp1.toFloat() <= 1) && (temp2.toFloat() - temp3.toFloat() >= 1 || temp2.toFloat() - temp3.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
-            }
-            if ((temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1) && (temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
-            }
-
-            if (sw == true){
-                sw2 = true
-                bin.txtTempProm.text = ((temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3).toString()
-            }else{
-                sw2 = false
-                bin.edtTemp1.setError("Comprueba los datos")
-                bin.edtTemp2.setError("Comprueba los datos")
-                bin.edtTemp3.setError("Comprueba los datos")
-            }
-
         }
 
         bin.btnValCon.setOnClickListener {
-            val con1 = bin.edtCon1.text.toString()
-            val con2 = bin.edtCon2.text.toString()
-            val con3 = bin.edtCon3.text.toString()
-            var sw = false
-            if ((con1.toFloat() - con2.toFloat() >= 5 || con1.toFloat() - con2.toFloat() <= 5) && (con1.toFloat() - con3.toFloat() >= 5 || con1.toFloat() - con3.toFloat() <= 5)){
-                sw = true
-            }else{
-                sw = false
-            }
-            if ((con2.toFloat() - con1.toFloat() >= 5 || con2.toFloat() - con1.toFloat() <= 5) && (con2.toFloat() - con3.toFloat() >= 5 || con2.toFloat() - con3.toFloat() <= 5)){
-                sw = true
-            }else{
-                sw = false
-            }
-            if ((con3.toFloat() - con1.toFloat() >= 5 || con3.toFloat() - con1.toFloat() <= 5) && (con3.toFloat() - con2.toFloat() >= 5 || con3.toFloat() - con2.toFloat() <= 5)){
-                sw = true
-            }else{
-                sw = false
-            }
-
-            if (sw == true){
-                sw3 = true
-                bin.txtConProm.text = ((con1.toFloat() + con2.toFloat() + con3.toFloat()) / 3).toString()
-            }else{
-                sw3 = false
-                bin.edtCon1.setError("Comprueba los datos")
-                bin.edtCon2.setError("Comprueba los datos")
-                bin.edtCon3.setError("Comprueba los datos")
+            try {
+                valCon()
+            } catch (e: Exception){
+                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
         }
 
         bin.btnValGasto.setOnClickListener {
-            val gasto1 = bin.edtGasto1.text.toString()
-            val gasto2 = bin.edtGasto2.text.toString()
-            val gasto3 = bin.edtGasto3.text.toString()
-            var sw = false
-            if ((gasto1.toFloat() - gasto2.toFloat() >= 1 || gasto1.toFloat() - gasto2.toFloat() <= 1) && (gasto1.toFloat() - gasto3.toFloat() >= 1 || gasto1.toFloat() - gasto3.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
-            }
-            if ((gasto2.toFloat() - gasto1.toFloat() >= 1 || gasto2.toFloat() - gasto1.toFloat() <= 1) && (gasto2.toFloat() - gasto3.toFloat() >= 1 || gasto2.toFloat() - gasto3.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
-            }
-            if ((gasto3.toFloat() - gasto1.toFloat() >= 1 || gasto3.toFloat() - gasto1.toFloat() <= 1) && (gasto3.toFloat() - gasto2.toFloat() >= 1 || gasto3.toFloat() - gasto2.toFloat() <= 1)){
-                sw = true
-            }else{
-                sw = false
-            }
-
-            if (sw == true){
-                sw4 = true
-                bin.txtGastoProm.text = ((gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3).toString()
-            }else{
-                sw4 = false
-                bin.edtGasto1.setError("Comprueba los datos")
-                bin.edtGasto2.setError("Comprueba los datos")
-                bin.edtGasto3.setError("Comprueba los datos")
-            }
+           try {
+               valGasto()
+           } catch (e: Exception) {
+               Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
+           }
         }
 
 
@@ -232,6 +156,100 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtPh3.setError("Comprueba los datos")
         }
     }
+    fun valProm(){
+        val temp1 = bin.edtTemp1.text.toString()
+        val temp2 = bin.edtTemp2.text.toString()
+        val temp3 = bin.edtTemp3.text.toString()
+        var sw = false
+        if ((temp1.toFloat() - temp2.toFloat() >= 1 || temp1.toFloat() - temp2.toFloat() <= 1) && (temp1.toFloat() - temp3.toFloat() >= 1 || temp1.toFloat() - temp3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((temp2.toFloat() - temp1.toFloat() >= 1 || temp2.toFloat() - temp1.toFloat() <= 1) && (temp2.toFloat() - temp3.toFloat() >= 1 || temp2.toFloat() - temp3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1) && (temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw2 = true
+            bin.txtTempProm.text = ((temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3).toString()
+        }else{
+            sw2 = false
+            bin.edtTemp1.setError("Comprueba los datos")
+            bin.edtTemp2.setError("Comprueba los datos")
+            bin.edtTemp3.setError("Comprueba los datos")
+        }
+
+    }
+    fun valCon(){
+        val con1 = bin.edtCon1.text.toString()
+        val con2 = bin.edtCon2.text.toString()
+        val con3 = bin.edtCon3.text.toString()
+        var sw = false
+        if ((con1.toFloat() - con2.toFloat() >= 5 || con1.toFloat() - con2.toFloat() <= 5) && (con1.toFloat() - con3.toFloat() >= 5 || con1.toFloat() - con3.toFloat() <= 5)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((con2.toFloat() - con1.toFloat() >= 5 || con2.toFloat() - con1.toFloat() <= 5) && (con2.toFloat() - con3.toFloat() >= 5 || con2.toFloat() - con3.toFloat() <= 5)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((con3.toFloat() - con1.toFloat() >= 5 || con3.toFloat() - con1.toFloat() <= 5) && (con3.toFloat() - con2.toFloat() >= 5 || con3.toFloat() - con2.toFloat() <= 5)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw3 = true
+            bin.txtConProm.text = ((con1.toFloat() + con2.toFloat() + con3.toFloat()) / 3).toString()
+        }else{
+            sw3 = false
+            bin.edtCon1.setError("Comprueba los datos")
+            bin.edtCon2.setError("Comprueba los datos")
+            bin.edtCon3.setError("Comprueba los datos")
+        }
+    }
+    fun valGasto(){
+        val gasto1 = bin.edtGasto1.text.toString()
+        val gasto2 = bin.edtGasto2.text.toString()
+        val gasto3 = bin.edtGasto3.text.toString()
+        var sw = false
+        if ((gasto1.toFloat() - gasto2.toFloat() >= 1 || gasto1.toFloat() - gasto2.toFloat() <= 1) && (gasto1.toFloat() - gasto3.toFloat() >= 1 || gasto1.toFloat() - gasto3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((gasto2.toFloat() - gasto1.toFloat() >= 1 || gasto2.toFloat() - gasto1.toFloat() <= 1) && (gasto2.toFloat() - gasto3.toFloat() >= 1 || gasto2.toFloat() - gasto3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((gasto3.toFloat() - gasto1.toFloat() >= 1 || gasto3.toFloat() - gasto1.toFloat() <= 1) && (gasto3.toFloat() - gasto2.toFloat() >= 1 || gasto3.toFloat() - gasto2.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw4 = true
+            bin.txtGastoProm.text = ((gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3).toString()
+        }else{
+            sw4 = false
+            bin.edtGasto1.setError("Comprueba los datos")
+            bin.edtGasto2.setError("Comprueba los datos")
+            bin.edtGasto3.setError("Comprueba los datos")
+        }
+    }
     fun getDate(){
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -245,7 +263,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             dpd.show()
         }
     }
-    fun getHora(){
+  /*  fun getHora(){
         val c = Calendar.getInstance()
         val mHour = c.get(Calendar.HOUR_OF_DAY)
         val mMinute = c.get(Calendar.MINUTE)
@@ -259,7 +277,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             timePickerDialog.show()
         }
 
-    }
+    } */
     fun cancelar(){
         val dbw: SQLiteDatabase = con.writableDatabase
 
@@ -275,6 +293,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
+        var hora = bin.txtHora.toString() + ":" + bin.txtMin.toString()
 
         var cvModel = PhMuestra(
             idSol,
@@ -287,7 +306,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtPh3.text.toString(),
             bin.txtPromPh.text.toString(),
             bin.txtFecha.text.toString(),
-            bin.txtHora.text.toString()
+            hora
         )
         con.insertPhMuestra(cvModel)
     // Guardar TempMuestra
