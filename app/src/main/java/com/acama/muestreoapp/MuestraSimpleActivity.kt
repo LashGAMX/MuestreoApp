@@ -62,12 +62,18 @@ class MuestraSimpleActivity : AppCompatActivity() {
         //}
 
         bin.btnCancelar.setOnClickListener{
-            if (bin.txtFecha.text.equals("00-00-00")){
-                Toast.makeText(this, "Ingresa una fecha", Toast.LENGTH_SHORT).show()
-            }else if (bin.txtHora.text.equals("00-00-00")){
-                Toast.makeText(this, "Ingresa una hora", Toast.LENGTH_SHORT).show()
-            }
-            else {
+
+            if (bin.txtFecha.text.equals("00-00-00")||bin.txtHora.text.equals("")){
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Error")
+                builder.setMessage("Necesitas establecer una fehca y una hora para cancelar la toma.")
+
+                builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+                    Toast.makeText(applicationContext,
+                        android.R.string.ok, Toast.LENGTH_SHORT).show()
+                }
+                builder.show()
+          } else {
                 estado = 1
                 DialogCancelar()
             }
@@ -446,7 +452,6 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 android.R.string.ok, Toast.LENGTH_SHORT).show()
             onBackPressed()
         }
-
         builder.show()
 
     }
