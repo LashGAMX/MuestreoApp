@@ -478,6 +478,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              R.layout.simple_spinner_item, termos
          )
          bin.spnTermo.adapter = adTermo
+         bin.spnTermo2.adapter = adTermo
 
          val qePhTazable = "SELECT * FROM cat_phTrazable"
          val phTModel = db.rawQuery(qePhTazable, null)
