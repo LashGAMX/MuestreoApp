@@ -317,7 +317,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             hora
         )
         con.insertPhMuestra(cvModel)
-    // Guardar TempMuestra
+    // Guardar TempMuestra (Temperatura del agua)
         val cv2Model = TempMuestra(
             idSol,
             numToma.toInt(),

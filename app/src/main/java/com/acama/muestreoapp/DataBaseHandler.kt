@@ -38,6 +38,7 @@ val CONTRAZABLE = "con_trazable"
 val CONCALIDAD = "con_calidad"
 val SOLGENERADA = "solicitud_generadas"
 val TERMOMETRO = "TermometroCampo"
+val TERMOMETRO2 = "TermometroCampo2"
 val CATPHTRAZABLE = "cat_phTrazable"
 val CATPHCALIDAD = "cat_phCalidad"
 val CATCONTRAZABLE = "cat_conTrazable"
@@ -67,6 +68,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createCatConTrazable(db)
         createCatConCalidad(db)
         createTermometro(db)
+        createTermometro2(db)
         createConTrazable(db)
         createConCalidad(db)
         createPhMuestra(db)
@@ -375,6 +377,17 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 ")"
         db?.execSQL(model)
     }
+    fun createTermometro2(db: SQLiteDatabase?){
+        val model = "CREATE TABLE "+ TERMOMETRO2 +" (" +
+                "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_muestreador INTEGER NOT NULL," +
+                "Equipo TEXT NOT NULL," +
+                "Marca TEXT NOT NULL," +
+                "Modelo TEXT NOT NULL," +
+                "Serie TEXT NOT NULL" +
+                ")"
+        db?.execSQL(model)
+    }
     fun insertTermometroCampo(term: TermometroCampo) {
         val db = this.writableDatabase
         var cv = ContentValues()
@@ -384,6 +397,23 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Modelo", term.Modelo)
         cv.put("Serie", term.Serie)
         var result = db.insert(TERMOMETRO, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    fun insertTermometroCampo2(term2: TermometroCampo2) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Id_muestreador",term2.Id_muestreador)
+        cv.put("Equipo", term2.Equipo)
+        cv.put("Marca", term2.Marca)
+        cv.put("Modelo", term2.Modelo)
+        cv.put("Serie", term2.Serie)
+        var result = db.insert(TERMOMETRO2, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
