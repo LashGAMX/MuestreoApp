@@ -841,6 +841,35 @@
                 android:inputType="numberDecimal"
                 />
         </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separador"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Supervisó:"
+                android:layout_marginLeft="20dp"
+
+                />
+            <EditText
+                android:id="@+id/edtSuperviso"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:inputType="text"
+                />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnGuardar"

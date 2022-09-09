@@ -48,6 +48,7 @@ val CATCONCALIDAD = "cat_conCalidad"
 
 val PHMUESTRA = "ph_muestra"
 val TEMPMUESTRA = "temperatura_muestra"
+val TEMPAMBIENTE = "temperatura_ambiente"
 val CONMUESTRA = "conductividad_muestra"
 val GASTOMUESTRA = "gasto_muestra"
 
@@ -77,6 +78,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createGastoMuestra(db)
         createConMuestra(db)
         createTempMuestra(db)
+        createTempAmbiente(db)
         createCampoCompuesto(db)
         createObservacionGeneral(db)
         createEvidencia(db)
@@ -694,6 +696,18 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 ")"
         db?.execSQL(ph)
     }
+    fun createTempAmbiente(db: SQLiteDatabase?){
+        val ph = "CREATE TABLE " + TEMPAMBIENTE + " (" +
+                "Id_temperaturaA INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
+                "TempA1 FLOAT," +
+                "TempA2 FLOAT," +
+                "TempA3 FLOAT," +
+                "PromedioA FLOAT" +
+                ")"
+        db?.execSQL(ph)
+    }
     fun insertTempMuestra(tempMuestra: TempMuestra) {
         val db = this.writableDatabase
         var cv = ContentValues()
@@ -706,6 +720,27 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Promedio", tempMuestra.Promedio)
 
         var result = db.insert(TEMPMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertTempAmbiente(tempAmbiente: TempAmbiente) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        //put datos
+        cv.put("Id_solicitud", tempAmbiente.Id_solicitud)
+        cv.put("Num_toma", tempAmbiente.Num_muestra)
+        cv.put("TempA1", tempAmbiente.TempA1)
+        cv.put("TempA2", tempAmbiente.TempA2)
+        cv.put("TempA3", tempAmbiente.TempA3)
+        cv.put("PromedioA", tempAmbiente.PromedioA)
+
+        var result = db.insert(TEMPAMBIENTE, null,cv)
         if( result == -1.toLong())
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()

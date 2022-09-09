@@ -273,12 +273,16 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }
          bin.btnPendiente.setOnClickListener {
-             when(bin.edtPendiente.text.toString().toFloat()){
-                 in 94.0 .. 105.0 -> sw7 = true
-                 else -> {
-                     bin.edtPendiente.setError("La pendiente supera el valor permitido")
-                     sw7 = false
+             try {
+                 when (bin.edtPendiente.text.toString().toFloat()) {
+                     in 94.0..105.0 -> sw7 = true
+                     else -> {
+                         bin.edtPendiente.setError("La pendiente supera el valor permitido")
+                         sw7 = false
+                     }
                  }
+             } catch (e: Exception) {
+                 Toast.makeText(this, "Error en pendiente", Toast.LENGTH_SHORT).show()
              }
          }
          bin.ImgCoordenadas.setOnClickListener{

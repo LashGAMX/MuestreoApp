@@ -302,7 +302,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
-        var hora = bin.txtHora.toString() + ":" + bin.txtMin.toString()
+        val h = bin.edtHora.text.toString()
+        val m = bin.txtMin.text.toString()
+        val hora = h + ":" + m
 
         var cvModel = PhMuestra(
             idSol,
@@ -328,6 +330,16 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.txtTempProm.text.toString(),
         )
         con.insertTempMuestra(cv2Model)
+        // Guardar TempAmbiente)
+        val cv5Model = TempMuestra(
+            idSol,
+            numToma.toInt(),
+            bin.edtTempA1.text.toString(),
+            bin.edtTempA2.text.toString(),
+            bin.edtTempA3.text.toString(),
+            bin.txtTempPromA.text.toString(),
+        )
+        con.insertTempMuestra(cv5Model)
         //Guardar Conductividad
         val cv3Model = ConMuestra(
             idSol,
