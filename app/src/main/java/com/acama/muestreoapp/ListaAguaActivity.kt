@@ -299,12 +299,14 @@ class ListaAguaActivity : AppCompatActivity() {
                             " \"Id_solicitud\" : \"" + generalModel.getInt(1) + "\"" +
                             ", \"Captura\" : \"" + generalModel.getString(2) + "\"" +
                             ", \"Id_equipo\" : \"" + generalModel.getInt(3) + "\"" +
-                            ", \"Temperatura_a\" : \"" + generalModel.getString(4) + "\"" +
-                            ", \"Temperatura_b\" : \"" + generalModel.getString(5) + "\"" +
-                            ", \"Latitud\" : \"" + generalModel.getString(6) + "\"" +
-                            ", \"Longitud\" : \"" + generalModel.getString(7) + "\"" +
-                            ", \"Pendiente\" : \"" + generalModel.getString(8) + "\"" +
-                            ", \"Criterio\" : \"" + generalModel.getString(9) + "\"" +
+                            ", \"Id_equipo2\" : \"" + generalModel.getInt(4) + "\"" +
+                            ", \"Temperatura_a\" : \"" + generalModel.getString(5) + "\"" +
+                            ", \"Temperatura_b\" : \"" + generalModel.getString(6) + "\"" +
+                            ", \"Latitud\" : \"" + generalModel.getString(7) + "\"" +
+                            ", \"Longitud\" : \"" + generalModel.getString(8) + "\"" +
+                            ", \"Pendiente\" : \"" + generalModel.getString(9) + "\"" +
+                            ", \"Criterio\" : \"" + generalModel.getString(10) + "\"" +
+                            ", \"Supervisor\" : \"" + generalModel.getString(11) + "\"" +
                             "}"
 
                     listTemp.add(cont, jsonGeneral)
@@ -659,12 +661,14 @@ class ListaAguaActivity : AppCompatActivity() {
                         idSolGen,
                         "",
                         0,
+                        0,
                         "",
                         "",
                         "",
                         "",
                         "",
-                        ""
+                        "",
+                        "",
                     )
                     var db = DataBaseHandler(this)
                     db.insertGeneral(generalModel)

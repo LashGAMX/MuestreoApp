@@ -17,12 +17,14 @@ val Id_general = "Id_general"
 val Id_solicitud = "Id_solicitud"
 val Captura = "Captura"
 val Id_equipo = "Id_equipo"
+val Id_equipo2 = "Id_equipo2"
 val Temperatura_a = "Temperatura_a"
 val Temperatura_b = "Temperatura_b"
 val Latitud = "Latitud"
 val Longitud = "Longitud"
 val Pendiente = "Pendiente"
 val Criterio = "Criterio"
+val Supervisor = "Supervisor"
 
 //Usuarios app
 val USUARIOS = "usuarios_app"
@@ -430,12 +432,14 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_solicitud + " INTEGER," +
                 Captura + " VARCHAR(256)," +
                 Id_equipo + " INTEGER," +
+                Id_equipo2 + " INTEGER," +
                 Temperatura_a + " VARCHAR(256)," +
                 Temperatura_b + " VARCHAR(256)," +
                 Latitud + " VARCHAR(256)," +
                 Longitud + " VARCHAR(256)," +
                 Pendiente + " VARCHAR(256)," +
                 Criterio + " VARCHAR(256))"
+                Supervisor + " VARCHAR(256)," +
         db?.execSQL(campo_general)
     }
 
@@ -445,12 +449,14 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put(Id_solicitud,generales.Id_solicitud)
         cv.put(Captura, generales.Captura)
         cv.put(Id_equipo, generales.Id_equipo)
+        cv.put(Id_equipo2, generales.Id_equipo2)
         cv.put(Temperatura_a, generales.Temperatura_a)
         cv.put(Temperatura_b, generales.Temperatura_b)
         cv.put(Latitud, generales.Latitud)
         cv.put(Longitud, generales.Longitud)
         cv.put(Pendiente, generales.Pendiente)
         cv.put(Criterio, generales.Criterio)
+        cv.put(Supervisor, generales.Supervisor)
         var result = db.insert(DATOSGENERALES, null,cv)
         if( result == -1.toLong())
         {
