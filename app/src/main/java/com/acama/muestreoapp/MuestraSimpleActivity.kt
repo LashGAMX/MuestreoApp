@@ -50,6 +50,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         ValCancelada()
 
+
         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
         val solGenModel = db.rawQuery(qrSolGenModel, null)
         if (solGenModel.moveToFirst()) {
