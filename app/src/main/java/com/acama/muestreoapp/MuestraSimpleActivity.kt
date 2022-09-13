@@ -9,6 +9,7 @@ import android.app.TimePickerDialog
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
     private var sw3 = false
     private var sw4 = false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         bin = ActivityMuestraSimpleBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -49,6 +52,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.txtNumMuestra.text = numToma
 
         ValCancelada()
+
 
 
         val qrSolGenModel = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
@@ -101,7 +105,13 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
         }
-
+        bin.btnValPromA.setOnClickListener { 
+            try {
+                valAmb()
+            } catch (e: Exception){
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
         bin.btnValCon.setOnClickListener {
             try {
                 valCon()
@@ -196,6 +206,37 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtTemp3.setError("Comprueba los datos")
         }
 
+    }
+    fun valAmb(){
+        val amb1 = bin.edtTempA1.text.toString()
+        val amb2 = bin.edtTempA2.text.toString()
+        val amb3 = bin.edtTempA3.text.toString()
+        var sw = false
+        if ((amb1.toFloat() - amb2.toFloat() >= 1 || amb1.toFloat() - amb2.toFloat() <= 1) && (amb1.toFloat() - amb3.toFloat() >= 1 || amb1.toFloat() - amb3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((amb2.toFloat() - amb1.toFloat() >= 1 || amb2.toFloat() - amb1.toFloat() <= 1) && (amb2.toFloat() - amb3.toFloat() >= 1 || amb2.toFloat() - amb3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((amb3.toFloat() - amb1.toFloat() >= 1 || amb3.toFloat() - amb1.toFloat() <= 1) && (amb3.toFloat() - amb1.toFloat() >= 1 || amb3.toFloat() - amb1.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw2 = true
+            bin.txtTempPromA.text = ((amb1.toFloat() + amb2.toFloat() + amb3.toFloat()) / 3).toString()
+        }else{
+            sw2 = false
+            bin.edtTempA1.setError("Comprueba los datos")
+            bin.edtTempA2.setError("Comprueba los datos")
+            bin.edtTempA3.setError("Comprueba los datos")
+        }
     }
     fun valCon(){
         val con1 = bin.edtCon1.text.toString()
@@ -331,7 +372,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         )
         con.insertTempMuestra(cv2Model)
         // Guardar TempAmbiente)
-        val cv5Model = TempMuestra(
+        val cv5Model = TempAmbiente(
             idSol,
             numToma.toInt(),
             bin.edtTempA1.text.toString(),
@@ -339,7 +380,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtTempA3.text.toString(),
             bin.txtTempPromA.text.toString(),
         )
-        con.insertTempMuestra(cv5Model)
+        con.insertTempAmbiente(cv5Model)
         //Guardar Conductividad
         val cv3Model = ConMuestra(
             idSol,
@@ -458,10 +499,10 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     }
     fun DialogDesactivado(){
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Muestra cancelada")
         builder.setMessage("Esta muestra ha sido cancelada!")
-
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
             Toast.makeText(applicationContext,
                 android.R.string.ok, Toast.LENGTH_SHORT).show()

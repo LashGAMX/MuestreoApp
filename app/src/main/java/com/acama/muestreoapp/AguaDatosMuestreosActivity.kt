@@ -42,11 +42,19 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
                 guardarObservacion()
                 // Guarda la observación cuando no existe una ya por defecto
             } else {
-                Toast.makeText(this, "Ya se registró una observación", Toast.LENGTH_SHORT).show()
+                updateObservacion()
             }
 
         }
 
+    }
+    fun updateObservacion(){
+        var obsUpdate = ObservacionGeneral(
+            bin.edtObservacion.text.toString(),
+            folio,
+
+        )
+        con.updateObsGeneral(obsUpdate)
     }
    fun guardarObservacion(){
           var obsModel = ObservacionGeneral(

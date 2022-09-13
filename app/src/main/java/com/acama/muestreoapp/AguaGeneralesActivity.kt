@@ -209,7 +209,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          Log.d("Campo General",datosGenerales.toString())
 
          llenarSpinner()
-         mostrarDatosGenerales()
+         //----Sincronizacíon de datos guardados----
+         //mostrarDatosGenerales()
 
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
              DialogVolver()

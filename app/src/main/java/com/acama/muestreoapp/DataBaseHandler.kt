@@ -202,6 +202,28 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         Toast.makeText(context, "Observacion guardada", Toast.LENGTH_SHORT).show()
     }
 }
+    fun updateObsGeneral(obsUpdate: ObservacionGeneral){
+        try {
+            val db = this.writableDatabase
+            var cv = ContentValues()
+            cv.put("Observacion", obsUpdate.Observacion)
+            var result = db.update(OBSGENERAL, null, cv.toString(),
+                arrayOf("Folio="+obsUpdate.Folio)
+            )
+
+            if( result.equals(-1.toLong()))
+            {
+                Toast.makeText(context, "Error al actualizar obs", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(context, "Observacion Actualizada", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception){
+            Toast.makeText(context,"Error al actualizar obs",Toast.LENGTH_SHORT).show()
+        }
+
+    }
 
 
     fun insertEvidencia(evidencia: Evidencia){
@@ -697,7 +719,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         db?.execSQL(ph)
     }
     fun createTempAmbiente(db: SQLiteDatabase?){
-        val ph = "CREATE TABLE " + TEMPAMBIENTE + " (" +
+        val ambiente = "CREATE TABLE " + TEMPAMBIENTE + " (" +
                 "Id_temperaturaA INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
                 "Num_toma INTEGER," +
@@ -706,7 +728,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "TempA3 FLOAT," +
                 "PromedioA FLOAT" +
                 ")"
-        db?.execSQL(ph)
+        db?.execSQL(ambiente)
     }
     fun insertTempMuestra(tempMuestra: TempMuestra) {
         val db = this.writableDatabase
