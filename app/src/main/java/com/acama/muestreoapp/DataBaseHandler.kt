@@ -462,8 +462,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Latitud + " VARCHAR(256)," +
                 Longitud + " VARCHAR(256)," +
                 Pendiente + " VARCHAR(256)," +
-                Criterio + " VARCHAR(256))"
-                Supervisor + " VARCHAR(256)," +
+                Criterio + " VARCHAR(256))," +
+                Supervisor + " VARCHAR(256) " 
         db?.execSQL(campo_general)
     }
 

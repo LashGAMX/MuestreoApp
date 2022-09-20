@@ -269,6 +269,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryConCal = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
             val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
             val queryTempMuestra = "SELECT * FROM temperatura_muestra WHERE Id_solicitud = '$idSol'"
+            val queryTempAmbiente = "SELECT * FROM temperatura_ambiente WHERE Id_solicitud = '$idSol'"
             val queryConMuestra = "SELECT * FROM conductividad_muestra WHERE Id_solicitud = '$idSol'"
             val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
@@ -284,6 +285,7 @@ class ListaAguaActivity : AppCompatActivity() {
             var conCalidad: MutableList<String> = ArrayList()
             var phMuestra : MutableList<String> = ArrayList()
             var tempMuestra : MutableList<String> = ArrayList()
+            var tempAmbiente : MutableList<String> = ArrayList()
             var conMuestra : MutableList<String> = ArrayList()
             var gastoMuestra : MutableList<String> = ArrayList()
             var campoCompuesto:MutableList<String> = ArrayList()
@@ -454,6 +456,7 @@ class ListaAguaActivity : AppCompatActivity() {
             }
             phMuestra.addAll(listTempPhM)
 
+            // LLenado de lista temperatura
             var listTempTempM: MutableList<String> = ArrayList()
             val tempMuestraModel = db.rawQuery(queryTempMuestra, null)
             cont = 0
@@ -475,7 +478,29 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (tempMuestraModel.moveToNext())
             }
             tempMuestra.addAll(listTempTempM)
+            // Llenado de temperatura ambiente
+            var listTempAmbienteM: MutableList<String> = ArrayList()
+            val tempAmbienteModel = db.rawQuery(queryTempMuestra, null)
+            cont = 0
+            if (tempAmbienteModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonAmbienteM = "{" +
+                            " \"Id_solicitud\" : \"" + tempAmbienteModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + tempAmbienteModel.getString(2) + "\"" +
+                            ", \"TempA1\" : \"" + tempAmbienteModel.getString(3) + "\"" +
+                            ", \"TempA2\" : \"" + tempAmbienteModel.getString(4) + "\"" +
+                            ", \"TempA3\" : \"" + tempAmbienteModel.getString(5) + "\"" +
+                            ", \"PromedioA\" : \"" + tempAmbienteModel.getString(6) + "\"" +
+                            "}"
 
+                    listTempAmbienteM.add(cont, jsonAmbienteM)
+                    cont++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (tempAmbienteModel.moveToNext())
+            }
+            tempAmbiente.addAll(listTempAmbienteM)
+            //LLenado de conducitivdad de la muestra
             var listTempConM: MutableList<String> = ArrayList()
             val conMuestraModel = db.rawQuery(queryConMuestra, null)
             cont = 0
@@ -585,6 +610,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("conCalidad", conCalidad.toString())
                     params.put("phMuestra", phMuestra.toString())
                     params.put("tempMuestra", tempMuestra.toString())
+                    params.put("tempAmbiente", tempAmbiente.toString())
                     params.put("conMuestra", conMuestra.toString())
                     params.put("gastoMuestra", gastoMuestra.toString())
                     params.put("datosCompuestos", campoCompuesto.toString())
