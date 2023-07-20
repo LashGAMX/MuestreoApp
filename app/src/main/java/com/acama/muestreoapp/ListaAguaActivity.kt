@@ -85,13 +85,13 @@ class ListaAguaActivity : AppCompatActivity() {
                             ",\"Nombres\" : \"" + result.getString(4) + "\"" +
                             ",\"Id_cliente\" : \"" + result.getInt(5) + "\"" +
                             ",\"Empresa\" : \"" + result.getString(6) + "\"" +
-                            ",\"Direccion\" : \"" + result.getString(7) + "\"" +
-                            ",\"Contacto\" : \"" + result.getString(8) + "\"" +
+                            ",\"Id_direccion\" : \"" + result.getInt(7) + "\"" +
+                            ",\"Id_contacto\" : \"" + result.getInt(8) + "\"" +
                             ",\"Servicio\" : \"" + result.getString(9) + "\"" +
                             ",\"Descarga\" : \"" + result.getString(10) + "\"" +
                             ",\"Clave\" : \"" + result.getString(11) + "\"" +
                             ",\"Fecha_muestreo\" : \"" + result.getString(12) + "\"" +
-                            ",\"Num_tomas\" : \"" + result.getInt(13) + "\"" +
+                            ",\"Num_tomas\" : \"" + result.getString(13) + "\"" +
                             ",\"Id_muestreador\" : \"" + result.getInt(14) + "\"" +
                             ",\"Estado\" : \"" + result.getInt(15) + "\"" +
                             "}"
@@ -266,7 +266,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
             val queryPhCal = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
             val queryConTra = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
-            val queryConCal = "SELECT * FROM con_trazable WHERE Id_solicitud = '$idSol'"
+            val queryConCal = "SELECT * FROM con_calidad WHERE Id_solicitud = '$idSol'"
             val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
             val queryTempMuestra = "SELECT * FROM temperatura_muestra WHERE Id_solicitud = '$idSol'"
             val queryTempAmbiente = "SELECT * FROM temperatura_ambiente WHERE Id_solicitud = '$idSol'"
@@ -349,7 +349,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonPhTra = "{" +
                             " \"Id_solicitud\" : \"" + phTraModel.getInt(1) + "\"" +
                             ", \"Id_phTrazable\" : \"" + phTraModel.getString(2) + "\"" +
-                            ", \"Lectura1\" : \"" + phTraModel.getInt(3) + "\"" +
+                            ", \"Lectura1\" : \"" + phTraModel.getString(3) + "\"" +
                             ", \"Lectura2\" : \"" + phTraModel.getString(4) + "\"" +
                             ", \"Lectura3\" : \"" + phTraModel.getString(5) + "\"" +
                             ", \"Estado\" : \"" + phTraModel.getString(6) + "\"" +
@@ -371,7 +371,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonPhCal = "{" +
                             " \"Id_solicitud\" : \"" + phCalModel.getInt(1) + "\"" +
                             ", \"Id_phCalidad\" : \"" + phCalModel.getString(2) + "\"" +
-                            ", \"Lectura1\" : \"" + phCalModel.getInt(3) + "\"" +
+                            ", \"Lectura1\" : \"" + phCalModel.getString(3) + "\"" +
                             ", \"Lectura2\" : \"" + phCalModel.getString(4) + "\"" +
                             ", \"Lectura3\" : \"" + phCalModel.getString(5) + "\"" +
                             ", \"Estado\" : \"" + phCalModel.getString(6) + "\"" +
@@ -394,7 +394,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonConTra = "{" +
                             " \"Id_solicitud\" : \"" + conTraModel.getInt(1) + "\"" +
                             ", \"Id_conTrazable\" : \"" + conTraModel.getString(2) + "\"" +
-                            ", \"Lectura1\" : \"" + conTraModel.getInt(3) + "\"" +
+                            ", \"Lectura1\" : \"" + conTraModel.getString(3) + "\"" +
                             ", \"Lectura2\" : \"" + conTraModel.getString(4) + "\"" +
                             ", \"Lectura3\" : \"" + conTraModel.getString(5) + "\"" +
                             ", \"Estado\" : \"" + conTraModel.getString(6) + "\"" +
@@ -416,11 +416,11 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonConCal = "{" +
                             " \"Id_solicitud\" : \"" + conCalModel.getInt(1) + "\"" +
                             ", \"Id_conCalidad\" : \"" + conCalModel.getString(2) + "\"" +
-                            ", \"Lectura1\" : \"" + conCalModel.getInt(3) + "\"" +
+                            ", \"Lectura1\" : \"" + conCalModel.getString(3) + "\"" +
                             ", \"Lectura2\" : \"" + conCalModel.getString(4) + "\"" +
                             ", \"Lectura3\" : \"" + conCalModel.getString(5) + "\"" +
                             ", \"Estado\" : \"" + conCalModel.getString(6) + "\"" +
-                            ", \"Promedio\" : \"" + conCalModel.getString(6) + "\"" +
+                            ", \"Promedio\" : \"" + conCalModel.getString(7) + "\"" +
                             "}"
 
                     listTempConC.add(cont, jsonConCal)
@@ -447,6 +447,7 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Ph3\" : \"" + phMuestraModel.getString(8) + "\"" +
                             ", \"Promedio\" : \"" + phMuestraModel.getString(9) + "\"" +
                             ", \"Fecha\" : \"" + phMuestraModel.getString(10) + "\"" +
+                            ", \"Hora\" : \"" + phMuestraModel.getString(11) + "\"" +
                             "}"
 
                     listTempPhM.add(cont, jsonPhMu)
@@ -480,7 +481,7 @@ class ListaAguaActivity : AppCompatActivity() {
             tempMuestra.addAll(listTempTempM)
             // Llenado de temperatura ambiente
             var listTempAmbienteM: MutableList<String> = ArrayList()
-            val tempAmbienteModel = db.rawQuery(queryTempMuestra, null)
+            val tempAmbienteModel = db.rawQuery(queryTempAmbiente, null)
             cont = 0
             if (tempAmbienteModel.moveToFirst()) {
                 do {
@@ -663,14 +664,14 @@ class ListaAguaActivity : AppCompatActivity() {
                     muestreo.getString("Nombres"),
                     muestreo.getInt("Id_cliente"),
                     muestreo.getString("Empresa"),
-                    muestreo.getString("Direccion"),
-                    muestreo.getString("Nom_con"),
+                    muestreo.getInt("Id_direccion"),
+                    muestreo.getInt("Id_contacto"),
                     muestreo.getString("Observacion"),
                     muestreo.getString("Servicio"),
                     muestreo.getString("Descarga"),
                     muestreo.getString("Clave"),
                     muestreo.getString("Fecha_muestreo"),
-                    muestreo.getInt("Num_tomas"),
+                    muestreo.getString("Num_tomas"),
                     muestreo.getInt("Id_muestreador"),
                     1
                 )

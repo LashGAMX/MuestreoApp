@@ -210,7 +210,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
          llenarSpinner()
          //----Sincronizacíon de datos guardados----
-         //mostrarDatosGenerales()
+         mostrarDatosGenerales()
 
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
              DialogVolver()
@@ -315,6 +315,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv.put("Longitud",bin.edtLongitud.text.toString())
                 cv.put("Pendiente",bin.edtPendiente.text.toString())
                 cv.put("Criterio","ACEPTADO")
+                cv.put("Supervisor", bin.edtSuperviso.text.toString())
                 dbw.update("campo_generales",cv,"Id_solicitud = "+idSol,null)
 
 
@@ -394,8 +395,9 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 val cv7 = ContentValues()
                 cv7.put("Id_conCalidad",bin.spnConductividadCalidad.selectedItem.toString())
                 cv7.put("Lectura1",bin.edtCon1Cal.text.toString())
-                cv7.put("Lectura2",bin.ph2Trazable2.text.toString())
-                cv7.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv7.put("Lectura2",bin.edtCon2Cal.text.toString())
+                cv7.put("Lectura3",bin.edtCon3Cal.text.toString())
+                cv7.put("Estado", "ACEPTADO")
                 cv7.put("Promedio",bin.PromedioConductividadCalidad.text.toString())
                 dbw.update("con_calidad",cv7,"Id_conductividad ="+idConCalidad[0],null)
 
@@ -416,11 +418,11 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.txtNumTomas.text = datosMuestreo[14]
          bin.txtTipoDescarga.text = datosMuestreo[11]
 
-         bin.edtTemperatura.setText(datosGenerales[4])
-         bin.edtTemperaturaBuff.setText(datosGenerales[5])
+         bin.edtTemperatura.setText(datosGenerales[5])
+         bin.edtTemperaturaBuff.setText(datosGenerales[6])
 
-         bin.edtLatitud.setText(datosGenerales[6])
-         bin.edtLongitud.setText(datosGenerales[7])
+         bin.edtLatitud.setText(datosGenerales[7])
+         bin.edtLongitud.setText(datosGenerales[8])
 
          bin.phTrazable1.setText(datosPhTrazable1[3])
          bin.phTrazable2.setText(datosPhTrazable1[4])
@@ -450,7 +452,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.edtCon1Cal.setText(datosConCalidad[3])
          bin.edtCon2Cal.setText(datosConCalidad[4])
          bin.edtCon3Cal.setText(datosConCalidad[5])
-         bin.edtEstadoConTra.setText(datosConCalidad[7])
+         bin.PromedioConductividadCalidad.setText(datosConCalidad[7])
      }
 
      fun chageActivity() {

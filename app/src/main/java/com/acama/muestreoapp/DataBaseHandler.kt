@@ -354,14 +354,14 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Nombres VARCHAR(255) NOT NULL," +
                 "Id_cliente INTEGER NOT NULL," +
                 "Empresa VARCHAR(255) NOT NULL," +
-                "Direccion VARCHAR(255) NOT NULL," +
-                "Contacto VARCHAR(255) NOT NULL," +
+                "Id_direccion INTEGER NOT NULL," +
+                "Id_contacto INTEGER NOT NULL," +
                 "Observacion VARCHAR(255)," +
                 "Servicio VARCHAR(255)," +
                 "Descarga VARCHAR(255)," +
                 "Clave VARCHAR(255)," +
-                "Fecha_muestreo ARCHAR(255)," +
-                "Num_tomas INTEGER," +
+                "Fecha_muestreo VARCHAR(255)," +
+                "Num_tomas  VARCHAR(255)," +
                 "Id_muestreador INTEGER," +
                 "Estado INTEGER" +
                 ")"
@@ -376,8 +376,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Nombres", sol.Nombres)
         cv.put("Id_cliente", sol.Id_cliente)
         cv.put("Empresa", sol.Empresa)
-        cv.put("Direccion", sol.Direccion)
-        cv.put("Contacto", sol.Contacto)
+        cv.put("Id_direccion", sol.Id_direccion)
+        cv.put("Id_contacto", sol.Id_contacto)
         cv.put("Observacion", sol.Observacion)
         cv.put("Servicio", sol.Servicio)
         cv.put("Descarga", sol.Descarga)
@@ -454,16 +454,16 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val campo_general = "CREATE TABLE " + DATOSGENERALES + " (" +
                 Id_general + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Id_solicitud + " INTEGER," +
-                Captura + " VARCHAR(256)," +
+                Captura + " VARCHAR(255)," +
                 Id_equipo + " INTEGER," +
                 Id_equipo2 + " INTEGER," +
-                Temperatura_a + " VARCHAR(256)," +
-                Temperatura_b + " VARCHAR(256)," +
-                Latitud + " VARCHAR(256)," +
-                Longitud + " VARCHAR(256)," +
-                Pendiente + " VARCHAR(256)," +
-                Criterio + " VARCHAR(256))," +
-                Supervisor + " VARCHAR(256) " 
+                Temperatura_a + " VARCHAR(255)," +
+                Temperatura_b + " VARCHAR(255)," +
+                Latitud + " VARCHAR(255)," +
+                Longitud + " VARCHAR(255)," +
+                Pendiente + " VARCHAR(255)," +
+                Criterio + " VARCHAR(255)," +
+                Supervisor + " VARCHAR(255))"
         db?.execSQL(campo_general)
     }
 
