@@ -87,12 +87,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Procedimiento de muestreo PE-10-02-"/>
-
                 <EditText
                     android:id="@+id/edtProcedimiento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Procedimiento" />
+                    android:inputType="number"
+                    android:hint="Num Procedimiento"
+                    />
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,6 +172,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Temperatura C°"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cloruros"/>
+                <EditText
+                    android:id="@+id/edtCloruros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="Cloruros"
                     />
             </LinearLayout>
             <LinearLayout

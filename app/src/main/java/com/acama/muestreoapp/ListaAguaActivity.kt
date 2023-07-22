@@ -639,6 +639,9 @@ class ListaAguaActivity : AppCompatActivity() {
         var listaTermometro = JSONArray(data.getString("termometro"))
         var listaConTrazable = JSONArray(data.getString("conTrazable"))
         var listaConCalidad = JSONArray(data.getString("conCalidad"))
+        var listaColor = JSONArray(data.getString("modelColor"))
+        var listAforo = JSONArray(data.getString("modelAforo"))
+        var listTipoTratamiento = JSONArray(data.getString("modelTipo"))
 
         val db: SQLiteDatabase = con.readableDatabase
 
@@ -762,6 +765,7 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (termometroCampo.moveToNext())
             } else {
                 var termometroModel = TermometroCampo(
+                    termometro.getString("Id_termometro").toInt(),
                     termometro.getString("Id_muestreador").toInt(),
                     termometro.getString("Equipo"),
                     termometro.getString("Marca"),
@@ -770,6 +774,63 @@ class ListaAguaActivity : AppCompatActivity() {
                 )
                 var db = DataBaseHandler(this)
                 db.insertTermometroCampo(termometroModel)
+            }
+        }
+        //sincronizar Color
+        for (i in 0 until listaColor.length()){
+            val color = listaColor.getJSONObject(i)
+            val nombre = color.getString("Color").toString()
+            val queryColor = "SELECT * FROM color WHERE Color = '$nombre'"
+            val colorCatalogo = db.rawQuery(queryColor, null)
+
+            if (colorCatalogo.moveToFirst()) {
+                do {
+
+                } while (colorCatalogo.moveToNext())
+            } else {
+                var colorModel = Color(
+                    color.getString("Color"),
+                )
+                var db = DataBaseHandler(this)
+                db.insertColor(colorModel)
+            }
+        }
+        //sincronizar Aforo
+        for (i in 0 until listAforo.length()){
+            val aforo = listAforo.getJSONObject(i)
+            val nombre = aforo.getString("Aforo").toString()
+            val queryAforo = "SELECT * FROM color WHERE Color = '$nombre'"
+            val AforoCatalogo = db.rawQuery(queryAforo, null)
+
+            if (AforoCatalogo.moveToFirst()) {
+                do {
+
+                } while (AforoCatalogo.moveToNext())
+            } else {
+                var aforoModel = MetodoAforo(
+                    aforo.getString("Aforo"),
+                )
+                var db = DataBaseHandler(this)
+                db.insertAforo(aforoModel)
+            }
+        }
+
+        for (i in 0 until listTipoTratamiento.length()){
+            val tipo = listTipoTratamiento.getJSONObject(i)
+            val tratamiento = tipo.getString("Tratamiento").toString()
+            val queryTipo = "SELECT * FROM color WHERE Color = '$tratamiento'"
+            val tipoCatalogo = db.rawQuery(queryTipo, null)
+
+            if (tipoCatalogo.moveToFirst()) {
+                do {
+
+                } while (tipoCatalogo.moveToNext())
+            } else {
+                var tipoModel = TipoTratamiento(
+                    tipo.getString("Tratamiento"),
+                )
+                var db = DataBaseHandler(this)
+                db.insertTipoTratamiento(tipoModel)
             }
         }
 

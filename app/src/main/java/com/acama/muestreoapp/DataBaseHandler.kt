@@ -51,6 +51,9 @@ val TEMPMUESTRA = "temperatura_muestra"
 val TEMPAMBIENTE = "temperatura_ambiente"
 val CONMUESTRA = "conductividad_muestra"
 val GASTOMUESTRA = "gasto_muestra"
+val COLOR = "color"
+val AFORO = "aforo"
+val TIPOTRATAMIENTO = "tipo_tratamiento"
 
 val CAMPOCOMPUESTO = "campo_compuesto"
 
@@ -70,6 +73,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createCatPhCalidad(db)
         createCatConTrazable(db)
         createCatConCalidad(db)
+        createColor(db)
+        createAforo(db)
+        createTipoTratamiento(db)
         createTermometro(db)
         createTermometro2(db)
         createConTrazable(db)
@@ -391,10 +397,69 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     }
     // Fin SolicitudGenerada
+    //inicio de color, aforo
+    fun createTipoTratamiento(db: SQLiteDatabase?){
+        val model = "CREATE TABLE " + TIPOTRATAMIENTO + "(" +
+                "Id_tipo INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Tratamiento VARCHAR(40)" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun createAforo(db: SQLiteDatabase?){
+        val model = "CREATE TABLE " + AFORO + "(" +
+                "Id_aforo INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Aforo VARCHAR(40)" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun createColor(db: SQLiteDatabase?){
+        val model = "CREATE TABLE " + COLOR + "(" +
+                "Id_color INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Color VARCHAR(40)" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun insertColor(color: Color){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Color", color.Color)
+        var result = db.insert(COLOR, null, cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertAforo(aforo: MetodoAforo){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Aforo", aforo.Aforo)
+        var result = db.insert(AFORO, null, cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun insertTipoTratamiento(tipo: TipoTratamiento){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Tratamiento", tipo.Tratamiento)
+        var result = db.insert(TIPOTRATAMIENTO, null, cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+    }
+    //fin de color
     // Inicio Termometro Campo
     fun createTermometro(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ TERMOMETRO +" (" +
-                "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_termometro INTEGER PRIMARY KEY," +
                 "Id_muestreador INTEGER NOT NULL," +
                 "Equipo TEXT NOT NULL," +
                 "Marca TEXT NOT NULL," +
@@ -417,6 +482,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun insertTermometroCampo(term: TermometroCampo) {
         val db = this.writableDatabase
         var cv = ContentValues()
+        cv.put("Id_termometro",term.Id_termometro)
         cv.put("Id_muestreador",term.Id_muestreador)
         cv.put("Equipo", term.Equipo)
         cv.put("Marca", term.Marca)
@@ -455,8 +521,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 Id_general + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 Id_solicitud + " INTEGER," +
                 Captura + " VARCHAR(255)," +
-                Id_equipo + " INTEGER," +
-                Id_equipo2 + " INTEGER," +
+                Id_equipo + " VARCHAR(255)," +
+                Id_equipo2 + " VARCHAR(255)," +
                 Temperatura_a + " VARCHAR(255)," +
                 Temperatura_b + " VARCHAR(255)," +
                 Latitud + " VARCHAR(255)," +

@@ -240,6 +240,21 @@
                 android:layout_height="wrap_content"
                 />
         </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Punto Muestreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <EditText
+                android:id="@+id/edtPunto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -18,7 +18,7 @@ import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
 import kotlinx.android.synthetic.main.activity_muestra_simple.*
 import java.util.*
-
+import kotlin.collections.ArrayList
 
 
 class MuestraSimpleActivity : AppCompatActivity() {
@@ -406,15 +406,28 @@ class MuestraSimpleActivity : AppCompatActivity() {
     fun LlenarSpinners(){
 
         val arrMateriaFloante = listOf<String>("Ausente","Presente")
-        val arrColor = listOf<String>("Rojo","Verde","Amarrillo","Negro","Cafe")
+        val arrColor : MutableList<String> = ArrayList()
         val arrOlor = listOf<String>("Si","No")
+        val db: SQLiteDatabase = con.readableDatabase
+
+        val queryColor = "SELECT * FROM Color"
+        val colorModel = db.rawQuery(queryColor, null)
+        if (colorModel.moveToFirst()){
+            do {
+                    arrColor.add(colorModel.getString(1))
+            } while (colorModel.moveToNext())
+        }
+        val adColor = ArrayAdapter(
+            this,
+            R.layout.simple_spinner_item, arrColor
+        )
 
         val adaptador1 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrMateriaFloante)
         val adaptador2 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrColor)
         val adaptador3 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrOlor)
 
         bin.spnMateriaFlotante.adapter = adaptador1
-        bin.spnColor.adapter = adaptador2
+        bin.spnColor.adapter = adColor
         bin.spnOlor.adapter = adaptador3
     }
     fun DialogVolver() {

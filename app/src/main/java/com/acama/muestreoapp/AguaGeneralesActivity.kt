@@ -26,6 +26,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityAguaGeneralesBinding
 import com.google.android.gms.location.*
@@ -115,6 +116,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                  datosGenerales.add(campoGeneral.getString(7))
                  datosGenerales.add(campoGeneral.getString(8))
                  datosGenerales.add(campoGeneral.getString(9))
+                 datosGenerales.add(campoGeneral.getString(10))
+                 datosGenerales.add(campoGeneral.getString(11))
              } while (campoGeneral.moveToNext())
          }
          val qrTrazable = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
@@ -309,6 +312,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 val cv = ContentValues()
                 cv.put("Captura","Movil")
                 cv.put("Id_equipo",bin.spnTermo.selectedItem.toString())
+                cv.put("Id_equipo2",bin.spnTermo2.selectedItem.toString())
                 cv.put("Temperatura_a",bin.edtTemperatura.text.toString())
                 cv.put("Temperatura_b",bin.edtTemperaturaBuff.text.toString())
                 cv.put("Latitud",bin.edtLatitud.text.toString())
@@ -369,17 +373,17 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 //Updata Ph Calidad
                 val cv4 = ContentValues()
                 cv4.put("Id_phCalidad",bin.spnPhTrazable.selectedItem.toString())
-                cv4.put("Lectura1",bin.phTrazable1.text.toString())
-                cv4.put("Lectura2",bin.phTrazable2.text.toString())
-                cv4.put("Lectura3",bin.phTrazable3.text.toString())
+                cv4.put("Lectura1",bin.phCalidad1.text.toString())
+                cv4.put("Lectura2",bin.phCalidad2.text.toString())
+                cv4.put("Lectura3",bin.phCalidad3.text.toString())
                 cv4.put("Estado","ACEPTADO")
                 cv4.put("Promedio",bin.promCalidad1.text.toString())
                 dbw.update("ph_calidad",cv4,"Id_ph ="+idPhCalidad[0],null)
                 val cv5 = ContentValues()
                 cv5.put("Id_phCalidad",bin.spnPhTrazable2.selectedItem.toString())
-                cv5.put("Lectura1",bin.ph2Trazable1.text.toString())
-                cv5.put("Lectura2",bin.ph2Trazable2.text.toString())
-                cv5.put("Lectura3",bin.ph2Trazable3.text.toString())
+                cv5.put("Lectura1",bin.ph2Calidad1.text.toString())
+                cv5.put("Lectura2",bin.ph2Calidad2.text.toString())
+                cv5.put("Lectura3",bin.ph2Calidad3.text.toString())
                 cv5.put("Estado","ACEPTADO")
                 cv5.put("Promedio",bin.promedioCalidad2.text.toString())
                 dbw.update("ph_calidad",cv5,"Id_ph ="+idPhCalidad[1].toString(),null)
@@ -423,6 +427,8 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
          bin.edtLatitud.setText(datosGenerales[7])
          bin.edtLongitud.setText(datosGenerales[8])
+         bin.edtSuperviso.setText(datosGenerales[11])
+         bin.edtPendiente.setText(datosGenerales[9])
 
          bin.phTrazable1.setText(datosPhTrazable1[3])
          bin.phTrazable2.setText(datosPhTrazable1[4])
@@ -474,9 +480,9 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          if (termometroModel.moveToFirst()) {
              do {
                      if (cont == 0){
-                         termos.add(termometroModel.getString(2))
+                         termos.add(termometroModel.getString(4))
                      }
-                 termos.add(termometroModel.getString(2))
+                 termos.add(termometroModel.getString(0) + '/' + termometroModel.getString(4))
                  cont++
              } while (termometroModel.moveToNext())
          }

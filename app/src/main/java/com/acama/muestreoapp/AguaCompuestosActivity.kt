@@ -71,12 +71,21 @@ class AguaCompuestosActivity : AppCompatActivity() {
         Log.d("Folio",folio)
     }
     fun llenarSpinner() {
-        val aforos = arrayOf("Aforo 1","Aforo 2","Aforo 3")
+        val aforos : MutableList<String> = ArrayList()
+        val db: SQLiteDatabase = con.readableDatabase
+
+        val queryAforo = "SELECT * FROM MetodoAforo"
+        val aforoModel = db.rawQuery(queryAforo, null)
+        if (aforoModel.moveToFirst()){
+            do {
+                aforos.add(aforoModel.getString(1))
+            } while (aforoModel.moveToNext())
+        }
         val adpAforo = ArrayAdapter(
             this,
-            R.layout.support_simple_spinner_dropdown_item,
-            aforos
+            R.layout.support_simple_spinner_dropdown_item, aforos
         )
+
         bin.spnAforo.adapter = adpAforo
 
         val conTratamiento = arrayOf("Tratamiento 1","Tratamiento 2","Tratamiento 3")
