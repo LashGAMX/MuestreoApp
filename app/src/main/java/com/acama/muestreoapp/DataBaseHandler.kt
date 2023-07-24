@@ -53,6 +53,7 @@ val CONMUESTRA = "conductividad_muestra"
 val GASTOMUESTRA = "gasto_muestra"
 val COLOR = "color"
 val AFORO = "aforo"
+val CONTRATAMIENTO = "con_tratamiento"
 val TIPOTRATAMIENTO = "tipo_tratamiento"
 
 val CAMPOCOMPUESTO = "campo_compuesto"
@@ -73,6 +74,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createCatPhCalidad(db)
         createCatConTrazable(db)
         createCatConCalidad(db)
+        createConTratamiento(db)
         createColor(db)
         createAforo(db)
         createTipoTratamiento(db)
@@ -418,6 +420,25 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Color VARCHAR(40)" +
                 ")"
         db?.execSQL(model)
+    }
+    fun createConTratamiento(db: SQLiteDatabase?){
+        val model = "CREATE TABLE " + CONTRATAMIENTO + "(" +
+                "Id_conTratamiento INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "ConTratamiento VARCHAR(40)" +
+                ")"
+        db?.execSQL(model)
+    }
+    fun insertConTratamiento(con_tratamiento: ConTratamiento){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put("ConTratamiento", con_tratamiento.ConTratamiento)
+        var result = db.insert(CONTRATAMIENTO, null, cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
     }
     fun insertColor(color: Color){
         val db = this.writableDatabase

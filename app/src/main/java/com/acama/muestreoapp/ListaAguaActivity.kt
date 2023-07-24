@@ -642,6 +642,7 @@ class ListaAguaActivity : AppCompatActivity() {
         var listaColor = JSONArray(data.getString("modelColor"))
         var listAforo = JSONArray(data.getString("modelAforo"))
         var listTipoTratamiento = JSONArray(data.getString("modelTipo"))
+        var listConTratamiento = JSONArray(data.getString("modelConTratamiento"))
 
         val db: SQLiteDatabase = con.readableDatabase
 
@@ -799,7 +800,7 @@ class ListaAguaActivity : AppCompatActivity() {
         for (i in 0 until listAforo.length()){
             val aforo = listAforo.getJSONObject(i)
             val nombre = aforo.getString("Aforo").toString()
-            val queryAforo = "SELECT * FROM color WHERE Color = '$nombre'"
+            val queryAforo = "SELECT * FROM aforo WHERE Aforo = '$nombre'"
             val AforoCatalogo = db.rawQuery(queryAforo, null)
 
             if (AforoCatalogo.moveToFirst()) {
@@ -831,6 +832,24 @@ class ListaAguaActivity : AppCompatActivity() {
                 )
                 var db = DataBaseHandler(this)
                 db.insertTipoTratamiento(tipoModel)
+            }
+        }
+        for (i in 0 until listConTratamiento.length()){
+            val conTrat = listConTratamiento.getJSONObject(i)
+            val ConTratamiento = conTrat.getString("ConTratamiento").toString()
+            val queryCon = "SELECT * FROM con_tratamiento WHERE ConTratamiento = '$ConTratamiento'"
+            val conCatalogo = db.rawQuery(queryCon, null)
+
+            if (conCatalogo.moveToFirst()) {
+                do {
+
+                } while (conCatalogo.moveToNext())
+            } else {
+                var ConTratModel = ConTratamiento(
+                    conTrat.getString("ConTratamiento"),
+                )
+                var db = DataBaseHandler(this)
+                db.insertConTratamiento(ConTratModel)
             }
         }
 

@@ -74,7 +74,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         val aforos : MutableList<String> = ArrayList()
         val db: SQLiteDatabase = con.readableDatabase
 
-        val queryAforo = "SELECT * FROM MetodoAforo"
+        val queryAforo = "SELECT * FROM aforo"
         val aforoModel = db.rawQuery(queryAforo, null)
         if (aforoModel.moveToFirst()){
             do {
@@ -85,6 +85,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
             this,
             R.layout.support_simple_spinner_dropdown_item, aforos
         )
+
 
         bin.spnAforo.adapter = adpAforo
 
