@@ -204,7 +204,7 @@
                     android:text="07/06/2021"/>
             </LinearLayout>
             <Button
-                android:id="@+id/btnGuardar"
+                android:id="@+id/btnGuardarCompuestos"
                 style="@style/TextAppearance.MaterialComponents.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

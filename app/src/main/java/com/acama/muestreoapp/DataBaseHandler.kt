@@ -899,11 +899,13 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Metodo_aforo TEXT," +
                 "Con_tratamiento TEXT," +
                 "Tipo_tratamiento TEXT," +
-                "Proce_muestreo TEXT," +
+                "Proc_muestreo TEXT," +
                 "Observaciones TEXT," +
                 "Obser_solicitud TEXT," +
                 "Ph_muestraComp TEXT," +
-                "Volumen_calculado TEXT" +
+                "Temp_muestraComp TEXT," +
+                "Volumen_calculado TEXT," +
+                "Cloruros TEXT" +
                 ")"
         db?.execSQL(ph)
     }
@@ -915,11 +917,13 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Metodo_aforo", campoMuestra.Aforo)
         cv.put("Con_tratamiento", campoMuestra.ConTratamiento)
         cv.put("Tipo_tratamiento", campoMuestra.TipoTratamiento)
-        cv.put("Proce_muestreo", campoMuestra.ProcMuestreo)
+        cv.put("Proc_muestreo", campoMuestra.ProcMuestreo)
         cv.put("Observaciones", campoMuestra.Observaciones)
         cv.put("Obser_solicitud", campoMuestra.ObserSolicitud)
         cv.put("Ph_muestraComp", campoMuestra.PhMuestraCom)
+        cv.put("Temp_muestraComp", campoMuestra.Temp_muestraComp)
         cv.put("Volumen_calculado", campoMuestra.VolCalculado)
+        cv.put("Cloruros", campoMuestra.Cloruros)
 
 
         var result = db.insert(CAMPOCOMPUESTO, null,cv)

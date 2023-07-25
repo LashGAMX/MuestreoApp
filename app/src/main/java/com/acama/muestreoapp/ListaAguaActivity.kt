@@ -288,8 +288,8 @@ class ListaAguaActivity : AppCompatActivity() {
             var tempAmbiente : MutableList<String> = ArrayList()
             var conMuestra : MutableList<String> = ArrayList()
             var gastoMuestra : MutableList<String> = ArrayList()
-            var campoCompuesto:MutableList<String> = ArrayList()
-            var evidencia:MutableList<String> = ArrayList()
+            var campoCompuesto : MutableList<String> = ArrayList()
+            var evidencia : MutableList<String> = ArrayList()
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
@@ -317,6 +317,8 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (generalModel.moveToNext())
             }
             campoGenModel.addAll(listTemp)
+
+
 
             //Llenar datos evidencias
             var listTempEvi: MutableList<String> = ArrayList()
@@ -545,31 +547,35 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (gastoMuestraModel.moveToNext())
             }
             gastoMuestra.addAll(listTempGastoM)
-
-            var listTempCampoComp: MutableList<String> = ArrayList()
-            val campoCompuestoModel = db.rawQuery(queryCampoCompuesto, null)
+            
+            //llenar datos compuestos
+            var listTempCampoCompuesto: MutableList<String> = ArrayList()
+            val compuestoModel  =  db.rawQuery(queryCampoCompuesto, null)
             cont = 0
-            if (campoCompuestoModel.moveToFirst()) {
+            if (compuestoModel.moveToFirst()){
                 do {
-                    //Log.d("Captura",generalModel.getString(2))
-                    var jsonCampoC = "{" +
-                            " \"Id_solicitud\" : \"" + campoCompuestoModel.getInt(1) + "\"" +
-                            ", \"Metodo_aforo\" : \"" + campoCompuestoModel.getString(2) + "\"" +
-                            ", \"Con_tratamiento\" : \"" + campoCompuestoModel.getString(3) + "\"" +
-                            ", \"Tipo_tratamiento\" : \"" + campoCompuestoModel.getString(4) + "\"" +
-                            ", \"Proce_muestreo\" : \"" + campoCompuestoModel.getString(5) + "\"" +
-                            ", \"Observaciones\" : \"" + campoCompuestoModel.getString(6) + "\"" +
-                            ", \"Obser_solicitud\" : \"" + campoCompuestoModel.getString(7) + "\"" +
-                            ", \"Ph_muestraComp\" : \"" + campoCompuestoModel.getString(8) + "\"" +
-                            ", \"Volumen_calculado\" : \"" + campoCompuestoModel.getString(9) + "\"" +
+                    var jsonCampoCompuesto = "{" +
+                            " \"Id_solicitud\" : \"" + compuestoModel.getInt(1) + "\"" +
+                            ", \"Metodo_aforo\" : \"" + compuestoModel.getInt(2) + "\"" +
+                            ", \"Con_tratamiento\" : \"" + compuestoModel.getInt(3) + "\"" +
+                            ", \"Tipo_tratamiento\" : \"" + compuestoModel.getInt(4) + "\"" +
+                            ", \"Proc_muestreo\" : \"" + compuestoModel.getInt(5) + "\"" +
+                            ", \"Observaciones\" : \"" + compuestoModel.getString(6) + "\"" +
+                            ", \"Obser_solicitud\" : \"" + compuestoModel.getString(7) + "\"" +
+                            ", \"Ph_muestraComp\" : \"" + compuestoModel.getString(8) + "\"" +
+                            ", \"Temp_muestraComp\" : \"" + compuestoModel.getString(9) + "\"" +
+                            ", \"Volumen_calculado\" : \"" + compuestoModel.getString(10) + "\"" +
+                            ", \"Cloruros\" : \"" + compuestoModel.getString(11) + "\"" +
                             "}"
 
-                    listTempGastoM.add(cont, jsonCampoC)
+                    listTempCampoCompuesto.add(cont, jsonCampoCompuesto)
                     cont++
-                    //Log.d("Lista Temp",listTemp.toString())
-                } while (campoCompuestoModel.moveToNext())
+
+                } while (compuestoModel.moveToNext())
             }
-            campoCompuesto.addAll(listTempCampoComp)
+            campoCompuesto.addAll(listTempCampoCompuesto)
+
+
 
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
@@ -614,7 +620,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("tempAmbiente", tempAmbiente.toString())
                     params.put("conMuestra", conMuestra.toString())
                     params.put("gastoMuestra", gastoMuestra.toString())
-                    params.put("datosCompuestos", campoCompuesto.toString())
+                    params.put("campoCompuesto", campoCompuesto.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("evidencia",evidencia.toString())
                     params.put("folio", folio)
@@ -643,6 +649,7 @@ class ListaAguaActivity : AppCompatActivity() {
         var listAforo = JSONArray(data.getString("modelAforo"))
         var listTipoTratamiento = JSONArray(data.getString("modelTipo"))
         var listConTratamiento = JSONArray(data.getString("modelConTratamiento"))
+        //var listCampoCompuestos = JSONArray(data.getString("CampoCompuestos"))
 
         val db: SQLiteDatabase = con.readableDatabase
 
@@ -746,7 +753,20 @@ class ListaAguaActivity : AppCompatActivity() {
                         ""
                     )
                     db.insertConCalidad(conCalModel)
-
+                    var compuestosModel = CampoCompuesto(
+                        idSolGen,
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                    )
+                    db.insertCampoCompuesto(compuestosModel)
 
                 } while (solGenModel2.moveToNext())
             }
@@ -819,7 +839,7 @@ class ListaAguaActivity : AppCompatActivity() {
         for (i in 0 until listTipoTratamiento.length()){
             val tipo = listTipoTratamiento.getJSONObject(i)
             val tratamiento = tipo.getString("Tratamiento").toString()
-            val queryTipo = "SELECT * FROM color WHERE Color = '$tratamiento'"
+            val queryTipo = "SELECT * FROM tipo_tratamiento WHERE Tratamiento = '$tratamiento'"
             val tipoCatalogo = db.rawQuery(queryTipo, null)
 
             if (tipoCatalogo.moveToFirst()) {
@@ -834,22 +854,23 @@ class ListaAguaActivity : AppCompatActivity() {
                 db.insertTipoTratamiento(tipoModel)
             }
         }
+        //con tratamiento
         for (i in 0 until listConTratamiento.length()){
-            val conTrat = listConTratamiento.getJSONObject(i)
-            val ConTratamiento = conTrat.getString("ConTratamiento").toString()
-            val queryCon = "SELECT * FROM con_tratamiento WHERE ConTratamiento = '$ConTratamiento'"
-            val conCatalogo = db.rawQuery(queryCon, null)
+            val con = listConTratamiento.getJSONObject(i)
+            val conTratamiento = con.getString("Tratamiento").toString()
+            val queryCon = "SELECT * FROM con_tratamiento WHERE ConTratamiento = '$conTratamiento'"
+            val ConCatalogo = db.rawQuery(queryCon, null)
 
-            if (conCatalogo.moveToFirst()) {
+            if (ConCatalogo.moveToFirst()) {
                 do {
 
-                } while (conCatalogo.moveToNext())
+                } while (ConCatalogo.moveToNext())
             } else {
-                var ConTratModel = ConTratamiento(
-                    conTrat.getString("ConTratamiento"),
+                var conModel = ConTratamiento(
+                    con.getString("Tratamiento"),
                 )
                 var db = DataBaseHandler(this)
-                db.insertConTratamiento(ConTratModel)
+                db.insertConTratamiento(conModel)
             }
         }
 

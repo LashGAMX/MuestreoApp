@@ -2,6 +2,7 @@ package com.acama.muestreoapp
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -42,26 +43,32 @@ class AguaCompuestosActivity : AppCompatActivity() {
             DialogVolver()
         })
 
-        bin.btnGuardar.setOnClickListener { guardarDatos() }
+        bin.btnGuardarCompuestos.setOnClickListener {
+            guardarDatos() }
         llenarSpinner()
     }
     fun guardarDatos() {
 //        val intent = Intent(this,AguaCapturaActivity::class.java)
 //        startActivity(intent)
+        val dbw: SQLiteDatabase = con.writableDatabase
+        var cv = ContentValues()
 
-        var cv = CampoCompuesto(
-            idSol,
-            bin.spnAforo.selectedItem.toString(),
-            bin.spnConTratamiento.selectedItem.toString(),
-            bin.spnTipoTratamiento.selectedItem.toString(),
-            "",
-            bin.edtObservaciones.text.toString(),
-            "",
-            bin.edtPhCompuesto.text.toString(),
-            "",
-        )
-        con.insertCampoCompuesto(cv)
-        onBackPressed()
+        cv.put("Metodo_aforo",bin.spnAforo.selectedItemId.toString())
+        cv.put("Con_tratamiento",bin.spnConTratamiento.selectedItemId.toString())
+        cv.put("Tipo_tratamiento",bin.spnTipoTratamiento.selectedItemId.toString())
+        cv.put("Proc_muestreo",bin.edtProcedimiento.text.toString())
+        cv.put("Observaciones",bin.edtObservaciones.text.toString())
+        cv.put("Obser_solicitud","")
+        cv.put("Ph_muestraComp",bin.edtPhCompuesto.text.toString())
+        cv.put("Temp_muestraComp",bin.edtTempCompuesta.text.toString())
+        cv.put("Volumen_calculado",bin.edtVolCalculado.text.toString())
+        cv.put("Cloruros",bin.edtCloruros.text.toString())
+
+        dbw.update("campo_compuesto", cv, "Id_solicitud = "+idSol, null)
+
+         //onBackPressed()
+        //guardar datos en table metodo Update
+
     }
 
     fun getExtras(){
@@ -72,11 +79,14 @@ class AguaCompuestosActivity : AppCompatActivity() {
     }
     fun llenarSpinner() {
         val aforos : MutableList<String> = ArrayList()
+        val tratamiento : MutableList<String> = ArrayList()
+        val conTratamiento : MutableList<String> = ArrayList()
         val db: SQLiteDatabase = con.readableDatabase
 
         val queryAforo = "SELECT * FROM aforo"
         val aforoModel = db.rawQuery(queryAforo, null)
         if (aforoModel.moveToFirst()){
+            aforos.add("Selecciona uno")
             do {
                 aforos.add(aforoModel.getString(1))
             } while (aforoModel.moveToNext())
@@ -86,17 +96,36 @@ class AguaCompuestosActivity : AppCompatActivity() {
             R.layout.support_simple_spinner_dropdown_item, aforos
         )
 
+        val queryTratamiento = "SELECT * FROM tipo_tratamiento"
+        val Modeltratamiento = db.rawQuery(queryTratamiento, null)
+        if(Modeltratamiento.moveToFirst()){
+            tratamiento.add("Selecciona uno")
+            do {
+                tratamiento.add(Modeltratamiento.getString(1))
+            } while (Modeltratamiento.moveToNext())
+        }
+        val adpTratamiento = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, tratamiento
+        )
 
-        bin.spnAforo.adapter = adpAforo
-
-        val conTratamiento = arrayOf("Tratamiento 1","Tratamiento 2","Tratamiento 3")
+        val queryConTratamiento =  "SELECT * FROM con_tratamiento"
+        val conTratamientoModel = db.rawQuery(queryConTratamiento, null)
+        if(conTratamientoModel.moveToFirst()){
+            conTratamiento.add("Selecciona uno")
+            do {
+                conTratamiento.add(conTratamientoModel.getString(1))
+            } while (conTratamientoModel.moveToNext())
+        }
         val adpConTratamiento = ArrayAdapter(
             this,
-            R.layout.support_simple_spinner_dropdown_item,
-            conTratamiento
+            R.layout.support_simple_spinner_dropdown_item, conTratamiento
         )
+
+        bin.spnTipoTratamiento.adapter = adpTratamiento
+        bin.spnAforo.adapter = adpAforo
         bin.spnConTratamiento.adapter = adpConTratamiento
-        bin.spnTipoTratamiento.adapter = adpConTratamiento
+
 
     }
 

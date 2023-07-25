@@ -405,14 +405,15 @@ class MuestraSimpleActivity : AppCompatActivity() {
     }
     fun LlenarSpinners(){
 
-        val arrMateriaFloante = listOf<String>("Ausente","Presente")
+        val arrMateriaFloante = listOf<String>("Selecciona uno","Ausente","Presente")
         val arrColor : MutableList<String> = ArrayList()
-        val arrOlor = listOf<String>("Si","No")
+        val arrOlor = listOf<String>("Selecciona uno","Si","No")
         val db: SQLiteDatabase = con.readableDatabase
 
         val queryColor = "SELECT * FROM Color"
         val colorModel = db.rawQuery(queryColor, null)
         if (colorModel.moveToFirst()){
+                arrColor.add("Selecciona uno")
             do {
                     arrColor.add(colorModel.getString(1))
             } while (colorModel.moveToNext())
