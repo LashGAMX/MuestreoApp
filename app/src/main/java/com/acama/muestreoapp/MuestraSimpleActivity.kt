@@ -6,6 +6,7 @@ import android.R
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.text.TextWatcher
@@ -102,6 +103,13 @@ class MuestraSimpleActivity : AppCompatActivity() {
             try {
                 valProm()
             } catch (e: Exception){
+                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.txtControlCalProm.setOnClickListener {
+            try {
+                valCalidad()
+            } catch (e: Exception) {
                 Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
         }
@@ -204,6 +212,38 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtTemp1.setError("Comprueba los datos")
             bin.edtTemp2.setError("Comprueba los datos")
             bin.edtTemp3.setError("Comprueba los datos")
+        }
+
+    }
+    fun valCalidad(){
+        val temp1 = bin.edtControlCal1.text.toString()
+        val temp2 = bin.edtControlCal2.text.toString()
+        val temp3 = bin.edtControlCal3.text.toString()
+        var sw = false
+        if ((temp1.toFloat() - temp2.toFloat() >= 1 || temp1.toFloat() - temp2.toFloat() <= 1) && (temp1.toFloat() - temp3.toFloat() >= 1 || temp1.toFloat() - temp3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((temp2.toFloat() - temp1.toFloat() >= 1 || temp2.toFloat() - temp1.toFloat() <= 1) && (temp2.toFloat() - temp3.toFloat() >= 1 || temp2.toFloat() - temp3.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+        if ((temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1) && (temp3.toFloat() - temp1.toFloat() >= 1 || temp3.toFloat() - temp1.toFloat() <= 1)){
+            sw = true
+        }else{
+            sw = false
+        }
+
+        if (sw == true){
+            sw2 = true
+            bin.txtTempPromA.text = ((temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3).toString()
+        }else{
+            sw2 = false
+            bin.edtControlCal1.setError("Comprueba los datos")
+            bin.edtControlCal2.setError("Comprueba los datos")
+            bin.edtControlCal3.setError("Comprueba los datos")
         }
 
     }
@@ -346,61 +386,71 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val h = bin.edtHora.text.toString()
         val m = bin.txtMin.text.toString()
         val hora = h + ":" + m
+        val toma = numToma.toInt()
+        var cvModel = ContentValues()
 
-        var cvModel = PhMuestra(
-            idSol,
-            numToma.toInt(),
-            bin.spnMateriaFlotante.selectedItem.toString(),
-            bin.spnOlor.selectedItem.toString(),
-            bin.spnColor.selectedItem.toString(),
-            bin.edtPh1.text.toString(),
-            bin.edtPh2.text.toString(),
-            bin.edtPh3.text.toString(),
-            bin.txtPromPh.text.toString(),
-            bin.txtFecha.text.toString(),
-            hora
-        )
-        con.insertPhMuestra(cvModel)
+            cvModel.put("Num_toma",numToma.toInt())
+            cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
+            cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
+            cvModel.put("Color",bin.spnColor.selectedItem.toString())
+            cvModel.put("Ph1",bin.edtPh1.text.toString())
+            cvModel.put("Ph2",bin.edtPh2.text.toString())
+            cvModel.put("Ph3",bin.edtPh3.text.toString())
+            cvModel.put("Promedio",bin.txtPromPh.text.toString())
+            cvModel.put("Fecha",bin.txtFecha.text.toString())
+            cvModel.put("Hora",hora)
+
+        dbw.update("ph_muestra", cvModel, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+        //con.insertPhMuestra(cvModel)
     // Guardar TempMuestra (Temperatura del agua)
-        val cv2Model = TempMuestra(
-            idSol,
-            numToma.toInt(),
-            bin.edtTemp1.text.toString(),
-            bin.edtTemp2.text.toString(),
-            bin.edtTemp3.text.toString(),
-            bin.txtTempProm.text.toString(),
-        )
-        con.insertTempMuestra(cv2Model)
+        val cv2Model = ContentValues()
+            cv2Model.put("Num_toma",numToma.toInt())
+            cv2Model.put("Temp1",bin.edtTemp1.text.toString())
+            cv2Model.put("Temp2",bin.edtTemp2.text.toString())
+            cv2Model.put("Temp3",bin.edtTemp3.text.toString())
+            cv2Model.put("Promedio",bin.txtTempProm.text.toString())
+
+        dbw.update("temperatura_muestra", cv2Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
         // Guardar TempAmbiente)
-        val cv5Model = TempAmbiente(
-            idSol,
-            numToma.toInt(),
-            bin.edtTempA1.text.toString(),
-            bin.edtTempA2.text.toString(),
-            bin.edtTempA3.text.toString(),
-            bin.txtTempPromA.text.toString(),
-        )
-        con.insertTempAmbiente(cv5Model)
+        val cv5Model = ContentValues()
+            cv5Model.put("Num_toma",numToma.toInt())
+            cv5Model.put("TempA1",bin.edtTempA1.text.toString())
+            cv5Model.put("TempA2",bin.edtTempA2.text.toString())
+            cv5Model.put("TempA3",bin.edtTempA3.text.toString())
+            cv5Model.put("PromedioA",bin.txtTempPromA.text.toString())
+
+            dbw.update("temperatura_ambiente", cv5Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
         //Guardar Conductividad
-        val cv3Model = ConMuestra(
-            idSol,
-            numToma.toInt(),
-            bin.edtCon1.text.toString(),
-            bin.edtCon2.text.toString(),
-            bin.edtCon3.text.toString(),
-            bin.txtConProm.text.toString(),
-        )
-        con.insertConMuestra(cv3Model)
+        val cv3Model = ContentValues()
+            cv3Model.put("Num_toma",numToma.toInt())
+            cv3Model.put("Conductividad1",bin.edtCon1.text.toString())
+            cv3Model.put("Conductividad1",bin.edtCon2.text.toString())
+            cv3Model.put("Conductividad2",bin.edtCon3.text.toString())
+            cv3Model.put("Promedio",bin.txtConProm.text.toString())
+        dbw.update("conductividad_muestra", cv3Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+
         //Guardar Gasto
-        val cv4Model = GastoMuestra(
-            idSol,
-            numToma.toInt(),
-            bin.edtGasto1.text.toString(),
-            bin.edtGasto2.text.toString(),
-            bin.edtGasto3.text.toString(),
-            bin.txtGastoProm.text.toString(),
-        )
-        con.insertGastoMuestra(cv4Model)
+        val cv4Model = ContentValues()
+            cv4Model.put("Num_toma",numToma.toInt())
+            cv4Model.put("Gasto1",bin.edtGasto1.text.toString())
+            cv4Model.put("Gasto2",bin.edtGasto2.text.toString())
+            cv4Model.put("Gasto3",bin.edtGasto3.text.toString())
+            cv4Model.put("Promedio",bin.txtGastoProm.text.toString())
+
+        dbw.update("gasto_muestra", cv4Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+        // Guardar ph calidad
+
+        val cv6Model = ContentValues()
+            cv6Model.put("Num_toma", numToma.toInt())
+        cv6Model.put("Lectura1C", bin.edtControlCal1.text.toString())
+        cv6Model.put("Lectura2C", bin.edtControlCal2.text.toString())
+        cv6Model.put("Lectura3C", bin.edtControlCal3.text.toString())
+        cv6Model.put("EstadoC", "ACEPTADO")
+        cv6Model.put("PromedioC", bin.txtTempPromA.text.toString())
+
+        dbw.update("ph_calidadMuestra", cv4Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+
+
         onBackPressed()
     }
     fun LlenarSpinners(){

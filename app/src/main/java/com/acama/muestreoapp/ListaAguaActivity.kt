@@ -19,6 +19,7 @@ import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
 import com.acama.muestreoapp.models.*
+import com.acama.muestreoapp.models.PhCalidad
 import com.acama.muestreoapp.preference.Prefs
 import com.acama.muestreoapp.preference.UserApplication
 import com.airbnb.lottie.LottieAnimationView
@@ -441,7 +442,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonPhMu = "{" +
                             " \"Id_solicitud\" : \"" + phMuestraModel.getInt(1) + "\"" +
                             ", \"Num_toma\" : \"" + phMuestraModel.getString(2) + "\"" +
-                            ", \"Materia\" : \"" + phMuestraModel.getInt(3) + "\"" +
+                            ", \"Materia\" : \"" + phMuestraModel.getString(3) + "\"" +
                             ", \"Olor\" : \"" + phMuestraModel.getString(4) + "\"" +
                             ", \"Color\" : \"" + phMuestraModel.getString(5) + "\"" +
                             ", \"Ph1\" : \"" + phMuestraModel.getString(6) + "\"" +
@@ -713,6 +714,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     // Creat PhCalidad Muestra
                     var phCalModel = PhCalidad(
                         idSolGen,
+                        0,
                         0,
                         "",
                         "",

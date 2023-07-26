@@ -48,6 +48,7 @@ val CATCONCALIDAD = "cat_conCalidad"
 
 val PHMUESTRA = "ph_muestra"
 val TEMPMUESTRA = "temperatura_muestra"
+val PHCALIDADMUESTRA = "ph_calidadMuestra"
 val TEMPAMBIENTE = "temperatura_ambiente"
 val CONMUESTRA = "conductividad_muestra"
 val GASTOMUESTRA = "gasto_muestra"
@@ -83,6 +84,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         createConTrazable(db)
         createConCalidad(db)
         createPhMuestra(db)
+        createPhCalidadMuestra(db)
         createGastoMuestra(db)
         createConMuestra(db)
         createTempMuestra(db)
@@ -628,13 +630,12 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val db = this.writableDatabase
         var cv = ContentValues()
         //put datos
-        cv.put("Id_solicitud",phCalidad.Id_solicitudC)
-        cv.put("Id_phCalidad", phCalidad.Id_phCalidadC)
-        cv.put("Lectura1", phCalidad.Lectura1C)
-        cv.put("Lectura2", phCalidad.Lectura2C)
-        cv.put("Lectura3", phCalidad.Lectura3C)
-        cv.put("Estado", phCalidad.EstadoC)
-        cv.put("Promedio", phCalidad.PromedioC)
+        cv.put("Id_solicitud",phCalidad.Id_solicitud)
+        cv.put("Lectura1", phCalidad.Lectura1)
+        cv.put("Lectura2", phCalidad.Lectura2)
+        cv.put("Lectura3", phCalidad.Lectura3)
+        cv.put("Estado", phCalidad.Estado)
+        cv.put("Promedio", phCalidad.Promedio)
 
         var result = db.insert(PHCALIDAD, null,cv)
         if( result == -1.toLong())
@@ -717,6 +718,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
+
     fun createPhMuestra(db: SQLiteDatabase?){
         val ph = "CREATE TABLE " + PHMUESTRA + " (" +
                 "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -759,6 +761,40 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
+    }
+    fun createPhCalidadMuestra(db: SQLiteDatabase?){
+        val phCalidadMuestra = "CREATE TABLE " + PHCALIDADMUESTRA + " (" +
+                "Id_phCalidad INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_solicitud INTEGER," +
+                "Num_toma INTEGER," +
+                "Lectura1C FLOAT," +
+                "Lectura2C FLOAT," +
+                "Lectura3C FLOAT," +
+                "Estado TEXT" +
+                "PromedioC FLOAT" +
+                ")"
+        db?.execSQL(phCalidadMuestra)
+    }
+    fun insertPhCalidadMuestra(PhCalidadMuestra: PhCalidadMuestra){
+        val db =  this.writableDatabase
+        var cv = ContentValues()
+        cv.put("Id_solicitud", PhCalidadMuestra.Id_solicitud)
+        cv.put("Num_toma", PhCalidadMuestra.Num_toma)
+        cv.put("Lectura1C", PhCalidadMuestra.Lectura1C)
+        cv.put("Lectura2C", PhCalidadMuestra.Lectura2C)
+        cv.put("Lectura3C", PhCalidadMuestra.Lectura3C)
+        cv.put("Estado", PhCalidadMuestra.Estado)
+        cv.put("PromedioC", PhCalidadMuestra.PromedioC)
+        var result = db.insert(PHCALIDADMUESTRA, null,cv)
+        if( result == -1.toLong())
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+        else
+        {
+            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+        }
+
     }
     fun createConMuestra(db: SQLiteDatabase?){
         val conduc = "CREATE TABLE " + CONMUESTRA + " (" +
