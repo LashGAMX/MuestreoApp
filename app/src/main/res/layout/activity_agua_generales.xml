@@ -309,6 +309,11 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="pH TRAZABLE" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:hint="Altitud"
             android:layout_width="match_parent"
@@ -316,11 +321,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
         </com.google.android.material.textfield.TextInputLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="pH TRAZABLE"
-            />
 
         <View
             android:layout_width="fill_parent"

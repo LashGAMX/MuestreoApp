@@ -2,7 +2,7 @@ package com.acama.muestreoapp.models
 
 class PhCalidad {
     var Id_solicitud: Int = 0
-    var Id_phCalidad: Int = 0
+    var Ph_calidad: Int = 0
     var Num_muestra: Int = 0
     var Lectura1: String = ""
     var Lectura2: String = ""
@@ -12,7 +12,7 @@ class PhCalidad {
 
     constructor(
         Id_solicitud: Int,
-        Id_phCalidad: Int,
+        Ph_calidad: Int,
         Num_muestra: Int,
         Lectura1: String,
         Lectura2: String,
@@ -21,7 +21,7 @@ class PhCalidad {
         Promedio: String
     ) {
         this.Id_solicitud = Id_solicitud
-        this.Id_phCalidad = Id_phCalidad
+        this.Ph_calidad = Ph_calidad
         this.Num_muestra = Num_muestra
         this.Lectura1 = Lectura1
         this.Lectura2 = Lectura2

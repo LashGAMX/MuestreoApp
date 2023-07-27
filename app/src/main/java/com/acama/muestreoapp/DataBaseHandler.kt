@@ -616,9 +616,9 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     fun createTablePhCalidad(db: SQLiteDatabase?){
         val phCalidad = "CREATE TABLE " + PHCALIDAD + " (" +
-                "Id_ph INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_phCalidad INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Id_solicitud INTEGER," +
-                "Id_phCalidad INTEGER," +
+                "Ph_calidad INTEGER," +
                 "Lectura1 VARCHAR(100)," +
                 "Lectura2 VARCHAR(100)," +
                 "Lectura3 VARCHAR(100)," +
@@ -631,6 +631,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var cv = ContentValues()
         //put datos
         cv.put("Id_solicitud",phCalidad.Id_solicitud)
+        cv.put("Ph_calidad",phCalidad.Ph_calidad)
         cv.put("Lectura1", phCalidad.Lectura1)
         cv.put("Lectura2", phCalidad.Lectura2)
         cv.put("Lectura3", phCalidad.Lectura3)

@@ -136,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("User",jsonObject.getString("User"))*/
                 var users = user_array.getJSONObject(i)
             var usuariosModel = Usuarios(
-                users.getInt("Id_muestreador"),
+                users.getString("Id_muestreador"),
                 users.getString("User"),
                 users.getString("UserPass")
             )

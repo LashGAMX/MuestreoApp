@@ -372,21 +372,21 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
                 //Updata Ph Calidad
                 val cv4 = ContentValues()
-                cv4.put("Id_phCalidad",bin.spnPhTrazable.selectedItem.toString())
+                cv4.put("Ph_calidad",bin.spnPhTrazable.selectedItem.toString())
                 cv4.put("Lectura1",bin.phCalidad1.text.toString())
                 cv4.put("Lectura2",bin.phCalidad2.text.toString())
                 cv4.put("Lectura3",bin.phCalidad3.text.toString())
                 cv4.put("Estado","ACEPTADO")
                 cv4.put("Promedio",bin.promCalidad1.text.toString())
-                dbw.update("ph_calidad",cv4,"Id_ph ="+idPhCalidad[0],null)
+                dbw.update("ph_calidad",cv4,"Id_phCalidad ="+idPhCalidad[0],null)
                 val cv5 = ContentValues()
-                cv5.put("Id_phCalidad",bin.spnPhTrazable2.selectedItem.toString())
+                cv5.put("Ph_calidad",bin.spnPhTrazable2.selectedItem.toString())
                 cv5.put("Lectura1",bin.ph2Calidad1.text.toString())
                 cv5.put("Lectura2",bin.ph2Calidad2.text.toString())
                 cv5.put("Lectura3",bin.ph2Calidad3.text.toString())
                 cv5.put("Estado","ACEPTADO")
                 cv5.put("Promedio",bin.promedioCalidad2.text.toString())
-                dbw.update("ph_calidad",cv5,"Id_ph ="+idPhCalidad[1].toString(),null)
+                dbw.update("ph_calidad",cv5,"Id_phCalidad ="+idPhCalidad[1].toString(),null)
 
                 //Updata Conductividad Trazable
                 val cv6 = ContentValues()

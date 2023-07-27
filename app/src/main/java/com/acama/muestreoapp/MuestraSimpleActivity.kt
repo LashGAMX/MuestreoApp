@@ -113,7 +113,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
         }
-        bin.btnValPromA.setOnClickListener { 
+        bin.btnValPromA.setOnClickListener {
             try {
                 valAmb()
             } catch (e: Exception){
@@ -380,6 +380,16 @@ class MuestraSimpleActivity : AppCompatActivity() {
         con.insertCanceladas(modelCan)
 
     }
+    fun tablasIniciales(){
+        val db: SQLiteDatabase = con.readableDatabase
+        val toma = numToma.toInt()
+        for (i in 1..toma){
+            //ph_muestra
+            val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
+            val ph_muestraModel = db.rawQuery(queryPhMuestra, null)
+
+        }
+    }
 
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
@@ -387,8 +397,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val m = bin.txtMin.text.toString()
         val hora = h + ":" + m
         val toma = numToma.toInt()
-        var cvModel = ContentValues()
 
+        var cvModel = ContentValues()
             cvModel.put("Num_toma",numToma.toInt())
             cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
             cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
@@ -424,8 +434,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val cv3Model = ContentValues()
             cv3Model.put("Num_toma",numToma.toInt())
             cv3Model.put("Conductividad1",bin.edtCon1.text.toString())
-            cv3Model.put("Conductividad1",bin.edtCon2.text.toString())
-            cv3Model.put("Conductividad2",bin.edtCon3.text.toString())
+            cv3Model.put("Conductividad2",bin.edtCon2.text.toString())
+            cv3Model.put("Conductividad3",bin.edtCon3.text.toString())
             cv3Model.put("Promedio",bin.txtConProm.text.toString())
         dbw.update("conductividad_muestra", cv3Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 
