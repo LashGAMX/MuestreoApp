@@ -355,17 +355,17 @@
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="20dp"
-                    android:text="A1" />
+                    android:text="Temp" />
 
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="20dp"
-                    android:text="A2" />
+                    android:text="Factor" />
 
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="80dp"
                     android:layout_height="20dp"
-                    android:text="A3" />
+                    android:text="Corregida" />
 
             </LinearLayout>
             <LinearLayout
@@ -382,6 +382,7 @@
 
                 <EditText
                     android:id="@+id/edtTempA2"
+                    android:enabled="false"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
@@ -389,6 +390,7 @@
 
                 <EditText
                     android:id="@+id/edtTempA3"
+                    android:enabled="false"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"

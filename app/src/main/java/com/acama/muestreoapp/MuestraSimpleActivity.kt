@@ -53,6 +53,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.txtNumMuestra.text = numToma
 
         ValCancelada()
+        tablasIniciales()
 
 
 
@@ -140,7 +141,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
             //guardarDatos()
-            if (sw1 == true && sw2 == true && sw3 == true && sw4 == true){
+            if (sw1 == true  && sw3 == true && sw4 == true){
                 Toast.makeText(this,"Datos guardados correctamente",Toast.LENGTH_SHORT).show()
                 guardarDatos()
             }else{
@@ -387,7 +388,38 @@ class MuestraSimpleActivity : AppCompatActivity() {
             //ph_muestra
             val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
             val ph_muestraModel = db.rawQuery(queryPhMuestra, null)
+            if (ph_muestraModel.moveToFirst()){
+                do{
 
+                } while (ph_muestraModel.moveToNext())
+            } else {
+                var phmuestraArray = PhMuestra(
+                    idSol,
+                    i+1,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    )
+                var db = DataBaseHandler(this)
+                db.insertPhMuestra(phmuestraArray)
+            }
+            // temperatura muestra
+
+
+            //temperatura ambiente
+
+
+            //conductividad_muestra
+
+            // gasto
+
+            // ph_calidadMuestra
         }
     }
 

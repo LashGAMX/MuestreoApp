@@ -173,7 +173,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     {
         val usuarios_app = "CREATE TABLE " + USUARIOS + " (" +
                 Id_usuario + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                Id_muestreador + " INTEGER," +
+                Id_muestreador + " VARCHAR(10)," +
                 User + " VARCHAR(100)," +
                 UserPass + " VARCHAR(100))"
 

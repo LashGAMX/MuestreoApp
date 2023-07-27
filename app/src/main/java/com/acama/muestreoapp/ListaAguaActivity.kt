@@ -2,6 +2,7 @@ package com.acama.muestreoapp
 
 import android.R
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
@@ -205,6 +206,7 @@ class ListaAguaActivity : AppCompatActivity() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
+        var dbw: SQLiteDatabase = con.writableDatabase
         val db: SQLiteDatabase = con.readableDatabase
         //val idMuestreador = UserApplication.prefs.getMuestreadorId()
         var sw: Boolean = false
@@ -229,6 +231,11 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 if (sw == true) {
                     sendDatosMuestra(idSol, folio)
+                    //actualizar la solicidud al estado 3
+                    var model = ContentValues()
+                    model.put("Estado", "3")
+                    dbw.update("solicitud_generadas", model, "Id_solicitud =  "+idSol,null)
+
                     Toast.makeText(this, "Datos guardados correctamete", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(
