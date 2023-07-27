@@ -232,9 +232,7 @@ class ListaAguaActivity : AppCompatActivity() {
                 if (sw == true) {
                     sendDatosMuestra(idSol, folio)
                     //actualizar la solicidud al estado 3
-                    var model = ContentValues()
-                    model.put("Estado", "3")
-                    dbw.update("solicitud_generadas", model, "Id_solicitud =  "+idSol,null)
+
 
                     Toast.makeText(this, "Datos guardados correctamete", Toast.LENGTH_SHORT).show()
                 } else {
@@ -282,6 +280,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
             val queryEvidencia = "SELECT * FROM evidencia WHERE Folio = '$folio'"
+            val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol'"
 
             var listTemp: MutableList<String> = ArrayList()
 
@@ -298,6 +297,7 @@ class ListaAguaActivity : AppCompatActivity() {
             var gastoMuestra : MutableList<String> = ArrayList()
             var campoCompuesto : MutableList<String> = ArrayList()
             var evidencia : MutableList<String> = ArrayList()
+            var phCalidadMuestra : MutableList<String> = ArrayList()
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
@@ -452,7 +452,7 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Materia\" : \"" + phMuestraModel.getString(3) + "\"" +
                             ", \"Olor\" : \"" + phMuestraModel.getString(4) + "\"" +
                             ", \"Color\" : \"" + phMuestraModel.getString(5) + "\"" +
-                            ", \"Ph1\" : \"" + phMuestraModel.getString(6) + "\"" +
+                            ", \"Ph1\" : \"" + phMuestraModel.getFloat(6) + "\"" +
                             ", \"Ph2\" : \"" + phMuestraModel.getString(7) + "\"" +
                             ", \"Ph3\" : \"" + phMuestraModel.getString(8) + "\"" +
                             ", \"Promedio\" : \"" + phMuestraModel.getString(9) + "\"" +
@@ -555,7 +555,27 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (gastoMuestraModel.moveToNext())
             }
             gastoMuestra.addAll(listTempGastoM)
-            
+
+            //ph calidad muestra
+
+            var lisTempPhCalidadMuestra: MutableList<String> =  ArrayList()
+            val phcalidadmuestraModel = db.rawQuery(queryPhCalidadMuestra, null)
+            cont = 0
+            if (phcalidadmuestraModel.moveToFirst()){
+                do {
+                    var jsonPhCalidadMuestra = "{" +
+                            " \"Id_solicitud\" : \"" + phcalidadmuestraModel.getInt(1) + "\"" +
+                            ", \"Num_toma\" : \"" + phcalidadmuestraModel.getString(2) + "\"" +
+                            ", \"Lectura1C\" : \"" + phcalidadmuestraModel.getString(3) + "\"" +
+                            ", \"Lectura2C\" : \"" + phcalidadmuestraModel.getString(4) + "\"" +
+                            ", \"Lectura3C\" : \"" + phcalidadmuestraModel.getString(5) + "\"" +
+                            ", \"Estado\" : \"" + phcalidadmuestraModel.getString(6) + "\"" +
+                            ", \"PromedioC\" : \"" + phcalidadmuestraModel.getString(7) + "\"" +
+                            "}"
+                    lisTempPhCalidadMuestra.add(cont, jsonPhCalidadMuestra)
+                } while (phcalidadmuestraModel.moveToNext())
+            }
+            phCalidadMuestra.addAll(lisTempPhCalidadMuestra)
             //llenar datos compuestos
             var listTempCampoCompuesto: MutableList<String> = ArrayList()
             val compuestoModel  =  db.rawQuery(queryCampoCompuesto, null)
@@ -612,7 +632,7 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 },
                 Response.ErrorListener { volleyError ->
-                    Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG)
+                    Toast.makeText(applicationContext, "api" + volleyError.message, Toast.LENGTH_LONG)
                         .show()
                 }) {
                 @Throws(AuthFailureError::class)
@@ -629,6 +649,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("conMuestra", conMuestra.toString())
                     params.put("gastoMuestra", gastoMuestra.toString())
                     params.put("campoCompuesto", campoCompuesto.toString())
+                    params.put("phCalidadMuestra", phCalidadMuestra.toString())
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("evidencia",evidencia.toString())
                     params.put("folio", folio)

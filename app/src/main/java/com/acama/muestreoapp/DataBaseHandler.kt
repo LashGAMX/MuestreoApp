@@ -235,6 +235,26 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
 
     }
 
+    fun updateSolicitudGeneradas(solicitudUpdate: SolicitudGenerada){
+        try {
+            val db = this.writableDatabase
+            var cv = ContentValues()
+            cv.put("Estado", solicitudUpdate.Estado)
+            var result = db.update(SOLGENERADA, null, cv.toString(),
+                arrayOf(("Estado="+solicitudUpdate.Estado))
+            )
+            if( result.equals(-1.toLong()))
+            {
+                Toast.makeText(context, "Error al actualizar Solicitud", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                Toast.makeText(context, "Enviado", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception){
+            Toast.makeText(context,"Error al actualizar solicitud generada",Toast.LENGTH_SHORT).show()
+        }
+    }
 
     fun insertEvidencia(evidencia: Evidencia){
         val db = this.writableDatabase
@@ -771,21 +791,21 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Lectura1C FLOAT," +
                 "Lectura2C FLOAT," +
                 "Lectura3C FLOAT," +
-                "Estado TEXT" +
+                "Estado TEXT," +
                 "PromedioC FLOAT" +
                 ")"
         db?.execSQL(phCalidadMuestra)
     }
-    fun insertPhCalidadMuestra(PhCalidadMuestra: PhCalidadMuestra){
+    fun insertPhCalidadMuestra(phCalidadMuestra: PhCalidadMuestra){
         val db =  this.writableDatabase
         var cv = ContentValues()
-        cv.put("Id_solicitud", PhCalidadMuestra.Id_solicitud)
-        cv.put("Num_toma", PhCalidadMuestra.Num_toma)
-        cv.put("Lectura1C", PhCalidadMuestra.Lectura1C)
-        cv.put("Lectura2C", PhCalidadMuestra.Lectura2C)
-        cv.put("Lectura3C", PhCalidadMuestra.Lectura3C)
-        cv.put("Estado", PhCalidadMuestra.Estado)
-        cv.put("PromedioC", PhCalidadMuestra.PromedioC)
+        cv.put("Id_solicitud", phCalidadMuestra.Id_solicitud)
+        cv.put("Num_toma", phCalidadMuestra.Num_toma)
+        cv.put("Lectura1C", phCalidadMuestra.Lectura1C)
+        cv.put("Lectura2C", phCalidadMuestra.Lectura2C)
+        cv.put("Lectura3C", phCalidadMuestra.Lectura3C)
+        cv.put("Estado", phCalidadMuestra.Estado)
+        cv.put("PromedioC", phCalidadMuestra.PromedioC)
         var result = db.insert(PHCALIDADMUESTRA, null,cv)
         if( result == -1.toLong())
         {

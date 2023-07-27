@@ -53,7 +53,6 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.txtNumMuestra.text = numToma
 
         ValCancelada()
-        tablasIniciales()
 
 
 
@@ -381,47 +380,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         con.insertCanceladas(modelCan)
 
     }
-    fun tablasIniciales(){
-        val db: SQLiteDatabase = con.readableDatabase
-        val toma = numToma.toInt()
-        for (i in 1..toma){
-            //ph_muestra
-            val queryPhMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
-            val ph_muestraModel = db.rawQuery(queryPhMuestra, null)
-            if (ph_muestraModel.moveToFirst()){
-                do{
 
-                } while (ph_muestraModel.moveToNext())
-            } else {
-                var phmuestraArray = PhMuestra(
-                    idSol,
-                    i+1,
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "",
-                    )
-                var db = DataBaseHandler(this)
-                db.insertPhMuestra(phmuestraArray)
-            }
-            // temperatura muestra
-
-
-            //temperatura ambiente
-
-
-            //conductividad_muestra
-
-            // gasto
-
-            // ph_calidadMuestra
-        }
-    }
 
     fun guardarDatos(){
         val dbw: SQLiteDatabase = con.writableDatabase
@@ -490,7 +449,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         cv6Model.put("EstadoC", "ACEPTADO")
         cv6Model.put("PromedioC", bin.txtTempPromA.text.toString())
 
-        dbw.update("ph_calidadMuestra", cv4Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+        dbw.update("ph_calidadMuestra", cv6Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 
 
         onBackPressed()
