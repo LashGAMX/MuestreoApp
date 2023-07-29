@@ -9,6 +9,7 @@ import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
@@ -69,26 +70,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
             } while (solGenModel.moveToNext())
         }
 
-        //Consultar datos guardados de tablas
-        val qrphMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
-        val phMuestrModel = db.rawQuery(qrphMuestra, null)
-        if(phMuestrModel.moveToFirst()){
-            do{
-                ph_muestra.add(phMuestrModel.getString(1))
-                ph_muestra.add(phMuestrModel.getString(2))
-                ph_muestra.add(phMuestrModel.getString(3))
-                ph_muestra.add(phMuestrModel.getString(4))
-                ph_muestra.add(phMuestrModel.getString(5))
-                ph_muestra.add(phMuestrModel.getString(6))
-                ph_muestra.add(phMuestrModel.getString(7))
-                ph_muestra.add(phMuestrModel.getString(8))
-                ph_muestra.add(phMuestrModel.getString(9))
-                ph_muestra.add(phMuestrModel.getString(10))
-                ph_muestra.add(phMuestrModel.getString(11))
-
-            } while (phMuestrModel.moveToNext())
-        }
-
+        EncontrarDatos()
+        MostrarDatos()
        // bin.btnHora.setOnClickListener {
          //   getHora()
         //}
@@ -470,13 +453,132 @@ class MuestraSimpleActivity : AppCompatActivity() {
         cv6Model.put("Lectura1C", bin.edtControlCal1.text.toString())
         cv6Model.put("Lectura2C", bin.edtControlCal2.text.toString())
         cv6Model.put("Lectura3C", bin.edtControlCal3.text.toString())
-        cv6Model.put("EstadoC", "ACEPTADO")
+       // cv6Model.put("EstadoC", "ACEPTADO")
         cv6Model.put("PromedioC", bin.txtTempPromA.text.toString())
 
         dbw.update("ph_calidadMuestra", cv6Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 
 
         onBackPressed()
+    }
+    fun EncontrarDatos(){
+        //Consultar datos guardados de
+        val db: SQLiteDatabase = con.readableDatabase
+        val qrphMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol' AND Num_toma = '$numToma'"
+        val phMuestrModel = db.rawQuery(qrphMuestra, null)
+        if(phMuestrModel.moveToFirst()){
+            do{
+                ph_muestra.add(phMuestrModel.getString(1))
+                ph_muestra.add(phMuestrModel.getString(2))
+                ph_muestra.add(phMuestrModel.getString(3))
+                ph_muestra.add(phMuestrModel.getString(4))
+                ph_muestra.add(phMuestrModel.getString(5))
+                ph_muestra.add(phMuestrModel.getString(6))
+                ph_muestra.add(phMuestrModel.getString(7))
+                ph_muestra.add(phMuestrModel.getString(8))
+                ph_muestra.add(phMuestrModel.getString(9))
+                ph_muestra.add(phMuestrModel.getString(10))
+                ph_muestra.add(phMuestrModel.getString(11))
+
+            } while (phMuestrModel.moveToNext())
+        }
+        val qrTempMuestra = "SELECT * FROM temperatura_muestra WHERE Id_solicitud = '$idSol'  AND Num_toma = '$numToma'"
+        val tempMuestraModel = db.rawQuery(qrTempMuestra, null)
+        if(tempMuestraModel.moveToFirst()){
+            do{
+                temperaturaMuestra.add(tempMuestraModel.getString(1))
+                temperaturaMuestra.add(tempMuestraModel.getString(2))
+                temperaturaMuestra.add(tempMuestraModel.getString(3))
+                temperaturaMuestra.add(tempMuestraModel.getString(4))
+                temperaturaMuestra.add(tempMuestraModel.getString(5))
+                temperaturaMuestra.add(tempMuestraModel.getString(6))
+
+            } while (tempMuestraModel.moveToNext())
+        }
+        val qrTempAmbiente = "SELECT * FROM temperatura_ambiente WHERE Id_solicitud = '$idSol'  AND Num_toma = '$numToma'"
+        val tempAmbienteModel = db.rawQuery(qrTempAmbiente, null)
+        if(tempAmbienteModel.moveToFirst()){
+            do{
+                temperaturaAmbiente.add(tempAmbienteModel.getString(1))
+                temperaturaAmbiente.add(tempAmbienteModel.getString(2))
+                temperaturaAmbiente.add(tempAmbienteModel.getString(3))
+                temperaturaAmbiente.add(tempAmbienteModel.getString(4))
+                temperaturaAmbiente.add(tempAmbienteModel.getString(5))
+                temperaturaAmbiente.add(tempAmbienteModel.getString(6))
+
+            } while (tempAmbienteModel.moveToNext())
+        }
+        val qrConductividad = "SELECT * FROM conductividad_muestra WHERE Id_solicitud = '$idSol'  AND Num_toma = '$numToma'"
+        val conductividadModel = db.rawQuery(qrConductividad, null)
+        if(conductividadModel.moveToFirst()){
+            do{
+                conductividadMuestra.add(conductividadModel.getString(1))
+                conductividadMuestra.add(conductividadModel.getString(2))
+                conductividadMuestra.add(conductividadModel.getString(3))
+                conductividadMuestra.add(conductividadModel.getString(4))
+                conductividadMuestra.add(conductividadModel.getString(5))
+                conductividadMuestra.add(conductividadModel.getString(6))
+
+            } while (conductividadModel.moveToNext())
+        }
+        val qrGasto = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'  AND Num_toma = '$numToma'"
+        val gastoModel = db.rawQuery(qrGasto, null)
+        if(gastoModel.moveToFirst()){
+            do{
+                gastoMuestra.add(gastoModel.getString(1))
+                gastoMuestra.add(gastoModel.getString(2))
+                gastoMuestra.add(gastoModel.getString(3))
+                gastoMuestra.add(gastoModel.getString(4))
+                gastoMuestra.add(gastoModel.getString(5))
+                gastoMuestra.add(gastoModel.getString(6))
+
+            } while (gastoModel.moveToNext())
+        }
+        val qrPhCalidadMuestra = "SELECT * FROM ph_CalidadMuestra WHERE Id_solicitud = '$idSol'  AND Num_toma = '$numToma'"
+        val phCalidadMuestraModel = db.rawQuery(qrPhCalidadMuestra, null)
+        if(phCalidadMuestraModel.moveToFirst()){
+            do{
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(1))
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(2))
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(3))
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(4))
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(5))
+                phCaliadMuestra.add(phCalidadMuestraModel.getString(6))
+
+            } while (phCalidadMuestraModel.moveToNext())
+        }
+    }
+    fun MostrarDatos(){
+        bin.edtPh1.setText(ph_muestra[6])
+        bin.edtPh2.setText(ph_muestra[7])
+        bin.edtPh3.setText(ph_muestra[8])
+        bin.txtPromPh.text = ph_muestra[9]
+        bin.txtFecha.text = ph_muestra[10]
+
+        bin.edtTemp1.setText(temperaturaMuestra[3])
+        bin.edtTemp2.setText(temperaturaMuestra[4])
+        bin.edtTemp3.setText(temperaturaMuestra[5])
+//        bin.txtTempProm.text = temperaturaMuestra[6]
+
+        bin.edtTempA1.setText(temperaturaAmbiente[3])
+        bin.edtTempA2.setText(temperaturaAmbiente[4])
+        bin.edtTempA3.setText(temperaturaAmbiente[5])
+//        bin.txtTempPromA.text = temperaturaAmbiente[6]
+
+        bin.edtCon1.setText(conductividadMuestra[3])
+        bin.edtCon2.setText(conductividadMuestra[4])
+        bin.edtCon3.setText(conductividadMuestra[5])
+  //      bin.txtConProm.text = conductividadMuestra[6]
+
+        bin.edtGasto1.setText(gastoMuestra[3])
+        bin.edtGasto2.setText(gastoMuestra[4])
+        bin.edtGasto3.setText(gastoMuestra[5])
+    //    bin.txtGastoProm.text = gastoMuestra[6]
+
+        bin.edtControlCal1.setText(phCaliadMuestra[3])
+        bin.edtControlCal2.setText(phCaliadMuestra[4])
+        bin.edtControlCal3.setText(phCaliadMuestra[5])
+      //  bin.txtControlCalProm.text = phCaliadMuestra[7]
     }
     fun LlenarSpinners(){
 
@@ -548,7 +650,11 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
     }
     fun DialogCancelar() {
+        val dbw: SQLiteDatabase = con.writableDatabase
         val builder = AlertDialog.Builder(this)
+        val h = bin.edtHora.text.toString()
+        val m = bin.txtMin.text.toString()
+        val hora = h + ":" + m
         builder.setTitle("Cuidado")
         builder.setMessage("¿Seguro de que quieres cancelar esta muestra?")
 
@@ -559,20 +665,19 @@ class MuestraSimpleActivity : AppCompatActivity() {
             ).show()
             //GUARDAR FECHA Y HORA AL MOMENTO DE CANCELAR
 
-            var cvModel = PhMuestra(
-                idSol,
-                numToma.toInt(),
-               "",
-                "",
-               "",
-                "",
-                "",
-                "",
-                "",
-                bin.txtFecha.text.toString(),
-                bin.txtHora.text.toString()
-            )
-            con.insertPhMuestra(cvModel)
+            var cvModel = ContentValues()
+            cvModel.put("Num_toma",numToma.toInt())
+            cvModel.put("Materia","")
+            cvModel.put("Olor","")
+            cvModel.put("Color","")
+            cvModel.put("Ph1","")
+            cvModel.put("Ph2","")
+            cvModel.put("Ph3","")
+            cvModel.put("Promedio","")
+            cvModel.put("Fecha",bin.txtFecha.text.toString())
+            cvModel.put("Hora",hora)
+
+            dbw.update("ph_muestra", cvModel, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 
             cancelar() //Agrega datos a tabal cancelados
             onBackPressed()
