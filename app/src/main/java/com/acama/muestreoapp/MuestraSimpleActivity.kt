@@ -39,7 +39,12 @@ class MuestraSimpleActivity : AppCompatActivity() {
     private var sw3 = false
     private var sw4 = false
 
-
+    private var ph_muestra: MutableList<String> = mutableListOf()
+    private var temperaturaMuestra: MutableList<String> = mutableListOf()
+    private var temperaturaAmbiente: MutableList<String> = mutableListOf()
+    private var conductividadMuestra: MutableList<String> = mutableListOf()
+    private var gastoMuestra: MutableList<String> = mutableListOf()
+    private var phCaliadMuestra: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         bin = ActivityMuestraSimpleBinding.inflate(layoutInflater)
@@ -64,6 +69,25 @@ class MuestraSimpleActivity : AppCompatActivity() {
             } while (solGenModel.moveToNext())
         }
 
+        //Consultar datos guardados de tablas
+        val qrphMuestra = "SELECT * FROM ph_muestra WHERE Id_solicitud = '$idSol'"
+        val phMuestrModel = db.rawQuery(qrphMuestra, null)
+        if(phMuestrModel.moveToFirst()){
+            do{
+                ph_muestra.add(phMuestrModel.getString(1))
+                ph_muestra.add(phMuestrModel.getString(2))
+                ph_muestra.add(phMuestrModel.getString(3))
+                ph_muestra.add(phMuestrModel.getString(4))
+                ph_muestra.add(phMuestrModel.getString(5))
+                ph_muestra.add(phMuestrModel.getString(6))
+                ph_muestra.add(phMuestrModel.getString(7))
+                ph_muestra.add(phMuestrModel.getString(8))
+                ph_muestra.add(phMuestrModel.getString(9))
+                ph_muestra.add(phMuestrModel.getString(10))
+                ph_muestra.add(phMuestrModel.getString(11))
+
+            } while (phMuestrModel.moveToNext())
+        }
 
        // bin.btnHora.setOnClickListener {
          //   getHora()
@@ -439,7 +463,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
             cv4Model.put("Promedio",bin.txtGastoProm.text.toString())
 
         dbw.update("gasto_muestra", cv4Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
-        // Guardar ph calidad
+        // Guardar ph calidad muestra
 
         val cv6Model = ContentValues()
             cv6Model.put("Num_toma", numToma.toInt())

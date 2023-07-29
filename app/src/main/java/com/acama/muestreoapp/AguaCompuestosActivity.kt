@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.acama.muestreoapp.databinding.ActivityAguaCompuestosBinding
 import com.acama.muestreoapp.models.CampoCompuesto
+import kotlinx.android.synthetic.main.activity_agua_compuestos.spnAforo
 
 
 class AguaCompuestosActivity : AppCompatActivity() {
@@ -22,6 +23,8 @@ class AguaCompuestosActivity : AppCompatActivity() {
     private lateinit var con: DataBaseHandler
     private lateinit var folio:String
     private var idSol:Int = 0
+
+    private var datosCompuesto: MutableList<String> =  mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +40,38 @@ class AguaCompuestosActivity : AppCompatActivity() {
                 idSol = solGenModel.getInt(0)
             } while (solGenModel.moveToNext())
         }
+        // recuperar datos
+        val qrCompuestos = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
+        val compuestosModel = db.rawQuery(qrCompuestos, null)
 
+        if (compuestosModel.moveToFirst()){
+            do {
+                datosCompuesto.add(compuestosModel.getString(0))
+                datosCompuesto.add(compuestosModel.getString(1))
+                datosCompuesto.add(compuestosModel.getString(2))
+                datosCompuesto.add(compuestosModel.getString(3))
+                datosCompuesto.add(compuestosModel.getString(4))
+                datosCompuesto.add(compuestosModel.getString(5))
+                datosCompuesto.add(compuestosModel.getString(6))
+                datosCompuesto.add(compuestosModel.getString(7))
+                datosCompuesto.add(compuestosModel.getString(8))
+                datosCompuesto.add(compuestosModel.getString(9))
+                datosCompuesto.add(compuestosModel.getString(10))
+                datosCompuesto.add(compuestosModel.getString(11))
+
+            } while (compuestosModel.moveToNext())
+        }
+
+        MostrarDatos()
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
 
         bin.btnGuardarCompuestos.setOnClickListener {
-            guardarDatos() }
+            guardarDatos()
+            onBackPressed()
+        }
         llenarSpinner()
     }
     fun guardarDatos() {
@@ -126,6 +153,17 @@ class AguaCompuestosActivity : AppCompatActivity() {
         bin.spnAforo.adapter = adpAforo
         bin.spnConTratamiento.adapter = adpConTratamiento
 
+
+    }
+    fun MostrarDatos(){
+
+        bin.edtProcedimiento.setText(datosCompuesto[5])
+        bin.edtObservaciones.setText(datosCompuesto[6])
+
+        bin.edtVolCalculado.setText(datosCompuesto[8])
+        bin.edtPhCompuesto.setText(datosCompuesto[9])
+        bin.edtTempCompuesta.setText(datosCompuesto[10])
+        bin.edtCloruros.setText(datosCompuesto[11])
 
     }
 
