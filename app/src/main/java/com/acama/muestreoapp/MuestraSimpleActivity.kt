@@ -396,7 +396,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val hora = h + ":" + m
         val toma = numToma.toInt()
 
-        var cvModel = ContentValues()
+        val cvModel = ContentValues()
             cvModel.put("Num_toma",numToma.toInt())
             cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
             cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
