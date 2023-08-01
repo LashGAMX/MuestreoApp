@@ -89,13 +89,14 @@ class ListaAguaActivity : AppCompatActivity() {
                             ",\"Empresa\" : \"" + result.getString(6) + "\"" +
                             ",\"Id_direccion\" : \"" + result.getInt(7) + "\"" +
                             ",\"Id_contacto\" : \"" + result.getInt(8) + "\"" +
-                            ",\"Servicio\" : \"" + result.getString(9) + "\"" +
-                            ",\"Descarga\" : \"" + result.getString(10) + "\"" +
-                            ",\"Clave\" : \"" + result.getString(11) + "\"" +
-                            ",\"Fecha_muestreo\" : \"" + result.getString(12) + "\"" +
-                            ",\"Num_tomas\" : \"" + result.getString(13) + "\"" +
-                            ",\"Id_muestreador\" : \"" + result.getInt(14) + "\"" +
-                            ",\"Estado\" : \"" + result.getInt(15) + "\"" +
+                            ",\"Punto\" : \"" + result.getInt(9) + "\"" +
+                            ",\"Servicio\" : \"" + result.getString(10) + "\"" +
+                            ",\"Descarga\" : \"" + result.getString(11) + "\"" +
+                            ",\"Clave\" : \"" + result.getString(12) + "\"" +
+                            ",\"Fecha_muestreo\" : \"" + result.getString(13) + "\"" +
+                            ",\"Num_tomas\" : \"" + result.getString(14) + "\"" +
+                            ",\"Id_muestreador\" : \"" + result.getInt(15) + "\"" +
+                            ",\"Estado\" : \"" + result.getInt(16) + "\"" +
                             "}"
                     listSol.add(cont, json)
                     cont++
@@ -268,6 +269,8 @@ class ListaAguaActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val db: SQLiteDatabase = con.readableDatabase
             // val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
+
+            val querySolGenerada = "SELECT * FROM solicitud_generadas WHERE Id_solicitudGen = '$idSol'"
             val queryGeneral = "SELECT * FROM campo_generales WHERE Id_solicitud = '$idSol'"
             val queryPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
             val queryPhCal = "SELECT * FROM ph_calidad WHERE Id_solicitud = '$idSol'"
@@ -280,11 +283,12 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
             val queryEvidencia = "SELECT * FROM evidencia WHERE Folio = '$folio'"
-            val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol'"
+            val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol' ORDER BY Num_toma DESC"
 
             var listTemp: MutableList<String> = ArrayList()
 
             var solGenModel: MutableList<String> = ArrayList()
+            var solPuntoModel: MutableList<String> = ArrayList()
             var campoGenModel: MutableList<String> = ArrayList()
             var phTrazable: MutableList<String> = ArrayList()
             var phCalidad: MutableList<String> = ArrayList()
@@ -326,7 +330,23 @@ class ListaAguaActivity : AppCompatActivity() {
             }
             campoGenModel.addAll(listTemp)
 
+            //Llenar datos Punto
+            var listPuntoTemp: MutableList<String> = ArrayList()
+            val puntoModel = db.rawQuery(querySolGenerada, null)
+            var contPunto: Int = 0
+            if (puntoModel.moveToFirst()) {
+                do {
+                    //Log.d("Captura",generalModel.getString(2))
+                    var jsonPunto = "{" +
+                            " \"Punto\" : \"" + puntoModel.getString(17) + "\"" +
+                            "}"
 
+                    listPuntoTemp.add(contPunto, jsonPunto)
+                    contPunto++
+                    //Log.d("Lista Temp",listTemp.toString())
+                } while (puntoModel.moveToNext())
+            }
+            solPuntoModel.addAll(listPuntoTemp)
 
             //Llenar datos evidencias
             var listTempEvi: MutableList<String> = ArrayList()
@@ -653,6 +673,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("idMuestreador", UserApplication.prefs.getMuestreadorId())
                     params.put("evidencia",evidencia.toString())
                     params.put("folio", folio)
+                    params.put("solPunto",solPuntoModel.toString())
 
                     return params
                 }
@@ -713,7 +734,8 @@ class ListaAguaActivity : AppCompatActivity() {
                     muestreo.getString("Fecha_muestreo"),
                     muestreo.getString("Num_tomas"),
                     muestreo.getInt("Id_muestreador"),
-                    1
+                    1,
+                    muestreo.getString("Punto"),
                 )
                 var db = DataBaseHandler(this)
                 db.insertSolicitudGenerada(muestreoModel)

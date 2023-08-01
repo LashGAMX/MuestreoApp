@@ -25,6 +25,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
     private var idSol:Int = 0
 
     private var datosCompuesto: MutableList<String> =  mutableListOf()
+    private var promedios : MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +64,9 @@ class AguaCompuestosActivity : AppCompatActivity() {
         }
 
         MostrarDatos()
-
+        bin.btnObtenerVol.setOnClickListener(View.OnClickListener {
+            getVolumenQi()
+        })
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
         })
@@ -96,6 +99,16 @@ class AguaCompuestosActivity : AppCompatActivity() {
          //onBackPressed()
         //guardar datos en table metodo Update
 
+    }
+    fun getVolumenQi(){
+        val db: SQLiteDatabase = con.readableDatabase
+        val queryPromedios = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
+        val promedios = db.rawQuery(queryPromedios, null)
+        if (promedios.moveToNext()){
+            do {
+
+            } while (promedios.moveToNext())
+        }
     }
 
     fun getExtras(){

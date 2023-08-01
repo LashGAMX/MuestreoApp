@@ -96,6 +96,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                  datosMuestreo.add(solGenModel.getString(14))
                  datosMuestreo.add(solGenModel.getString(15))
                  datosMuestreo.add(solGenModel.getString(16))
+                 datosMuestreo.add(solGenModel.getString(17))
              } while (solGenModel.moveToNext())
              // Toast.makeText(this,"Sesión satisfactoria",Toast.LENGTH_SHORT).show()
          }
@@ -322,6 +323,10 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
                 cv.put("Supervisor", bin.edtSuperviso.text.toString())
                 dbw.update("campo_generales",cv,"Id_solicitud = "+idSol,null)
 
+                val cvp = ContentValues()
+                cvp.put("Punto",bin.edtPunto.text.toString())
+                dbw.update("solicitud_generadas",cvp,"Id_solicitudGen = "+idSol,null)
+
 
                 val qrPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
                 val phTraModel = dbr.rawQuery(qrPhTra, null)
@@ -421,6 +426,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.txtFolioServicio.text = datosMuestreo[1]
          bin.txtNumTomas.text = datosMuestreo[14]
          bin.txtTipoDescarga.text = datosMuestreo[11]
+         bin.edtPunto.setText(datosMuestreo[17])
 
          bin.edtTemperatura.setText(datosGenerales[5])
          bin.edtTemperaturaBuff.setText(datosGenerales[6])

@@ -18,6 +18,7 @@ class SolicitudGenerada {
     var Num_tomas :String = ""
     var Id_muestreador : Int = 0
     var Estado : Int = 0
+    var Punto : String = ""
 
     constructor(Folio_servicio:String,Id_solicitud:Int
                 ,Id_intermediario:Int,
@@ -25,7 +26,7 @@ class SolicitudGenerada {
                 Id_direccion:Int,Id_contacto:Int,
                 Observacion:String,Servicio:String,Descarga:String,
                 Clave:String,Fecha_muestreo:String,Num_tomas:String,
-                Id_muestreador:Int,Estado:Int){
+                Id_muestreador:Int,Estado:Int,Punto:String){
         this.Folio_servicio = Folio_servicio
         this.Id_solicitud = Id_solicitud
         this.Id_intermediario = Id_intermediario
@@ -42,6 +43,7 @@ class SolicitudGenerada {
         this.Num_tomas = Num_tomas
         this.Id_muestreador = Id_muestreador
         this.Estado = Estado
+        this.Punto = Punto
     }
     constructor()
 }
