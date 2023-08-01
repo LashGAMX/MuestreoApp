@@ -377,15 +377,20 @@ class MuestraSimpleActivity : AppCompatActivity() {
     } */
     fun cancelar(){
         val dbw: SQLiteDatabase = con.writableDatabase
+        val db: SQLiteDatabase = con.readableDatabase
+        val queryCanceladas = "SELECT * FROM canceladas WHERE Folio = '$folio'"
+        val canceladas = db.rawQuery(queryCanceladas, null)
+      if (canceladas.moveToFirst()){
 
-        var modelCan = Canceladas(
-            folio,
-            numToma.toInt(),
-            estado.toInt(),
+      } else {
+          var modelCan = Canceladas(
+              folio,
+              numToma.toInt(),
+              1,
 
-        )
-        con.insertCanceladas(modelCan)
-
+              )
+          con.insertCanceladas(modelCan)
+      }
     }
 
 

@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment
 import com.acama.muestreoapp.databinding.ActivityAguaCompuestosBinding
 import com.acama.muestreoapp.models.CampoCompuesto
 import kotlinx.android.synthetic.main.activity_agua_compuestos.spnAforo
+import kotlin.math.log
 
 
 class AguaCompuestosActivity : AppCompatActivity() {
@@ -25,7 +26,8 @@ class AguaCompuestosActivity : AppCompatActivity() {
     private var idSol:Int = 0
 
     private var datosCompuesto: MutableList<String> =  mutableListOf()
-    private var promedios : MutableList<String> = mutableListOf()
+    private var promedios : MutableList<Float> = mutableListOf()
+    private var vmsi : ArrayList<Float> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
         MostrarDatos()
         bin.btnObtenerVol.setOnClickListener(View.OnClickListener {
-            getVolumenQi()
+           // getVolumenQi()
         })
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
@@ -100,15 +102,45 @@ class AguaCompuestosActivity : AppCompatActivity() {
         //guardar datos en table metodo Update
 
     }
-    fun getVolumenQi(){
+    fun getVolumenQi() {
         val db: SQLiteDatabase = con.readableDatabase
-        val queryPromedios = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
-        val promedios = db.rawQuery(queryPromedios, null)
-        if (promedios.moveToNext()){
+        var suma = 0.0
+        var cont = 0
+        val queryGasto = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
+        var toma = 0
+        val gasto = db.rawQuery(queryGasto, null)
+        if (gasto.moveToFirst()){
+            do {
+                toma =  gasto.getString(2).toInt()
+                val queryCanceladas =  "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol' AND " +
+                        "Muestra = '$toma'"
+                val canceladas =  db.rawQuery(queryCanceladas, null)
+                if (canceladas.moveToFirst()){
+
+                } else {
+
+                }
+
+            } while (gasto.moveToNext())
+        }
+        if (gasto.moveToFirst()){
             do {
 
-            } while (promedios.moveToNext())
+                toma =  gasto.getString(2).toInt()
+                val queryCanceladas =  "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol' AND " +
+                        "Muestra = '$toma'"
+                val canceladas =  db.rawQuery(queryCanceladas, null)
+                if (canceladas.moveToFirst()){
+
+                } else {
+                    suma = suma + gasto.getString(6).toFloat()
+
+                }
+
+            } while (gasto.moveToNext())
         }
+
+
     }
 
     fun getExtras(){
