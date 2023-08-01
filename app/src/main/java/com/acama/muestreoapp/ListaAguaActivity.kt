@@ -585,7 +585,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     var jsonCampoCompuesto = "{" +
                             " \"Id_solicitud\" : \"" + compuestoModel.getInt(1) + "\"" +
                             ", \"Metodo_aforo\" : \"" + compuestoModel.getInt(2) + "\"" +
-                            ", \"Con_tratamiento\" : \"" + compuestoModel.getInt(3) + "\"" +
+                            ", \"Con_tratamiento\" : \"" + compuestoModel.getString(3) + "\"" +
                             ", \"Tipo_tratamiento\" : \"" + compuestoModel.getInt(4) + "\"" +
                             ", \"Proc_muestreo\" : \"" + compuestoModel.getInt(5) + "\"" +
                             ", \"Observaciones\" : \"" + compuestoModel.getString(6) + "\"" +

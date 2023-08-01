@@ -81,7 +81,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         var cv = ContentValues()
 
         cv.put("Metodo_aforo",bin.spnAforo.selectedItemId.toString())
-        cv.put("Con_tratamiento",bin.spnConTratamiento.selectedItemId.toString())
+        cv.put("Con_tratamiento",bin.spnConTratamiento.selectedItem.toString())
         cv.put("Tipo_tratamiento",bin.spnTipoTratamiento.selectedItemId.toString())
         cv.put("Proc_muestreo",bin.edtProcedimiento.text.toString())
         cv.put("Observaciones",bin.edtObservaciones.text.toString())
