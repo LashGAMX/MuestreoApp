@@ -280,7 +280,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryGastoMuestra = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
             val queryEvidencia = "SELECT * FROM evidencia WHERE Folio = '$folio'"
-            val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol'"
+            val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol' ORDER BY Num_toma DESC"
 
             var listTemp: MutableList<String> = ArrayList()
 
