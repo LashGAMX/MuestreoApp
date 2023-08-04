@@ -206,7 +206,7 @@
                 />
 
             <Spinner
-                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+
                 android:id="@+id/spnTermo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                 />
 
             <Spinner
-                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                
                 android:id="@+id/spnTermo2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

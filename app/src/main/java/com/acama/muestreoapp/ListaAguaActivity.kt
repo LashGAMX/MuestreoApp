@@ -692,7 +692,8 @@ class ListaAguaActivity : AppCompatActivity() {
         var listaMuestreo = JSONArray(data.getString("modelSolGen"))
         var listaPhTrazable = JSONArray(data.getString("phTrazable"))
         var listaPhCalidad = JSONArray(data.getString("phCalidad"))
-        var listaTermometro = JSONArray(data.getString("termometro"))
+        var listaTermometro1 = JSONArray(data.getString("pc100"))
+       // var listaTermometro2 = JSONArray(data.getString("hanna"))
         var listaConTrazable = JSONArray(data.getString("conTrazable"))
         var listaConCalidad = JSONArray(data.getString("conCalidad"))
         var listaColor = JSONArray(data.getString("modelColor"))
@@ -826,8 +827,8 @@ class ListaAguaActivity : AppCompatActivity() {
 
         }
         //Sincronizar datos termometro
-        for (i in 0 until listaTermometro.length()) {
-            val termometro = listaTermometro.getJSONObject(i)
+        for (i in 0 until listaTermometro1.length()) {
+            val termometro = listaTermometro1.getJSONObject(i)
             val equipo = termometro.getString("Equipo").toString()
             val queryTermo = "SELECT * FROM TermometroCampo WHERE Equipo = '$equipo'"
             val termometroCampo = db.rawQuery(queryTermo, null)
@@ -844,7 +845,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     termometro.getString("Equipo"),
                     termometro.getString("Marca"),
                     termometro.getString("Modelo"),
-                    termometro.getString("Serie")
+                    termometro.getString("Serie"),
                 )
                 var db = DataBaseHandler(this)
                 db.insertTermometroCampo(termometroModel)

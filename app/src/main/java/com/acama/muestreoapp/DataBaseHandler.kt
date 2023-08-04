@@ -506,21 +506,21 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val model = "CREATE TABLE "+ TERMOMETRO +" (" +
                 "Id_termometro INTEGER PRIMARY KEY," +
                 "Id_muestreador INTEGER NOT NULL," +
-                "Equipo TEXT NOT NULL," +
-                "Marca TEXT NOT NULL," +
-                "Modelo TEXT NOT NULL," +
-                "Serie TEXT NOT NULL" +
+                "Equipo TEXT," +
+                "Marca TEXT," +
+                "Modelo TEXT," +
+                "Serie TEXT" +
                 ")"
         db?.execSQL(model)
     }
     fun createTermometro2(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ TERMOMETRO2 +" (" +
                 "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Id_muestreador INTEGER NOT NULL," +
-                "Equipo TEXT NOT NULL," +
-                "Marca TEXT NOT NULL," +
-                "Modelo TEXT NOT NULL," +
-                "Serie TEXT NOT NULL" +
+                "Id_muestreador INTEGER," +
+                "Equipo TEXT, " +
+                "Marca TEXT, " +
+                "Modelo TEXT," +
+                "Serie TEXT " +
                 ")"
         db?.execSQL(model)
     }

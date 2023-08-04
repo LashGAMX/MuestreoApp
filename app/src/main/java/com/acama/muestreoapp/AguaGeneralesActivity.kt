@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -508,7 +509,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          }
          val adPhTrazable = ArrayAdapter(
              this,
-             R.layout.simple_spinner_item, phTrazable
+             R.layout.simple_list_item_1, phTrazable
          )
 
          val qePhCalidad = "SELECT * FROM cat_phCalidad"
@@ -544,7 +545,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
      }
 
-     fun valPhTrazable(spn: Spinner,lec1:EditText,lec2:EditText,lec3:EditText,Estado:EditText): Boolean {
+     fun valPhTrazable(spn: Spinner, lec1:EditText, lec2:EditText, lec3:EditText, Estado:EditText): Boolean {
          var sw:Boolean = false
          var num:String = ""
          var l1 :String = ""
