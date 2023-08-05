@@ -101,6 +101,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val model = "CREATE TABLE " + CANCELADAS + " (" +
                 "Id_cancelada INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "Folio TEXT NOT NULL," +
+                "Id_solicitud INTEGER," +
                 "Muestra INTEGER NOT NULL," +
                 "Estado INTEGER NOT NULL" +
                 ")"
@@ -184,6 +185,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         val db = this.writableDatabase
         var cv = ContentValues()
         cv.put("Folio", can.Folio)
+        cv.put("Id_solicitud", can.Id_solicitud)
         cv.put("Muestra", can.Muestra)
         cv.put("Estado", can.Estado)
         var result = db.insert(CANCELADAS, null,cv)
@@ -505,7 +507,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun createTermometro(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ TERMOMETRO +" (" +
                 "Id_termometro INTEGER PRIMARY KEY," +
-                "Id_muestreador INTEGER NOT NULL," +
+                "Id_muestreador INTEGER," +
                 "Equipo TEXT," +
                 "Marca TEXT," +
                 "Modelo TEXT," +

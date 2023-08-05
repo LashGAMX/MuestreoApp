@@ -385,6 +385,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
       } else {
           var modelCan = Canceladas(
               folio,
+              idSol,
               numToma.toInt(),
               1,
 

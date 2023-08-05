@@ -477,28 +477,40 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
      fun llenarSpinner() {
          val termos : MutableList<String> = ArrayList()
+         val termos2 : MutableList<String> = ArrayList()
          val phTrazable : MutableList<String> = ArrayList()
          val phCalidad : MutableList<String> = ArrayList()
          val db: SQLiteDatabase = con.readableDatabase
 
          val queryTerm = "SELECT * FROM TermometroCampo"
          val termometroModel = db.rawQuery(queryTerm, null)
+         val queryTerm2 = "SELECT * FROM TermometroCampo2"
+         val termometroModel2 = db.rawQuery(queryTerm2, null)
          var cont: Int = 0
+         var cont2: Int = 0
          if (termometroModel.moveToFirst()) {
              do {
-                     if (cont == 0){
-                         termos.add(termometroModel.getString(4))
-                     }
+
                  termos.add(termometroModel.getString(0) + '/' + termometroModel.getString(4))
                  cont++
              } while (termometroModel.moveToNext())
          }
+          if (termometroModel2.moveToFirst()){
+              do {
+
+                      termos2.add(termometroModel2.getString(0) + '/' + termometroModel2.getString(4))
+
+              } while (termometroModel2.moveToNext())
+          }
          val adTermo = ArrayAdapter(
              this,
              R.layout.simple_spinner_item, termos
          )
+         val adTermo2 = ArrayAdapter(
+             this, R.layout.simple_spinner_item, termos2
+         )
          bin.spnTermo.adapter = adTermo
-         bin.spnTermo2.adapter = adTermo
+         bin.spnTermo2.adapter = adTermo2
 
          val qePhTazable = "SELECT * FROM cat_phTrazable"
          val phTModel = db.rawQuery(qePhTazable, null)

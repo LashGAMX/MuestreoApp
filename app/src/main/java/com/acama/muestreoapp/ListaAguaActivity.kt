@@ -284,7 +284,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryCampoCompuesto = "SELECT * FROM campo_compuesto WHERE Id_solicitud = '$idSol'"
             val queryEvidencia = "SELECT * FROM evidencia WHERE Folio = '$folio'"
             val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol' ORDER BY Num_toma DESC"
-
+            val queryCanceladas = "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol'"
             var listTemp: MutableList<String> = ArrayList()
 
             var solGenModel: MutableList<String> = ArrayList()
@@ -302,6 +302,9 @@ class ListaAguaActivity : AppCompatActivity() {
             var campoCompuesto : MutableList<String> = ArrayList()
             var evidencia : MutableList<String> = ArrayList()
             var phCalidadMuestra : MutableList<String> = ArrayList()
+            var canceladas: MutableList<String> = ArrayList()
+
+
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
@@ -329,6 +332,24 @@ class ListaAguaActivity : AppCompatActivity() {
                 } while (generalModel.moveToNext())
             }
             campoGenModel.addAll(listTemp)
+            //llenar canceladas
+            val canceladasModel = db.rawQuery(queryCanceladas, null)
+            var listCanceladas: MutableList<String> = ArrayList()
+            var contCanceladas:Int = 0
+            if (canceladasModel.moveToFirst()){
+                do {
+                    var jsonCanceladas = "{" +
+                            " \"Folio\" : \"" + canceladasModel.getString(1) + "\"" +
+                            ",\"Id_solicitud\" : \"" + canceladasModel.getInt(2) + "\"" +
+                            ",\"Muestra\" : \"" + canceladasModel.getInt(3) + "\"" +
+                            ",\"Estado\" : \"" + canceladasModel.getInt(4) + "\"" +
+                            "}"
+                    listCanceladas.add(contCanceladas, jsonCanceladas)
+                    contCanceladas++
+                } while (canceladasModel.moveToNext())
+            }
+            canceladas.addAll(listCanceladas)
+
 
             //Llenar datos Punto
             var listPuntoTemp: MutableList<String> = ArrayList()
@@ -652,7 +673,7 @@ class ListaAguaActivity : AppCompatActivity() {
 
                 },
                 Response.ErrorListener { volleyError ->
-                    Toast.makeText(applicationContext, "api" + volleyError.message, Toast.LENGTH_LONG)
+                    Toast.makeText(applicationContext, "Error. Es probable que falte información" + volleyError.message, Toast.LENGTH_LONG)
                         .show()
                 }) {
                 @Throws(AuthFailureError::class)
@@ -674,6 +695,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("evidencia",evidencia.toString())
                     params.put("folio", folio)
                     params.put("solPunto",solPuntoModel.toString())
+                    params.put("canceladas", listCanceladas.toString())
 
                     return params
                 }
@@ -693,7 +715,7 @@ class ListaAguaActivity : AppCompatActivity() {
         var listaPhTrazable = JSONArray(data.getString("phTrazable"))
         var listaPhCalidad = JSONArray(data.getString("phCalidad"))
         var listaTermometro1 = JSONArray(data.getString("pc100"))
-       // var listaTermometro2 = JSONArray(data.getString("hanna"))
+        var listaTermometro2 = JSONArray(data.getString("hanna"))
         var listaConTrazable = JSONArray(data.getString("conTrazable"))
         var listaConCalidad = JSONArray(data.getString("conCalidad"))
         var listaColor = JSONArray(data.getString("modelColor"))
@@ -826,13 +848,12 @@ class ListaAguaActivity : AppCompatActivity() {
             }
 
         }
-        //Sincronizar datos termometro
+        //Sincronizar datos termometro1 pc100
         for (i in 0 until listaTermometro1.length()) {
             val termometro = listaTermometro1.getJSONObject(i)
-            val equipo = termometro.getString("Equipo").toString()
-            val queryTermo = "SELECT * FROM TermometroCampo WHERE Equipo = '$equipo'"
+            val id = termometro.getString("Id_termometro").toString()
+            val queryTermo = "SELECT * FROM TermometroCampo WHERE Serie = '$id'"
             val termometroCampo = db.rawQuery(queryTermo, null)
-            //Log.d("Solicitud", muestreo.getInt("Id_solicitud").toString())
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {
                 do {
@@ -849,6 +870,29 @@ class ListaAguaActivity : AppCompatActivity() {
                 )
                 var db = DataBaseHandler(this)
                 db.insertTermometroCampo(termometroModel)
+            }
+        }
+        // termometros hanna
+        for (i in 0 until listaTermometro2.length()) {
+            val termometro = listaTermometro2.getJSONObject(i)
+            val id = termometro.getString("Id_termometro").toString()
+            val queryTermo = "SELECT * FROM TermometroCampo WHERE Serie = '$id'"
+            val termometroCampo = db.rawQuery(queryTermo, null)
+            var cont: Int = 0
+            if (termometroCampo.moveToFirst()) {
+                do {
+
+                } while (termometroCampo.moveToNext())
+            } else {
+                var termometroModel2 = TermometroCampo2(
+                    termometro.getString("Id_termometro").toInt(),
+                    termometro.getString("Equipo"),
+                    termometro.getString("Marca"),
+                    termometro.getString("Modelo"),
+                    termometro.getString("Serie"),
+                )
+                var db = DataBaseHandler(this)
+                db.insertTermometroCampo2(termometroModel2)
             }
         }
         //sincronizar Color
