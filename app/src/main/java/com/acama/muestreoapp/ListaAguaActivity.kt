@@ -852,7 +852,7 @@ class ListaAguaActivity : AppCompatActivity() {
         for (i in 0 until listaTermometro1.length()) {
             val termometro = listaTermometro1.getJSONObject(i)
             val id = termometro.getString("Id_termometro").toString()
-            val queryTermo = "SELECT * FROM TermometroCampo WHERE Serie = '$id'"
+            val queryTermo = "SELECT * FROM TermometroCampo WHERE Id_termometro = '$id'"
             val termometroCampo = db.rawQuery(queryTermo, null)
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {
@@ -876,7 +876,7 @@ class ListaAguaActivity : AppCompatActivity() {
         for (i in 0 until listaTermometro2.length()) {
             val termometro = listaTermometro2.getJSONObject(i)
             val id = termometro.getString("Id_termometro").toString()
-            val queryTermo = "SELECT * FROM TermometroCampo WHERE Serie = '$id'"
+            val queryTermo = "SELECT * FROM TermometroCampo WHERE Id_termometro = '$id'"
             val termometroCampo = db.rawQuery(queryTermo, null)
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {
@@ -886,6 +886,7 @@ class ListaAguaActivity : AppCompatActivity() {
             } else {
                 var termometroModel2 = TermometroCampo2(
                     termometro.getString("Id_termometro").toInt(),
+                    termometro.getString("Id_muestreador").toInt(),
                     termometro.getString("Equipo"),
                     termometro.getString("Marca"),
                     termometro.getString("Modelo"),

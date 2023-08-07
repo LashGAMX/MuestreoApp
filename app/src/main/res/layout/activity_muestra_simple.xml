@@ -224,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:hint="00"
+                android:maxLength="2"
                 android:textColor="@color/black"
                 />
 
@@ -242,6 +243,7 @@
                 android:layout_height="wrap_content"
                  android:inputType="number"
                 android:hint="00"
+                 android:maxLength="2"
                 android:textColor="@color/black"
                 />
 

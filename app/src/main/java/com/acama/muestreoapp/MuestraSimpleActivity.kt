@@ -19,8 +19,10 @@ import androidx.core.widget.addTextChangedListener
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
 import kotlinx.android.synthetic.main.activity_muestra_simple.*
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 
 class MuestraSimpleActivity : AppCompatActivity() {
@@ -78,20 +80,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         bin.btnCancelar.setOnClickListener{
 
-            if (bin.txtFecha.text.equals("00-00-00")||bin.txtHora.text.equals("")){
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Error")
-                builder.setMessage("Necesitas establecer una fehca y una hora para cancelar la toma.")
-
-                builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-                    Toast.makeText(applicationContext,
-                        android.R.string.ok, Toast.LENGTH_SHORT).show()
-                }
-                builder.show()
-          } else {
-                estado = 1
                 DialogCancelar()
-            }
 
         }
         bin.btnRegresar.setOnClickListener{
@@ -339,7 +328,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw4 = true
-            bin.txtGastoProm.text = ((gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3).toString()
+            var gastoPromedio = ((gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3)
+
+            bin.txtGastoProm.text = gastoPromedio.toString()
         }else{
             sw4 = false
             bin.edtGasto1.setError("Comprueba los datos")
@@ -355,7 +346,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         bin.btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
-             bin.txtFecha.text = ""+mDay+"/"+mMonth+"/"+mYear
+             bin.txtFecha.text = ""+mYear+"-"+mMonth+"-"+mDay
             },year,month,day)
             dpd.show()
         }
@@ -378,7 +369,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
     fun cancelar(){
         val dbw: SQLiteDatabase = con.writableDatabase
         val db: SQLiteDatabase = con.readableDatabase
-        val queryCanceladas = "SELECT * FROM canceladas WHERE Folio = '$folio'"
+        val queryCanceladas = "SELECT * FROM canceladas WHERE Folio = '$folio' AND  Muestra = '$numToma'"
         val canceladas = db.rawQuery(queryCanceladas, null)
       if (canceladas.moveToFirst()){
 
@@ -392,6 +383,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
               )
           con.insertCanceladas(modelCan)
       }
+      estado = 0
+      toma = 0
+      state = 0
     }
 
 
@@ -401,6 +395,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val m = bin.txtMin.text.toString()
         val hora = h + ":" + m
         val toma = numToma.toInt()
+
 
         val cvModel = ContentValues()
             cvModel.put("Num_toma",numToma.toInt())
@@ -567,8 +562,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 //        bin.txtTempProm.text = temperaturaMuestra[6]
 
         bin.edtTempA1.setText(temperaturaAmbiente[3])
-        bin.edtTempA2.setText(temperaturaAmbiente[4])
-        bin.edtTempA3.setText(temperaturaAmbiente[5])
+
 //        bin.txtTempPromA.text = temperaturaAmbiente[6]
 
         bin.edtCon1.setText(conductividadMuestra[3])
@@ -579,7 +573,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.edtGasto1.setText(gastoMuestra[3])
         bin.edtGasto2.setText(gastoMuestra[4])
         bin.edtGasto3.setText(gastoMuestra[5])
-    //    bin.txtGastoProm.text = gastoMuestra[6]
+    //   bin.txtGastoProm.text = gastoMuestra[6]
 
         bin.edtControlCal1.setText(phCaliadMuestra[3])
         bin.edtControlCal2.setText(phCaliadMuestra[4])
@@ -648,7 +642,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
         model.close()
 
-            if (toma == numToma.toInt() && state == 1) {
+            if (toma == numToma.toInt()) {
 
                     DialogDesactivado()
 

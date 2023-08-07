@@ -517,7 +517,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     }
     fun createTermometro2(db: SQLiteDatabase?){
         val model = "CREATE TABLE "+ TERMOMETRO2 +" (" +
-                "Id_termometro INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "Id_termometro INTEGER PRIMARY KEY," +
                 "Id_muestreador INTEGER," +
                 "Equipo TEXT, " +
                 "Marca TEXT, " +
@@ -547,6 +547,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
     fun insertTermometroCampo2(term2: TermometroCampo2) {
         val db = this.writableDatabase
         var cv = ContentValues()
+        cv.put("Id_termometro", term2.Id_termometro)
         cv.put("Id_muestreador",term2.Id_muestreador)
         cv.put("Equipo", term2.Equipo)
         cv.put("Marca", term2.Marca)
@@ -756,7 +757,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Ph2 FLOAT," +
                 "Ph3 FLOAT," +
                 "Promedio FLOAT," +
-                "Fecha VARCHAR(100)," +
+                "Fecha Text," +
                 "Hora VARCHAR(100)" +
                 ")"
         db?.execSQL(ph)
