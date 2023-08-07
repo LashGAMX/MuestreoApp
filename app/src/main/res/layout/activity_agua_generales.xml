@@ -701,15 +701,15 @@
                 android:hint="Lectura 2"
                 android:inputType="numberDecimal"
                 android:maxLength="5"/>
+
             <EditText
                 android:id="@+id/edtCon3Tra"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:hint="Lectura 3"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
+                android:hint="Lectura 3"
                 android:inputType="numberDecimal"
-                android:maxLength="5"
-                />
+                android:maxLength="5" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

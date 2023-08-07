@@ -856,9 +856,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val termometroCampo = db.rawQuery(queryTermo, null)
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {
-                do {
 
-                } while (termometroCampo.moveToNext())
             } else {
                 var termometroModel = TermometroCampo(
                     termometro.getString("Id_termometro").toInt(),
@@ -880,9 +878,7 @@ class ListaAguaActivity : AppCompatActivity() {
             val termometroCampo = db.rawQuery(queryTermo, null)
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {
-                do {
 
-                } while (termometroCampo.moveToNext())
             } else {
                 var termometroModel2 = TermometroCampo2(
                     termometro.getString("Id_termometro").toInt(),

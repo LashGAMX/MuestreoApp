@@ -217,6 +217,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          //----Sincronizacíon de datos guardados----
          mostrarDatosGenerales()
 
+
          bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
              DialogVolver()
          })
@@ -845,7 +846,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          }
 
          if(sw == true){
-             val prom = (l1.toFloat() + l2.toFloat()+ l3.toFloat()) / 3
+             val prom:Int = (l1.toInt() + l2.toInt()+ l3.toInt()) / 3
              Estado.setText(prom.toString())
          }else{
              Estado.setText("RECHAZADO")
