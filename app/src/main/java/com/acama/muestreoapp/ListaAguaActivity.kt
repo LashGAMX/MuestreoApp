@@ -494,9 +494,9 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Olor\" : \"" + phMuestraModel.getString(4) + "\"" +
                             ", \"Color\" : \"" + phMuestraModel.getString(5) + "\"" +
                             ", \"Ph1\" : \"" + phMuestraModel.getFloat(6) + "\"" +
-                            ", \"Ph2\" : \"" + phMuestraModel.getString(7) + "\"" +
-                            ", \"Ph3\" : \"" + phMuestraModel.getString(8) + "\"" +
-                            ", \"Promedio\" : \"" + phMuestraModel.getString(9) + "\"" +
+                            ", \"Ph2\" : \"" + phMuestraModel.getFloat(7) + "\"" +
+                            ", \"Ph3\" : \"" + phMuestraModel.getFloat(8) + "\"" +
+                            ", \"Promedio\" : \"" + phMuestraModel.getFloat(9) + "\"" +
                             ", \"Fecha\" : \"" + phMuestraModel.getString(10) + "\"" +
                             ", \"Hora\" : \"" + phMuestraModel.getString(11) + "\"" +
                             "}"

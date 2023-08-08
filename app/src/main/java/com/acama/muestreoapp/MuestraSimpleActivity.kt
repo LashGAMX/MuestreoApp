@@ -19,6 +19,7 @@ import androidx.core.widget.addTextChangedListener
 import com.acama.muestreoapp.databinding.ActivityMuestraSimpleBinding
 import com.acama.muestreoapp.models.*
 import kotlinx.android.synthetic.main.activity_muestra_simple.*
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -346,7 +347,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         bin.btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
-             bin.txtFecha.text = ""+mYear+"-"+mMonth+"-"+mDay
+
+                bin.txtFecha.text = ""+mYear+"-"+mMonth+"-"+mDay
             },year,month,day)
             dpd.show()
         }
