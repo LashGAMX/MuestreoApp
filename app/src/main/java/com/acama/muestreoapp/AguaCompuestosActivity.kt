@@ -10,12 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.acama.muestreoapp.databinding.ActivityAguaCompuestosBinding
 import com.acama.muestreoapp.models.CampoCompuesto
 import kotlinx.android.synthetic.main.activity_agua_compuestos.spnAforo
+import java.text.DecimalFormat
 import kotlin.math.log
 
 
@@ -67,7 +69,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
         MostrarDatos()
         bin.btnObtenerVol.setOnClickListener(View.OnClickListener {
-           // getVolumenQi()
+            getVolumenQi()
         })
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
@@ -103,29 +105,20 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
     }
     fun getVolumenQi() {
+        bin.edtVime.setText("Gasto1: 1.5 \n Gasto 2: 1.6")
         val db: SQLiteDatabase = con.readableDatabase
         var suma = 0.0
         var cont = 0
+        var prom = 0.0
+        var aux = ""
+        var vime = 0.0
+        var volumen = ""
         val queryGasto = "SELECT * FROM gasto_muestra WHERE Id_solicitud = '$idSol'"
         var toma = 0
         val gasto = db.rawQuery(queryGasto, null)
+        volumen = bin.edtVolCalculado.text.toString()
         if (gasto.moveToFirst()){
             do {
-                toma =  gasto.getString(2).toInt()
-                val queryCanceladas =  "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol' AND " +
-                        "Muestra = '$toma'"
-                val canceladas =  db.rawQuery(queryCanceladas, null)
-                if (canceladas.moveToFirst()){
-
-                } else {
-
-                }
-
-            } while (gasto.moveToNext())
-        }
-        if (gasto.moveToFirst()){
-            do {
-
                 toma =  gasto.getString(2).toInt()
                 val queryCanceladas =  "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol' AND " +
                         "Muestra = '$toma'"
@@ -134,13 +127,35 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
                 } else {
                     suma = suma + gasto.getString(6).toFloat()
-
+                    cont++
                 }
+            } while (gasto.moveToNext())
+            prom = suma / cont
+        }
+        cont = 1
+        if (gasto.moveToFirst()){
+            do {
+                toma =  gasto.getString(2).toInt()
+                val queryCanceladas =  "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol' AND " +
+                        "Muestra = '$toma'"
+                val canceladas =  db.rawQuery(queryCanceladas, null)
+                if (canceladas.moveToFirst()){
+                     aux += "gasto " + cont + ": "+"CANCELADO\n"
 
+                } else {
+                    vime = (gasto.getString(6).toDouble() / prom) * volumen.toFloat()
+                    aux += "gasto " + cont +  ": " + roundToTwoDecimals(vime) + "\n"
+                }
+                cont++
             } while (gasto.moveToNext())
         }
+        bin.edtVime.setText(aux)
 
+    }
 
+    fun roundToTwoDecimals(number: Double): Double {
+        val decimalFormat = DecimalFormat("#.00")
+        return decimalFormat.format(number).toDouble()
     }
 
     fun getExtras(){
