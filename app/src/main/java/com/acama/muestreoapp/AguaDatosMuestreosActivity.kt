@@ -2,6 +2,7 @@ package com.acama.muestreoapp
 
 import android.R
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,6 +30,8 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
     private  var idSol:Int = 0
     private var numTomas:Int = 0
     private var obsGuardada: String = ""
+    private var state = 0
+    private var toma = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bin = ActivityAguaDatosMuestreosBinding.inflate(layoutInflater)
@@ -42,17 +45,13 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         folio = intent.getStringExtra("folio").toString()
 
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
-            DialogVolver()
+            //DialogVolver()
+            onBackPressed()
         })
 
         //GUARDADO DE OBSERVACIONES GENERALES DE LAS MUESTRAS
         bin.btnGuardar.setOnClickListener(){
-            if(obsGuardada.isEmpty()){
-                guardarObservacion()
-                // Guarda la observación cuando no existe una ya por defecto
-            } else {
-                updateObservacion()
-            }
+           guardarObservacion()
 
         }
 
@@ -66,14 +65,27 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         con.updateObsGeneral(obsUpdate)
     }
    fun guardarObservacion(){
-          var obsModel = ObservacionGeneral(
+       val dbw: SQLiteDatabase = con.writableDatabase
+       val db: SQLiteDatabase = con.readableDatabase
+       val query = "SELECT * FROM observacion_general WHERE Folio = '$folio'"
+       val model = db.rawQuery(query, null)
+       if (model.moveToFirst()){
+           val cvModel = ContentValues()
+           cvModel.put("Folio",folio.toString())
+           cvModel.put("Observacion", bin.edtObservacion.text.toString())
+           dbw.update("observacion_general", cvModel, "Folio = '$folio'", null)
+           Toast.makeText(this, "Actualizado", Toast.LENGTH_SHORT).show()
+       }else{
+           var obsModel = ObservacionGeneral(
 
-              bin.edtObservacion.text.toString(),
-              folio,
-          )
-          con.insertObsGeneral(obsModel)
+               bin.edtObservacion.text.toString(),
+               folio,
+           )
+           con.insertObsGeneral(obsModel)
+           Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show()
+       }
 
-      
+
    }
     fun getObservacion(): String {
         val db: SQLiteDatabase = con.readableDatabase
@@ -138,8 +150,8 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
                     "",
                     "",
                     "",
-                    "",
-                    "",
+                    "0000-00-00",
+                    "00:00",
                 )
                 var db = DataBaseHandler(this)
                 db.insertPhMuestra(phmuestraArray)
@@ -272,6 +284,7 @@ class AguaDatosMuestreosActivity : AppCompatActivity() {
         builder.show()
 
     }
+
 
 }
 

@@ -398,22 +398,13 @@
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
                     />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Promedio: "/>
+
                 <TextView
                     android:id="@+id/txtTempPromA"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Promedio.. "/>
-                <Button
-                    android:id="@+id/btnValPromA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VAL"
-                    android:textColor="@color/white"
-                    />
+                    android:text="Captura un solo valor "/>
+
             </LinearLayout>
             <View
                 android:layout_width="fill_parent"

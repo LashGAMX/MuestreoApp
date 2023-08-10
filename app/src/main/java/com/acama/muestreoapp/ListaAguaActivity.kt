@@ -874,7 +874,7 @@ class ListaAguaActivity : AppCompatActivity() {
         for (i in 0 until listaTermometro2.length()) {
             val termometro = listaTermometro2.getJSONObject(i)
             val id = termometro.getString("Id_termometro").toString()
-            val queryTermo = "SELECT * FROM TermometroCampo WHERE Id_termometro = '$id'"
+            val queryTermo = "SELECT * FROM TermometroCampo2 WHERE Id_termometro = '$id'"
             val termometroCampo = db.rawQuery(queryTermo, null)
             var cont: Int = 0
             if (termometroCampo.moveToFirst()) {

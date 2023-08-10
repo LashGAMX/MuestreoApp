@@ -61,7 +61,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         numToma = intent.getStringExtra("numToma").toString()
         bin.txtNumMuestra.text = numToma
 
-        ValCancelada()
+
 
 
 
@@ -75,13 +75,11 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         EncontrarDatos()
         MostrarDatos()
-       // bin.btnHora.setOnClickListener {
-         //   getHora()
-        //}
+        ValCancelada()
+
 
         bin.btnCancelar.setOnClickListener{
-
-                DialogCancelar()
+            DialogCancelar()
 
         }
         bin.btnRegresar.setOnClickListener{
@@ -110,12 +108,11 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
         }
-        bin.btnValPromA.setOnClickListener {
+        bin.btnValControlCal.setOnClickListener {
             try {
-                valAmb()
+               valControlCalidad()
             } catch (e: Exception){
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-            }
+               Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show() }
         }
         bin.btnValCon.setOnClickListener {
             try {
@@ -244,10 +241,10 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
 
     }
-    fun valAmb(){
-        val amb1 = bin.edtTempA1.text.toString()
-        val amb2 = bin.edtTempA2.text.toString()
-        val amb3 = bin.edtTempA3.text.toString()
+    fun valControlCalidad(){
+        val amb1 = bin.edtControlCal1.text.toString()
+        val amb2 = bin.edtControlCal2.text.toString()
+        val amb3 = bin.edtControlCal3.text.toString()
         var sw = false
         if ((amb1.toFloat() - amb2.toFloat() >= 1 || amb1.toFloat() - amb2.toFloat() <= 1) && (amb1.toFloat() - amb3.toFloat() >= 1 || amb1.toFloat() - amb3.toFloat() <= 1)){
             sw = true
@@ -267,12 +264,12 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw2 = true
-            bin.txtTempPromA.text = ((amb1.toFloat() + amb2.toFloat() + amb3.toFloat()) / 3).toString()
+            bin.txtControlCalProm.text = ((amb1.toFloat() + amb2.toFloat() + amb3.toFloat()) / 3).toString()
         }else{
             sw2 = false
-            bin.edtTempA1.setError("Comprueba los datos")
-            bin.edtTempA2.setError("Comprueba los datos")
-            bin.edtTempA3.setError("Comprueba los datos")
+            bin.edtCon1.setError("Comprueba los datos")
+            bin.edtCon1.setError("Comprueba los datos")
+            bin.edtCon1.setError("Comprueba los datos")
         }
     }
     fun valCon(){
@@ -347,8 +344,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         bin.btnFecha.setOnClickListener {
             val dpd = DatePickerDialog(this,DatePickerDialog.OnDateSetListener { view, mYear, mMonth, mDay ->
-
-                bin.txtFecha.text = ""+mYear+"-"+mMonth+"-"+mDay
+                val m = mMonth + 1;
+                bin.txtFecha.text = ""+mYear+"-"+m+"-"+mDay
             },year,month,day)
             dpd.show()
         }
@@ -502,12 +499,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val tempAmbienteModel = db.rawQuery(qrTempAmbiente, null)
         if(tempAmbienteModel.moveToFirst()){
             do{
-                temperaturaAmbiente.add(tempAmbienteModel.getString(1))
-                temperaturaAmbiente.add(tempAmbienteModel.getString(2))
                 temperaturaAmbiente.add(tempAmbienteModel.getString(3))
-                temperaturaAmbiente.add(tempAmbienteModel.getString(4))
-                temperaturaAmbiente.add(tempAmbienteModel.getString(5))
-                temperaturaAmbiente.add(tempAmbienteModel.getString(6))
+
 
             } while (tempAmbienteModel.moveToNext())
         }
@@ -533,7 +526,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 gastoMuestra.add(gastoModel.getString(3))
                 gastoMuestra.add(gastoModel.getString(4))
                 gastoMuestra.add(gastoModel.getString(5))
-                gastoMuestra.add(gastoModel.getString(6))
+                gastoMuestra.add(gastoModel.getString(5))
 
             } while (gastoModel.moveToNext())
         }
@@ -552,24 +545,33 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
     }
     fun MostrarDatos(){
-        bin.edtPh1.setText(ph_muestra[6])
-        bin.edtPh2.setText(ph_muestra[7])
-        bin.edtPh3.setText(ph_muestra[8])
-        bin.txtPromPh.text = ph_muestra[9]
-        bin.txtFecha.text = ph_muestra[10]
 
-        bin.edtTemp1.setText(temperaturaMuestra[3])
-        bin.edtTemp2.setText(temperaturaMuestra[4])
-        bin.edtTemp3.setText(temperaturaMuestra[5])
+        bin.edtPh1.setText(ph_muestra[5])
+        bin.edtPh2.setText(ph_muestra[6])
+        bin.edtPh3.setText(ph_muestra[7])
+        bin.txtPromPh.text = ph_muestra[8]
+        bin.txtFecha.text = ph_muestra[9]
+        var hora = ph_muestra[10]
+        if (hora != ""){
+            val delim = ":"
+            val lista = hora.split(delim)
+            bin.edtHora.setText( lista[0])
+            bin.txtMin.setText(lista[1])
+        }
+
+
+        bin.edtTemp1.setText(temperaturaMuestra[2])
+        bin.edtTemp2.setText(temperaturaMuestra[3])
+        bin.edtTemp3.setText(temperaturaMuestra[4])
 //        bin.txtTempProm.text = temperaturaMuestra[6]
 
-        bin.edtTempA1.setText(temperaturaAmbiente[3])
+        bin.edtTempA1.setText(temperaturaAmbiente[0])
 
 //        bin.txtTempPromA.text = temperaturaAmbiente[6]
 
-        bin.edtCon1.setText(conductividadMuestra[3])
-        bin.edtCon2.setText(conductividadMuestra[4])
-        bin.edtCon3.setText(conductividadMuestra[5])
+        bin.edtCon1.setText(conductividadMuestra[2])
+        bin.edtCon2.setText(conductividadMuestra[3])
+        bin.edtCon3.setText(conductividadMuestra[4])
   //      bin.txtConProm.text = conductividadMuestra[6]
 
         bin.edtGasto1.setText(gastoMuestra[3])
@@ -577,9 +579,9 @@ class MuestraSimpleActivity : AppCompatActivity() {
         bin.edtGasto3.setText(gastoMuestra[5])
     //   bin.txtGastoProm.text = gastoMuestra[6]
 
-        bin.edtControlCal1.setText(phCaliadMuestra[3])
-        bin.edtControlCal2.setText(phCaliadMuestra[4])
-        bin.edtControlCal3.setText(phCaliadMuestra[5])
+        bin.edtControlCal1.setText(phCaliadMuestra[2])
+        bin.edtControlCal2.setText(phCaliadMuestra[3])
+        bin.edtControlCal3.setText(phCaliadMuestra[4])
       //  bin.txtControlCalProm.text = phCaliadMuestra[7]
     }
     fun LlenarSpinners(){
@@ -647,52 +649,61 @@ class MuestraSimpleActivity : AppCompatActivity() {
             if (toma == numToma.toInt()) {
 
                     DialogDesactivado()
-
+            } else {
+                EncontrarDatos()
+                MostrarDatos()
             }
 
     }
     fun DialogCancelar() {
-        val dbw: SQLiteDatabase = con.writableDatabase
         val builder = AlertDialog.Builder(this)
-        val h = bin.edtHora.text.toString()
-        val m = bin.txtMin.text.toString()
-        val hora = h + ":" + m
         builder.setTitle("Cuidado")
         builder.setMessage("¿Seguro de que quieres cancelar esta muestra?")
 
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            Toast.makeText(
-                applicationContext,
-                android.R.string.yes, Toast.LENGTH_SHORT
-            ).show()
-            //GUARDAR FECHA Y HORA AL MOMENTO DE CANCELAR
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                    Toast.makeText(
+                        applicationContext,
+                        android.R.string.yes, Toast.LENGTH_SHORT
+                    ).show()
+                    //GUARDAR FECHA Y HORA AL MOMENTO DE CANCELAR
+                    cancelGurdado()
+                    cancelar() //Agrega datos a tabal cancelados
+                    onBackPressed()
+                    //Toast.makeText(this, "muestra cancelada", Toast.LENGTH_SHORT).show()
+                }
 
-            var cvModel = ContentValues()
-            cvModel.put("Num_toma",numToma.toInt())
-            cvModel.put("Materia","")
-            cvModel.put("Olor","")
-            cvModel.put("Color","")
-            cvModel.put("Ph1","")
-            cvModel.put("Ph2","")
-            cvModel.put("Ph3","")
-            cvModel.put("Promedio","")
-            cvModel.put("Fecha",bin.txtFecha.text.toString())
-            cvModel.put("Hora",hora)
+                builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                    Toast.makeText(
+                        applicationContext,
+                        android.R.string.no, Toast.LENGTH_SHORT
+                    ).show()
+                }
+                builder.show()
 
-            dbw.update("ph_muestra", cvModel, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 
-            cancelar() //Agrega datos a tabal cancelados
-            onBackPressed()
-        }
+    }
+    fun cancelGurdado(){
+        val dbw: SQLiteDatabase = con.writableDatabase
+        val h = bin.edtHora.text.toString()
+        val m = bin.txtMin.text.toString()
+        val hora = h + ":" + m
+        val toma = numToma.toInt()
 
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(
-                applicationContext,
-                android.R.string.no, Toast.LENGTH_SHORT
-            ).show()
-        }
-        builder.show()
+        val cvModel = ContentValues()
+        cvModel.put("Num_toma",numToma.toInt())
+        cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
+        cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
+        cvModel.put("Color",bin.spnColor.selectedItem.toString())
+        cvModel.put("Ph1",bin.edtPh1.text.toString())
+        cvModel.put("Ph2",bin.edtPh2.text.toString())
+        cvModel.put("Ph3",bin.edtPh3.text.toString())
+        cvModel.put("Promedio",bin.txtPromPh.text.toString())
+        cvModel.put("Fecha",bin.txtFecha.text.toString())
+        cvModel.put("Hora",hora)
 
+        dbw.update("ph_muestra", cvModel, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+        //con.insertPhMuestra(cvModel)
+        Toast.makeText(this, "muestra modificada", Toast.LENGTH_SHORT).show()
     }
     fun DialogDesactivado(){
 

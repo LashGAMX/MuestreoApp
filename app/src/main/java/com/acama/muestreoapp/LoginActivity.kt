@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
                    }
 
                },
-               Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message, Toast.LENGTH_LONG).show() }) {
+               Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message + " Sin Response", Toast.LENGTH_LONG).show() }) {
                @Throws(AuthFailureError::class)
                override fun getParams(): Map<String, String> {
                    val params = HashMap<String, String>()

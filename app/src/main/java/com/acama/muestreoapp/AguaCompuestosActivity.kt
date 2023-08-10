@@ -96,7 +96,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         cv.put("Ph_muestraComp",bin.edtPhCompuesto.text.toString())
         cv.put("Temp_muestraComp",bin.edtTempCompuesta.text.toString())
         cv.put("Volumen_calculado",bin.edtVolCalculado.text.toString())
-        cv.put("Cloruros",bin.edtCloruros.text.toString())
+        cv.put("Cloruros",bin.edtCloruros.selectedItem.toString())
 
         dbw.update("campo_compuesto", cv, "Id_solicitud = "+idSol, null)
 
@@ -143,7 +143,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
                      aux += "gasto " + cont + ": "+"CANCELADO\n"
 
                 } else {
-                    vime = (gasto.getString(6).toDouble() / prom) * volumen.toFloat()
+                    vime = (gasto.getString(6).toDouble() / suma) * volumen.toFloat()
                     aux += "gasto " + cont +  ": " + roundToTwoDecimals(vime) + "\n"
                 }
                 cont++
@@ -168,6 +168,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         val aforos : MutableList<String> = ArrayList()
         val tratamiento : MutableList<String> = ArrayList()
         val conTratamiento : MutableList<String> = ArrayList()
+        val clorurosArray = listOf<String>("= 500","= 1000","= 1500","= 2000",">= 3000")
         val db: SQLiteDatabase = con.readableDatabase
 
         val queryAforo = "SELECT * FROM aforo"
@@ -208,10 +209,12 @@ class AguaCompuestosActivity : AppCompatActivity() {
             this,
             R.layout.support_simple_spinner_dropdown_item, conTratamiento
         )
+        val adaptador3 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clorurosArray)
 
         bin.spnTipoTratamiento.adapter = adpTratamiento
         bin.spnAforo.adapter = adpAforo
         bin.spnConTratamiento.adapter = adpConTratamiento
+        bin.edtCloruros.adapter = adaptador3
 
 
     }
@@ -223,7 +226,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         bin.edtVolCalculado.setText(datosCompuesto[8])
         bin.edtPhCompuesto.setText(datosCompuesto[9])
         bin.edtTempCompuesta.setText(datosCompuesto[10])
-        bin.edtCloruros.setText(datosCompuesto[11])
+       // bin.edtCloruros.setSelection(datosCompuesto[11])
 
     }
 

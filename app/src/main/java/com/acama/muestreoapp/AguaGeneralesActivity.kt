@@ -252,7 +252,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }
          bin.btnProbarCalidad2.setOnClickListener {
-             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.promedioCalidad2)){
+             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
                  Log.d("Val","Fue aceptado")
                  sw4 = true
              }else{
