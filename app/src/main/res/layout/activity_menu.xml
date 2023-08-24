@@ -73,4 +73,14 @@
             />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txtVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Versión 1.4 "
+        android:layout_marginLeft="15dp"
+        android:textAlignment="center">
+
+    </TextView>
+
 </FrameLayout>

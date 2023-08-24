@@ -134,7 +134,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
             //guardarDatos()
-            if (sw1 == true  && sw3 == true && sw4 == true){
+            if (sw1 == true && sw4 == true){
                 Toast.makeText(this,"Datos guardados correctamente",Toast.LENGTH_SHORT).show()
                 guardarDatos()
             }else{
@@ -395,7 +395,6 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val hora = h + ":" + m
         val toma = numToma.toInt()
 
-
         val cvModel = ContentValues()
             cvModel.put("Num_toma",numToma.toInt())
             cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
@@ -454,7 +453,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         cv6Model.put("Lectura2C", bin.edtControlCal2.text.toString())
         cv6Model.put("Lectura3C", bin.edtControlCal3.text.toString())
        // cv6Model.put("EstadoC", "ACEPTADO")
-        cv6Model.put("PromedioC", bin.txtTempPromA.text.toString())
+        cv6Model.put("PromedioC", bin.txtControlCalProm.text.toString())
 
         dbw.update("ph_calidadMuestra", cv6Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
 

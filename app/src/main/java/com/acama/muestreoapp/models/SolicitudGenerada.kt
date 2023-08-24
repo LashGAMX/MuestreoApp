@@ -8,7 +8,7 @@ class SolicitudGenerada {
     var Nombres : String = ""
     var Id_cliente : Int = 0
     var Empresa : String = ""
-    var Id_direccion : Int = 0
+    var Id_direccion : String = ""
     var Id_contacto :Int = 0
     var Observacion : String = ""
     var Servicio : String = ""
@@ -23,7 +23,7 @@ class SolicitudGenerada {
     constructor(Folio_servicio:String,Id_solicitud:Int
                 ,Id_intermediario:Int,
                 Nombres:String,Id_cliente:Int,Empresa:String,
-                Id_direccion:Int,Id_contacto:Int,
+                Id_direccion:String,Id_contacto:Int,
                 Observacion:String,Servicio:String,Descarga:String,
                 Clave:String,Fecha_muestreo:String,Num_tomas:String,
                 Id_muestreador:Int,Estado:Int,Punto:String){

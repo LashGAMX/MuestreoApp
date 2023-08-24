@@ -269,7 +269,6 @@ class ListaAguaActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             val db: SQLiteDatabase = con.readableDatabase
             // val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
-
             val querySolGenerada = "SELECT * FROM solicitud_generadas WHERE Id_solicitudGen = '$idSol'"
             val queryGeneral = "SELECT * FROM campo_generales WHERE Id_solicitud = '$idSol'"
             val queryPhTra = "SELECT * FROM ph_trazable WHERE Id_solicitud = '$idSol'"
@@ -748,7 +747,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     muestreo.getString("Nombres"),
                     muestreo.getInt("Id_cliente"),
                     muestreo.getString("Empresa"),
-                    muestreo.getInt("Id_direccion"),
+                    muestreo.getString("Id_direccion"),
                     muestreo.getInt("Id_contacto"),
                     muestreo.getString("Observacion"),
                     muestreo.getString("Servicio"),

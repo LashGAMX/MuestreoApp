@@ -479,7 +479,7 @@
                     android:id="@+id/txtControlCalProm"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Promedio.. "/>
+                    android:text="0"/>
                 <Button
                     android:id="@+id/btnValControlCal"
                     android:layout_width="wrap_content"
@@ -557,7 +557,7 @@
                     android:id="@+id/txtConProm"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Promedio.. "/>
+                    android:text="0"/>
                 <Button
                     android:id="@+id/btnValCon"
                     android:layout_width="wrap_content"
