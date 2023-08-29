@@ -1,5 +1,6 @@
 package com.acama.muestreoapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,6 +28,7 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         bin = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(bin.root)
+        version()
 
         var user = UserApplication.prefs.getMuestreador()
         Toast.makeText(this,"Bienvenido $user" ,Toast.LENGTH_LONG).show()
@@ -42,8 +44,23 @@ class MenuActivity : AppCompatActivity() {
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
         }
+        bin.txtVersion.setOnClickListener {
+            version()
+        }
+
     }
-    fun verificacionVer(data: JSONObject){
+
+    fun verificacionVer(version: String){
+
+        var txt = bin.txtVersion.text
+        var arr = txt.split(" ")
+        var versionActual = arr[1]
+
+        if (version.toString() == versionActual.toString()){
+          //  DialogNoVersion()
+        } else {
+            DialogVersion()
+        }
 
     }
     fun version(){
@@ -54,15 +71,17 @@ class MenuActivity : AppCompatActivity() {
                    try {
                        val obj = JSONObject(response)
                        Log.d("Response", response)
+                       var version = obj.getString("version")
+                       verificacionVer(version)
                        if (obj.getBoolean("response") == true) {
                            Log.d("datos", obj.getString("datos"))
-                           //Log.d("ds",obj.getString("ds"))
-                           verificacionVer(obj)
+
+                           //verificacionVer(version)
 
                        } else {
                            Toast.makeText(
                                applicationContext,
-                               "Error en obtener los datos",
+                               "Error en obtener version",
                                Toast.LENGTH_LONG
                            ).show()
                        }
@@ -70,7 +89,7 @@ class MenuActivity : AppCompatActivity() {
                        e.printStackTrace()
                        Toast.makeText(
                            applicationContext,
-                           "Error en la solicitud",
+                           "",
                            Toast.LENGTH_LONG
                        ).show()
                    }
@@ -87,5 +106,27 @@ class MenuActivity : AppCompatActivity() {
            }
             VolleySingleton.getInstance(this@MenuActivity).addToRequestQueue(stringRequest)
         }
+    }
+    fun DialogVersion(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Nueva Actualización disponible")
+        builder.setMessage("Descarga la nueva versión")
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.ok, Toast.LENGTH_SHORT).show()
+
+        }
+        builder.show()
+    }
+    fun DialogNoVersion(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Ya tienes la versión más actual.")
+
+        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.ok, Toast.LENGTH_SHORT).show()
+
+        }
+        builder.show()
     }
 }
