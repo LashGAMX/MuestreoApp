@@ -77,6 +77,48 @@ class MuestraSimpleActivity : AppCompatActivity() {
         MostrarDatos()
         ValCancelada()
 
+        bin.edtPh1.setOnFocusChangeListener { view, b ->
+            try {
+                validarPH()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtPh2.setOnFocusChangeListener { view, b ->
+            try {
+                validarPH()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtPh2.setOnFocusChangeListener { view, b ->
+            try {
+                validarPH()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtTemp1.setOnFocusChangeListener { view, b ->
+            try {
+                valProm()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtTemp2.setOnFocusChangeListener { view, b ->
+            try {
+                valProm()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtTemp3.setOnFocusChangeListener { view, b ->
+            try {
+                valProm()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         bin.btnCancelar.setOnClickListener{
             DialogCancelar()
@@ -133,13 +175,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         //Boton guardar datos
         bin.btnGuardar.setOnClickListener{
-            //guardarDatos()
-            if (sw1 == true && sw4 == true){
-                Toast.makeText(this,"Datos guardados correctamente",Toast.LENGTH_SHORT).show()
                 guardarDatos()
-            }else{
-                Toast.makeText(this,"Error al guardar los datos",Toast.LENGTH_SHORT).show()
-            }
         }
 
        LlenarSpinners()

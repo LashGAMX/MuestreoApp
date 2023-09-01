@@ -168,7 +168,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         val aforos : MutableList<String> = ArrayList()
         val tratamiento : MutableList<String> = ArrayList()
         val conTratamiento : MutableList<String> = ArrayList()
-        val clorurosArray = listOf<String>("< 500","= 500","= 1000",">1000")
+        val clorurosArray = listOf<String>("< 500","= 500","= 1000","> 1000")
         val db: SQLiteDatabase = con.readableDatabase
 
         val queryAforo = "SELECT * FROM aforo"
