@@ -119,6 +119,69 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
             }
         }
+        bin.edtControlCal1.setOnFocusChangeListener { view, b ->
+            try {
+                valControlCalidad()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtControlCal2.setOnFocusChangeListener { view, b ->
+            try {
+                valControlCalidad()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtControlCal3.setOnFocusChangeListener { view, b ->
+            try {
+                valControlCalidad()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtCon1.setOnFocusChangeListener { view, b ->
+            try {
+                valCon()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtCon2.setOnFocusChangeListener { view, b ->
+            try {
+                valCon()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtCon3.setOnFocusChangeListener { view, b ->
+            try {
+                valCon()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtGasto1.setOnFocusChangeListener { view, b ->
+            try {
+                valGasto()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtGasto2.setOnFocusChangeListener { view, b ->
+            try {
+                valGasto()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
+        bin.edtGasto3.setOnFocusChangeListener { view, b ->
+            try {
+                valGasto()
+            } catch (e: Exception){
+                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         bin.btnCancelar.setOnClickListener{
             DialogCancelar()
@@ -128,48 +191,13 @@ class MuestraSimpleActivity : AppCompatActivity() {
             DialogVolver()
         }
 
-        bin.btnValPH.setOnClickListener {
-            try {
-                validarPH()
-            } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
-            }
-          }
 
-        bin.btnValProm.setOnClickListener {
-            try {
-                valProm()
-            } catch (e: Exception){
-                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
-            }
-        }
         bin.txtControlCalProm.setOnClickListener {
             try {
                 valCalidad()
             } catch (e: Exception) {
                 Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
             }
-        }
-        bin.btnValControlCal.setOnClickListener {
-            try {
-               valControlCalidad()
-            } catch (e: Exception){
-               Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show() }
-        }
-        bin.btnValCon.setOnClickListener {
-            try {
-                valCon()
-            } catch (e: Exception){
-                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        bin.btnValGasto.setOnClickListener {
-           try {
-               valGasto()
-           } catch (e: Exception) {
-               Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
-           }
         }
 
 

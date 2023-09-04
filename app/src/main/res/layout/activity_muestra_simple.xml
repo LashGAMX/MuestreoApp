@@ -184,12 +184,7 @@
                     android:layout_height="wrap_content"
                     android:text="promPH?"
                     />
-                <Button
-                    android:id="@+id/btnValPH"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Val"
-                    />
+
             </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -322,13 +317,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Promedio.. "/>
-                <Button
-                    android:id="@+id/btnValProm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VAL"
-                    android:textColor="@color/white"
-                    />
+
             </LinearLayout>
 
             <View
@@ -480,13 +469,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="0"/>
-                <Button
-                    android:id="@+id/btnValControlCal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VAL"
-                    android:textColor="@color/white"
-                    />
+
             </LinearLayout>
 
             <View
@@ -558,13 +541,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="0"/>
-                <Button
-                    android:id="@+id/btnValCon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VAL"
-                    android:textColor="@color/white"
-                    />
+
             </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -635,13 +612,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Promedio.. "/>
-                <Button
-                    android:id="@+id/btnValGasto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="VAL"
-                    android:textColor="@color/white"
-                    />
+
 
             </LinearLayout>
             <LinearLayout
