@@ -235,30 +235,43 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }*/
          bin.phTrazable1.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
-                 Log.d("Val","Fue aceptado")
-                 sw1 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw1 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
+                     Log.d("Val","Fue aceptado")
+                     sw1 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw1 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
+
          }
          bin.phTrazable2.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
-                 Log.d("Val","Fue aceptado")
-                 sw1 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw1 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
+                     Log.d("Val","Fue aceptado")
+                     sw1 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw1 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.phTrazable3.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
-                 Log.d("Val","Fue aceptado")
-                 sw1 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw1 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable,bin.phTrazable1,bin.phTrazable2,bin.phTrazable3,bin.phEstado1)){
+                     Log.d("Val","Fue aceptado")
+                     sw1 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw1 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
        /*  bin.btnPromPhT2.setOnClickListener {
@@ -271,30 +284,43 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }*/
          bin.ph2Trazable1.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
-                 Log.d("Val","Fue aceptado")
-                 sw2 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw2 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
+                     Log.d("Val","Fue aceptado")
+                     sw2 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw2 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
+
          }
          bin.ph2Trazable2.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
-                 Log.d("Val","Fue aceptado")
-                 sw2 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw2 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
+                     Log.d("Val","Fue aceptado")
+                     sw2 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw2 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.ph2Trazable3.setOnFocusChangeListener { view, b ->
-             if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
-                 Log.d("Val","Fue aceptado")
-                 sw2 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw2 = false
+             try {
+                 if (valPhTrazable(bin.spnPhTrazable2,bin.ph2Trazable1,bin.ph2Trazable2,bin.ph2Trazable3,bin.phEstado2)){
+                     Log.d("Val","Fue aceptado")
+                     sw2 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw2 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
        /*  bin.btnProbarCalidad1.setOnClickListener {
@@ -307,30 +333,43 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }*/
          bin.phCalidad1.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
-                 Log.d("Val","Fue aceptado")
-                 sw3 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw3 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
+                     Log.d("Val","Fue aceptado")
+                     sw3 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw3 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
+
          }
          bin.phCalidad2.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
-                 Log.d("Val","Fue aceptado")
-                 sw3 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw3 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
+                     Log.d("Val","Fue aceptado")
+                     sw3 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw3 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.phCalidad3.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
-                 Log.d("Val","Fue aceptado")
-                 sw3 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw3 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad,bin.phCalidad1,bin.phCalidad2,bin.phCalidad3,bin.promCalidad1)){
+                     Log.d("Val","Fue aceptado")
+                     sw3 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw3 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
         /* bin.btnProbarCalidad2.setOnClickListener {
@@ -343,30 +382,43 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }*/
          bin.ph2Calidad1.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
-                 Log.d("Val","Fue aceptado")
-                 sw4 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw4 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
+                     Log.d("Val","Fue aceptado")
+                     sw4 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw4 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
+
          }
          bin.ph2Calidad2.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
-                 Log.d("Val","Fue aceptado")
-                 sw4 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw4 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
+                     Log.d("Val","Fue aceptado")
+                     sw4 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw4 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.ph2Calidad3.setOnFocusChangeListener { view, b ->
-             if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
-                 Log.d("Val","Fue aceptado")
-                 sw4 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw4 = false
+             try {
+                 if (valPhCalidad(bin.spnPhTrazableCalidad2,bin.ph2Calidad1,bin.ph2Calidad2,bin.ph2Calidad3,bin.promedioCalidad2)){
+                     Log.d("Val","Fue aceptado")
+                     sw4 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw4 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
         /* bin.btnProbarConductividad.setOnClickListener {
@@ -380,30 +432,42 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
          }*/
          bin.edtCon1Tra.setOnFocusChangeListener { view, b ->
-             if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
-                 Log.d("Val","Fue aceptado")
-                 sw5 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw5 = false
+             try {
+                 if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
+                     Log.d("Val","Fue aceptado")
+                     sw5 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw5 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.edtCon2Tra.setOnFocusChangeListener { view, b ->
-             if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
-                 Log.d("Val","Fue aceptado")
-                 sw5 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw5 = false
+             try {
+                 if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
+                     Log.d("Val","Fue aceptado")
+                     sw5 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw5 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.edtCon3Tra.setOnFocusChangeListener { view, b ->
-             if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
-                 Log.d("Val","Fue aceptado")
-                 sw5 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw5 = false
+             try {
+                 if (valConTrazable(bin.spnConductividad,bin.edtCon1Tra,bin.edtCon2Tra,bin.edtCon3Tra,bin.edtEstadoConTra)){
+                     Log.d("Val","Fue aceptado")
+                     sw5 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw5 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
         /* bin.btnProbarConductividadCalidad.setOnClickListener {
@@ -416,33 +480,46 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
          }*/
          bin.edtCon1Cal.setOnFocusChangeListener { view, b ->
-             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
-                 Log.d("Val","Fue aceptado")
-                 sw6 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw6 = false
+             try {
+                 if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
+                     Log.d("Val","Fue aceptado")
+                     sw6 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw6 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
+
          }
          bin.edtCon2Cal.setOnFocusChangeListener { view, b ->
-             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
-                 Log.d("Val","Fue aceptado")
-                 sw6 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw6 = false
+             try {
+                 if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
+                     Log.d("Val","Fue aceptado")
+                     sw6 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw6 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
          bin.edtCon3Cal.setOnFocusChangeListener { view, b ->
-             if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
-                 Log.d("Val","Fue aceptado")
-                 sw6 = true
-             }else{
-                 Log.d("Val","No Fue aceptado")
-                 sw6 = false
+             try {
+                 if (valConCalidad(bin.spnConductividadCalidad,bin.edtCon1Cal,bin.edtCon2Cal,bin.edtCon3Cal,bin.PromedioConductividadCalidad)){
+                     Log.d("Val","Fue aceptado")
+                     sw6 = true
+                 }else{
+                     Log.d("Val","No Fue aceptado")
+                     sw6 = false
+                 }
+             } catch (e: Exception){
+                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
              }
          }
-         bin.btnPendiente.setOnClickListener {
+        /* bin.btnPendiente.setOnClickListener {
              try {
                  when (bin.edtPendiente.text.toString().toFloat()) {
                      in 94.0..105.0 -> sw7 = true
@@ -454,7 +531,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              } catch (e: Exception) {
                  Toast.makeText(this, "Error en pendiente", Toast.LENGTH_SHORT).show()
              }
-         }
+         }*/
          bin.edtPendiente.setOnFocusChangeListener { view, b ->
              try {
                  when (bin.edtPendiente.text.toString().toFloat()) {
@@ -608,13 +685,6 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
          bin.edtTemperaturaBuff.setText(datosGenerales[6])
 
          //termometros
-         val ter1 = datosGenerales[3]
-         val termo1 = split(ter1, "/")
-         val db: SQLiteDatabase = con.readableDatabase
-         val termoQuery = "SELECT * FROM TermometroCampo WHERE Id_termometro = "+ termo1[0]
-         val consultaTermo = db.rawQuery(termoQuery, null)
-
-         bin.spnTermo.setSelection(consultaTermo.position)
 
          bin.edtLatitud.setText(datosGenerales[7])
          bin.edtLongitud.setText(datosGenerales[8])
@@ -833,7 +903,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
 
          }else{
-             Estado.setError("Los campos están vacios") //error de campos vacios
+            // Estado.setError("Los campos están vacios") //error de campos vacios
          }
 
          if(sw == true){
@@ -938,7 +1008,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
 
          }else{
-             Promedio.setError("Los campos están vacios") //error de campos vacios
+            // Promedio.setError("Los campos están vacios") //error de campos vacios
          }
 
          if(sw == true){
@@ -984,7 +1054,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
 
          }else{
              sw = false
-             Estado.setError("Los campos están vacios") //error de campos vacios
+            // Estado.setError("Los campos están vacios") //error de campos vacios
          }
 
          if(sw == true){
@@ -1025,7 +1095,7 @@ import kotlinx.android.synthetic.main.activity_agua_generales.*
              }
 
          }else{
-             Estado.setError("Los campos están vacios") //error de campos vacios
+            // Estado.setError("Los campos están vacios") //error de campos vacios
          }
 
          if(sw == true){

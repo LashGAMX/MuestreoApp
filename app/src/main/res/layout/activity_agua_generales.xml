@@ -806,14 +806,7 @@
                 android:layout_marginLeft="20dp"
                 android:inputType="numberDecimal"
                 />
-            <Button
-                android:id="@+id/btnPendiente"
-                android:layout_marginLeft="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Validar"
-                android:inputType="numberDecimal"
-                />
+
         </LinearLayout>
         <View
             android:layout_width="fill_parent"
