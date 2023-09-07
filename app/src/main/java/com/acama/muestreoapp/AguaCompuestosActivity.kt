@@ -69,7 +69,11 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
         MostrarDatos()
         bin.btnObtenerVol.setOnClickListener(View.OnClickListener {
-            getVolumenQi()
+            try {
+               getVolumenQi()
+            } catch (e: Exception){
+                Toast.makeText(this, "Error en algun Gasto", Toast.LENGTH_SHORT).show()
+            }
         })
         bin.imgRegresar.setOnClickListener(View.OnClickListener { v: View? ->
             DialogVolver()
@@ -87,9 +91,9 @@ class AguaCompuestosActivity : AppCompatActivity() {
         val dbw: SQLiteDatabase = con.writableDatabase
         var cv = ContentValues()
 
-        cv.put("Metodo_aforo",bin.spnAforo.selectedItemId.toString())
+        cv.put("Metodo_aforo",bin.spnAforo.selectedItem.toString())
         cv.put("Con_tratamiento",bin.spnConTratamiento.selectedItem.toString())
-        cv.put("Tipo_tratamiento",bin.spnTipoTratamiento.selectedItemId.toString())
+        cv.put("Tipo_tratamiento",bin.spnTipoTratamiento.selectedItem.toString())
         cv.put("Proc_muestreo",bin.edtProcedimiento.text.toString())
         cv.put("Observaciones",bin.edtObservaciones.text.toString())
         cv.put("Obser_solicitud","")
