@@ -157,14 +157,16 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtPh2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtPh3"
@@ -172,6 +174,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
+                    android:maxLength="5"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -292,14 +295,16 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtTemp2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtTemp3"
@@ -307,6 +312,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
+                    android:maxLength="5"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -369,7 +375,8 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtTempA2"
@@ -377,7 +384,8 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtTempA3"
@@ -386,6 +394,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
+                    android:maxLength="5"
                     />
 
                 <TextView
@@ -444,14 +453,16 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtControlCal2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtControlCal3"
@@ -459,6 +470,7 @@
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:textAlignment="center"
+                    android:maxLength="5"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -517,21 +529,24 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                     android:maxLength="5" />
 
                 <EditText
                     android:id="@+id/edtCon2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtCon3"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -587,21 +602,24 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtGasto2"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <EditText
                     android:id="@+id/edtGasto3"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:maxLength="5"/>
 
                 <TextView
                     android:layout_width="wrap_content"

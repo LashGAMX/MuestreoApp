@@ -608,7 +608,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
     }
     fun MostrarDatos(){
-
+//PH
         bin.edtPh1.setText(ph_muestra[5])
         bin.edtPh2.setText(ph_muestra[6])
         bin.edtPh3.setText(ph_muestra[7])
@@ -621,31 +621,29 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtHora.setText( lista[0])
             bin.txtMin.setText(lista[1])
         }
-
-
+//TEMPERATURA AGUA
         bin.edtTemp1.setText(temperaturaMuestra[2])
         bin.edtTemp2.setText(temperaturaMuestra[3])
         bin.edtTemp3.setText(temperaturaMuestra[4])
-//        bin.txtTempProm.text = temperaturaMuestra[6]
-
+        bin.txtTempProm.text = temperaturaMuestra[5]
+//TEMPERATURA AMBIENTE
         bin.edtTempA1.setText(temperaturaAmbiente[0])
-
 //        bin.txtTempPromA.text = temperaturaAmbiente[6]
-
+//CONDUCTIVIDAD MUESTRA
         bin.edtCon1.setText(conductividadMuestra[2])
         bin.edtCon2.setText(conductividadMuestra[3])
         bin.edtCon3.setText(conductividadMuestra[4])
-  //      bin.txtConProm.text = conductividadMuestra[6]
-
+        bin.txtConProm.text = conductividadMuestra[4]
+//GASTO
         bin.edtGasto1.setText(gastoMuestra[3])
         bin.edtGasto2.setText(gastoMuestra[4])
         bin.edtGasto3.setText(gastoMuestra[5])
-    //   bin.txtGastoProm.text = gastoMuestra[6]
-
+        bin.txtGastoProm.text = gastoMuestra[5]
+//CONTROL CALIDAD
         bin.edtControlCal1.setText(phCaliadMuestra[2])
         bin.edtControlCal2.setText(phCaliadMuestra[3])
         bin.edtControlCal3.setText(phCaliadMuestra[4])
-      //  bin.txtControlCalProm.text = phCaliadMuestra[7]
+        bin.txtControlCalProm.text = phCaliadMuestra[4]
     }
     fun LlenarSpinners(){
 
