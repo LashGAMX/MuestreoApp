@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.round
 import kotlin.math.roundToInt
 
 
@@ -77,109 +78,116 @@ class MuestraSimpleActivity : AppCompatActivity() {
         MostrarDatos()
         ValCancelada()
 
-        bin.edtPh1.setOnFocusChangeListener { view, b ->
+        bin.edtPh1.addTextChangedListener {
+            try {
+                validarPH()
+            } catch (e: Exception){
+
+            }
+        }
+       /* bin.edtPh1.setOnFocusChangeListener { view, b ->
             try {
                 validarPH()
             } catch (e: Exception){
                 Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
             }
-        }
-        bin.edtPh2.setOnFocusChangeListener { view, b ->
+        }*/
+        bin.edtPh2.addTextChangedListener {
             try {
                 validarPH()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtPh2.setOnFocusChangeListener { view, b ->
+        bin.edtPh2.addTextChangedListener {
             try {
                 validarPH()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtTemp1.setOnFocusChangeListener { view, b ->
+        bin.edtTemp1.addTextChangedListener {
             try {
                 valProm()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtTemp2.setOnFocusChangeListener { view, b ->
+        bin.edtTemp2.addTextChangedListener {
             try {
                 valProm()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtTemp3.setOnFocusChangeListener { view, b ->
+        bin.edtTemp3.addTextChangedListener {
             try {
                 valProm()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtControlCal1.setOnFocusChangeListener { view, b ->
+        bin.edtControlCal1.addTextChangedListener {
             try {
                 valControlCalidad()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtControlCal2.setOnFocusChangeListener { view, b ->
+        bin.edtControlCal2.addTextChangedListener {
             try {
                 valControlCalidad()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtControlCal3.setOnFocusChangeListener { view, b ->
+        bin.edtControlCal3.addTextChangedListener {
             try {
                 valControlCalidad()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtCon1.setOnFocusChangeListener { view, b ->
+        bin.edtCon1.addTextChangedListener {
             try {
                 valCon()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtCon2.setOnFocusChangeListener { view, b ->
+        bin.edtCon2.addTextChangedListener {
             try {
                 valCon()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtCon3.setOnFocusChangeListener { view, b ->
+        bin.edtCon3.addTextChangedListener {
             try {
                 valCon()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtGasto1.setOnFocusChangeListener { view, b ->
+        bin.edtGasto1.addTextChangedListener {
             try {
                 valGasto()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtGasto2.setOnFocusChangeListener { view, b ->
+        bin.edtGasto2.addTextChangedListener {
             try {
                 valGasto()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
-        bin.edtGasto3.setOnFocusChangeListener { view, b ->
+        bin.edtGasto3.addTextChangedListener {
             try {
                 valGasto()
             } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+
             }
         }
 
@@ -192,13 +200,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         }
 
 
-        bin.txtControlCalProm.setOnClickListener {
-            try {
-                valCalidad()
-            } catch (e: Exception) {
-                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show()
-            }
-        }
+
 
 
         //Boton guardar datos
@@ -233,7 +235,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw1 = true
-            bin.txtPromPh.text = ((ph1.toFloat() + ph2.toFloat() + ph3.toFloat()) / 3).toString()
+            val promedio =  (ph1.toFloat() + ph2.toFloat() + ph3.toFloat()) / 3
+            bin.txtPromPh.text = ((promedio * 1000.0).roundToInt() / 1000.0).toString()
         }else{
             sw1 = false
             bin.edtPh1.setError("Comprueba los datos")
@@ -264,7 +267,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw2 = true
-            bin.txtTempProm.text = ((temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3).toString()
+            val promedio = (temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3
+            bin.txtTempProm.text = ((promedio * 1000.0).roundToInt() / 1000.0).toString()
         }else{
             sw2 = false
             bin.edtTemp1.setError("Comprueba los datos")
@@ -296,7 +300,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw2 = true
-            bin.txtTempPromA.text = ((temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3).toString()
+            val promedio = (temp1.toFloat() + temp2.toFloat() + temp3.toFloat()) / 3
+            bin.txtTempPromA.text = ((promedio * 1000.0).roundToInt() / 1000.0).toString()
         }else{
             sw2 = false
             bin.edtControlCal1.setError("Comprueba los datos")
@@ -328,7 +333,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw2 = true
-            bin.txtControlCalProm.text = ((amb1.toFloat() + amb2.toFloat() + amb3.toFloat()) / 3).toString()
+            val promedio = (amb1.toFloat() + amb2.toFloat() + amb3.toFloat()) / 3
+            bin.txtControlCalProm.text = ((promedio * 100.0).roundToInt() / 100.0).toString()
         }else{
             sw2 = false
             bin.edtCon1.setError("Comprueba los datos")
@@ -359,7 +365,8 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw3 = true
-            bin.txtConProm.text = ((con1.toFloat() + con2.toFloat() + con3.toFloat()) / 3).toString()
+            val promedio = (con1.toFloat() + con2.toFloat() + con3.toFloat()) / 3
+            bin.txtConProm.text = ((promedio * 1000.0).roundToInt() / 1000.0).toString()
         }else{
             sw3 = false
             bin.edtCon1.setError("Comprueba los datos")
@@ -390,9 +397,10 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
         if (sw == true){
             sw4 = true
-            var gastoPromedio = ((gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3)
+            val promedio = (gasto1.toFloat() + gasto2.toFloat() + gasto3.toFloat()) / 3
+            var gastoPromedio = ((promedio * 1000.0).roundToInt() / 1000.0).toString()
 
-            bin.txtGastoProm.text = gastoPromedio.toString()
+            bin.txtGastoProm.text = gastoPromedio
         }else{
             sw4 = false
             bin.edtGasto1.setError("Comprueba los datos")

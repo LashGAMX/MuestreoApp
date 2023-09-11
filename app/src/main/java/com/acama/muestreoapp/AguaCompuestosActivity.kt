@@ -223,7 +223,27 @@ class AguaCompuestosActivity : AppCompatActivity() {
 
     }
     fun MostrarDatos(){
-
+        val db: SQLiteDatabase = con.readableDatabase
+        val aforos : MutableList<String> = ArrayList()
+        val tratamiento : MutableList<String> = ArrayList()
+        val conTratamiento : MutableList<String> = ArrayList()
+        val queryAforo = "SELECT * FROM aforo"
+        val aforoModel = db.rawQuery(queryAforo, null)
+        if (aforoModel.moveToFirst()){
+            aforos.add("Selecciona uno")
+            do {
+                aforos.add(aforoModel.getString(1))
+            } while (aforoModel.moveToNext())
+        }
+        val adpAforo = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, aforos
+        )
+        bin.spnAforo.adapter = adpAforo
+        val aforo : String = datosCompuesto[2]
+        val spinPosition : Int = adpAforo.getPosition(aforo)
+        Log.d("Aforo",spinPosition.toString())
+        bin.spnAforo.setSelection(spinPosition)
         bin.edtProcedimiento.setText(datosCompuesto[5])
         bin.edtObservaciones.setText(datosCompuesto[6])
 
