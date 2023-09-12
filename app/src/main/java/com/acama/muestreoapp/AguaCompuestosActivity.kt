@@ -67,7 +67,6 @@ class AguaCompuestosActivity : AppCompatActivity() {
             } while (compuestosModel.moveToNext())
         }
 
-        MostrarDatos()
         bin.btnObtenerVol.setOnClickListener(View.OnClickListener {
             try {
                getVolumenQi()
@@ -84,6 +83,8 @@ class AguaCompuestosActivity : AppCompatActivity() {
             onBackPressed()
         }
         llenarSpinner()
+        MostrarDatos()
+
     }
     fun guardarDatos() {
 //        val intent = Intent(this,AguaCapturaActivity::class.java)
@@ -227,6 +228,8 @@ class AguaCompuestosActivity : AppCompatActivity() {
         val aforos : MutableList<String> = ArrayList()
         val tratamiento : MutableList<String> = ArrayList()
         val conTratamiento : MutableList<String> = ArrayList()
+        val clorurosArray = listOf<String>("< 500","= 500","= 1000","> 1000")
+
         val queryAforo = "SELECT * FROM aforo"
         val aforoModel = db.rawQuery(queryAforo, null)
         if (aforoModel.moveToFirst()){
@@ -239,11 +242,49 @@ class AguaCompuestosActivity : AppCompatActivity() {
             this,
             R.layout.support_simple_spinner_dropdown_item, aforos
         )
+
+        val queryTratamiento = "SELECT * FROM tipo_tratamiento"
+        val Modeltratamiento = db.rawQuery(queryTratamiento, null)
+        if(Modeltratamiento.moveToFirst()){
+            tratamiento.add("Selecciona uno")
+            do {
+                tratamiento.add(Modeltratamiento.getString(1))
+            } while (Modeltratamiento.moveToNext())
+        }
+        val adpTratamiento = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, tratamiento
+        )
+
+        val queryConTratamiento =  "SELECT * FROM con_tratamiento"
+        val conTratamientoModel = db.rawQuery(queryConTratamiento, null)
+        if(conTratamientoModel.moveToFirst()){
+            conTratamiento.add("Selecciona uno")
+            do {
+                conTratamiento.add(conTratamientoModel.getString(1))
+            } while (conTratamientoModel.moveToNext())
+        }
+        val adpConTratamiento = ArrayAdapter(
+            this,
+            R.layout.support_simple_spinner_dropdown_item, conTratamiento
+        )
+        val adaptador3 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clorurosArray)
+
+
         bin.spnAforo.adapter = adpAforo
         val aforo : String = datosCompuesto[2]
+        val conTra : String = datosCompuesto[3]
+        val tipoTra : String = datosCompuesto[4]
+        val cloru : String = datosCompuesto[11]
         val spinPosition : Int = adpAforo.getPosition(aforo)
-        Log.d("Aforo",spinPosition.toString())
+        val spinPosition2 : Int = adpConTratamiento.getPosition(conTra)
+        val spinPosition3 : Int = adpTratamiento.getPosition(tipoTra)
+        val clorurosPosition : Int = adaptador3.getPosition(cloru)
         bin.spnAforo.setSelection(spinPosition)
+        bin.spnConTratamiento.setSelection(spinPosition2)
+        bin.spnTipoTratamiento.setSelection(spinPosition3)
+        bin.edtCloruros.setSelection(clorurosPosition)
+
         bin.edtProcedimiento.setText(datosCompuesto[5])
         bin.edtObservaciones.setText(datosCompuesto[6])
 
