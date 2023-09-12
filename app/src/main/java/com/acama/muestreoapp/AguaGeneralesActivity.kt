@@ -676,6 +676,93 @@ import kotlin.math.roundToInt
 
      }
      fun mostrarDatosGenerales(){
+         val termos : MutableList<String> = ArrayList()
+         val termos2 : MutableList<String> = ArrayList()
+         val phTrazable : MutableList<String> = ArrayList()
+         val phCalidad : MutableList<String> = ArrayList()
+         val db: SQLiteDatabase = con.readableDatabase
+
+         val queryTerm = "SELECT * FROM TermometroCampo"
+         val termometroModel = db.rawQuery(queryTerm, null)
+         val queryTerm2 = "SELECT * FROM TermometroCampo2"
+         val termometroModel2 = db.rawQuery(queryTerm2, null)
+         var cont: Int = 0
+         var cont2: Int = 0
+         if (termometroModel.moveToFirst()) {
+             do {
+
+                 termos.add(termometroModel.getString(0) + '/' + termometroModel.getString(4))
+                 cont++
+             } while (termometroModel.moveToNext())
+         }
+         if (termometroModel2.moveToFirst()){
+             do {
+
+                 termos2.add(termometroModel2.getString(0) + '/' + termometroModel2.getString(4))
+
+             } while (termometroModel2.moveToNext())
+         }
+         val adTermo = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, termos
+         )
+         val adTermo2 = ArrayAdapter(
+             this, R.layout.simple_spinner_item, termos2
+         )
+         bin.spnTermo.adapter = adTermo
+         bin.spnTermo2.adapter = adTermo2
+
+         val qePhTazable = "SELECT * FROM cat_phTrazable"
+         val phTModel = db.rawQuery(qePhTazable, null)
+         if (phTModel.moveToFirst()) {
+             do {
+                 phTrazable.add(phTModel.getString(1))
+             } while (phTModel.moveToNext())
+         }
+         val adPhTrazable = ArrayAdapter(
+             this,
+             R.layout.simple_list_item_1, phTrazable
+         )
+
+         val qePhCalidad = "SELECT * FROM cat_phCalidad"
+
+         val phCModel = db.rawQuery(qePhCalidad, null)
+         if (phCModel.moveToFirst()) {
+             do {
+
+                 phCalidad.add(phCModel.getString(1))
+             } while (phCModel.moveToNext())
+
+         }
+         val adPhCalidad = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item, phCalidad
+         )
+
+         bin.spnPhTrazable.adapter = adPhTrazable
+         bin.spnPhTrazable2.adapter = adPhTrazable
+         bin.spnPhTrazableCalidad.adapter = adPhCalidad
+         bin.spnPhTrazableCalidad2.adapter = adPhCalidad
+
+         val conductividad = arrayOf("1412", "1315")
+
+         val adpConductividad = ArrayAdapter(
+             this,
+             R.layout.simple_spinner_item,
+             conductividad
+         )
+         bin.spnConductividad.adapter = adpConductividad
+         bin.spnConductividadCalidad.adapter = adpConductividad
+
+         //TERMOMETROS
+         val termo1 : String = datosGenerales[3]
+         val termo2 : String = datosGenerales[4]
+         val spnTermo1Position = adTermo.getPosition(termo1)
+         val spnTermo2Position = adTermo2.getPosition(termo2)
+         bin.spnTermo.setSelection(spnTermo1Position)
+         bin.spnTermo2.setSelection(spnTermo2Position)
+
+
          //Datos generales
          bin.txtCliente.text = datosMuestreo[6]
          bin.txtFolioServicio.text = datosMuestreo[1]
@@ -693,6 +780,13 @@ import kotlin.math.roundToInt
          bin.edtSuperviso.setText(datosGenerales[11])
          bin.edtPendiente.setText(datosGenerales[9])
 
+         val phtrazable1String : String = datosPhTrazable1[2]
+         val phTrazable2String : String = datosPhTrazable2[2]
+         val phTrazablePosition : Int = adPhTrazable.getPosition(phtrazable1String)
+         val phTrazablePosition2 :Int = adPhTrazable.getPosition(phTrazable2String)
+         bin.spnPhTrazable.setSelection(phTrazablePosition)
+         bin.spnPhTrazable2.setSelection(phTrazablePosition2)
+
          bin.phTrazable1.setText(datosPhTrazable1[3])
          bin.phTrazable2.setText(datosPhTrazable1[4])
          bin.phTrazable3.setText(datosPhTrazable1[5])
@@ -703,11 +797,17 @@ import kotlin.math.roundToInt
          bin.ph2Trazable3.setText(datosPhTrazable2[5])
          bin.phEstado2.setText(datosPhTrazable2[6])
 
+         val phCalidadString : String = datosPhCalidad1[2]
+         val phCalidadPosition : Int = adPhCalidad.getPosition(phCalidadString)
+         bin.spnPhTrazableCalidad.setSelection(phCalidadPosition)
          bin.phCalidad1.setText(datosPhCalidad1[3])
          bin.phCalidad2.setText(datosPhCalidad1[4])
          bin.phCalidad3.setText(datosPhCalidad1[5])
          bin.promCalidad1.setText(datosPhCalidad1[7])
 
+         val phCalidadString2 : String = datosPhCalidad2[2]
+         val phCalidadPosition2 : Int = adPhCalidad.getPosition(phCalidadString2)
+         bin.spnPhTrazableCalidad2.setSelection(phCalidadPosition2)
          bin.ph2Calidad1.setText(datosPhCalidad2[3])
          bin.ph2Calidad2.setText(datosPhCalidad2[4])
          bin.ph2Calidad3.setText(datosPhCalidad2[5])

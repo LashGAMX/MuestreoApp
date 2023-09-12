@@ -73,7 +73,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 idSol = solGenModel.getInt(0)
             } while (solGenModel.moveToNext())
         }
-
+        LlenarSpinners()
         EncontrarDatos()
         MostrarDatos()
         ValCancelada()
@@ -85,13 +85,6 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
             }
         }
-       /* bin.edtPh1.setOnFocusChangeListener { view, b ->
-            try {
-                validarPH()
-            } catch (e: Exception){
-                Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
-            }
-        }*/
         bin.edtPh2.addTextChangedListener {
             try {
                 validarPH()
@@ -208,7 +201,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
                 guardarDatos()
         }
 
-       LlenarSpinners()
+
         getDate()
 
     }
@@ -629,6 +622,43 @@ class MuestraSimpleActivity : AppCompatActivity() {
             bin.edtHora.setText( lista[0])
             bin.txtMin.setText(lista[1])
         }
+
+    // Selectores ph
+        val arrMateriaFloante = listOf<String>("Selecciona uno","Ausente","Presente")
+        val arrColor : MutableList<String> = ArrayList()
+        val arrOlor = listOf<String>("Selecciona uno","Si","No")
+        val db: SQLiteDatabase = con.readableDatabase
+
+        val queryColor = "SELECT * FROM Color"
+        val colorModel = db.rawQuery(queryColor, null)
+        if (colorModel.moveToFirst()){
+            arrColor.add("Selecciona uno")
+            do {
+                arrColor.add(colorModel.getString(1))
+            } while (colorModel.moveToNext())
+        }
+        val adColor = ArrayAdapter(
+            this,
+            R.layout.simple_spinner_item, arrColor
+        )
+
+        val adaptador1 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrMateriaFloante)
+        val adaptador3 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrOlor)
+
+        bin.spnMateriaFlotante.adapter = adaptador1
+        bin.spnColor.adapter = adColor
+        bin.spnOlor.adapter = adaptador3
+
+        val materia : String = ph_muestra[2]
+        val olor : String = ph_muestra[3]
+        val color : String = ph_muestra[4]
+        val materiaPosition : Int = adaptador1.getPosition(materia)
+        val colorPosition : Int = adColor.getPosition(color)
+        val olorPosition : Int = adaptador3.getPosition(olor)
+        bin.spnMateriaFlotante.setSelection(materiaPosition)
+        bin.spnColor.setSelection(colorPosition)
+        bin.spnOlor.setSelection(olorPosition)
+
 //TEMPERATURA AGUA
         bin.edtTemp1.setText(temperaturaMuestra[2])
         bin.edtTemp2.setText(temperaturaMuestra[3])
@@ -674,7 +704,6 @@ class MuestraSimpleActivity : AppCompatActivity() {
         )
 
         val adaptador1 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrMateriaFloante)
-        val adaptador2 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrColor)
         val adaptador3 = ArrayAdapter<String>(this, R.layout.simple_list_item_1, arrOlor)
 
         bin.spnMateriaFlotante.adapter = adaptador1
