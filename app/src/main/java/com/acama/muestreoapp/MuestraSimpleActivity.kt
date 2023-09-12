@@ -92,7 +92,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
             }
         }
-        bin.edtPh2.addTextChangedListener {
+        bin.edtPh3.addTextChangedListener {
             try {
                 validarPH()
             } catch (e: Exception){
