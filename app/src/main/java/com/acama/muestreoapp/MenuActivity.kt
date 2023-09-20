@@ -1,11 +1,14 @@
 package com.acama.muestreoapp
 
 import android.app.AlertDialog
+import android.app.DownloadManager
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.URLUtil
 import android.widget.Toast
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityMenuBinding
@@ -112,21 +115,15 @@ class MenuActivity : AppCompatActivity() {
         builder.setTitle("Nueva Actualización disponible")
         builder.setMessage("Descarga la nueva versión")
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.ok, Toast.LENGTH_SHORT).show()
-
+            descargar()
+        }
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            //CANCEL
         }
         builder.show()
     }
-    fun DialogNoVersion(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Ya tienes la versión más actual.")
+    fun descargar(){
 
-        builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.ok, Toast.LENGTH_SHORT).show()
-
-        }
-        builder.show()
     }
+
 }

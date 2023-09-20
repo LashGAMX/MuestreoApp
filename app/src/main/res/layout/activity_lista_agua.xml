@@ -22,7 +22,7 @@
           <EditText
               android:id="@+id/edtBuscar"
               android:inputType="text"
-              android:layout_width="300dp"
+              android:layout_width="290dp"
               android:layout_height="wrap_content"
 
               android:hint="Buscar" />
@@ -35,6 +35,13 @@
           android:layout_marginLeft="10dp"
           android:layout_marginTop="13dp"
           android:foreground="@drawable/outline_cached_black_24dp" />
+      <ImageView
+          android:id="@+id/imglimpiar"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="13dp"
+          android:foreground="@drawable/recycle" />
   </LinearLayout>
 
     <LinearLayout

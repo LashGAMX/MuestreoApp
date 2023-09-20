@@ -2,6 +2,7 @@ package com.acama.muestreoapp
 
 import android.R
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -56,12 +57,42 @@ class ListaAguaActivity : AppCompatActivity() {
             //animationSycn(bin.lteCarga,com.acama.muestreoapp.R.raw.cargaar)
             sycnDatos()
         }
+        bin.imglimpiar.setOnClickListener {
+            Dialoglimpiar()
+        }
 
     }
 
     fun animationSycn(imageView: LottieAnimationView, animation: Int) {
         imageView.setAnimation(animation)
         imageView.playAnimation()
+    }
+    fun Dialoglimpiar(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Cuidado")
+        builder.setMessage("Se limpiará la lista de Solicitudes pendientes. Si aun no haz mandado " +
+                "tu información podrías perderla.")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+            //ACCIÓN DE LIMPIADO
+            limpiar()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            //CANCEL
+        }
+        builder.show()
+
+    }
+    fun limpiar(){
+        val  db: SQLiteDatabase = con.readableDatabase
+        val result = db.delete("solicitud_generadas", null, null)
+        Log.d("resultado", result.toString())
+        llenarLista()
     }
 
     fun sycnDatos() {
