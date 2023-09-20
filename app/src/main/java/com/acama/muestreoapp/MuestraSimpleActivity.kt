@@ -735,7 +735,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
     fun ValCancelada() {
 
         val db: SQLiteDatabase = con.readableDatabase
-        val query = "SELECT * FROM canceladas WHERE Muestra = '$numToma'"
+        val query = "SELECT * FROM canceladas WHERE Muestra = '$numToma' AND Id_solicitud = '$idSol'"
         val model = db.rawQuery(query, null)
         if (model.getCount() > 0) {
             model.moveToFirst()
