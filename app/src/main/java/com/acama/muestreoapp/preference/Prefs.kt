@@ -4,7 +4,7 @@ import android.content.Context
 
 class Prefs(val context:Context) {
 
-    val BASE_URL = "https://sistemaacama.com.mx/api/app/"
+    val BASE_URL = "http://sistemasofia.ddns.net:85/sofia/api/app/"
 
     val SHARED_NAME = "MyCampo"
     val FIRST_START = "first"

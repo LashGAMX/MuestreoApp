@@ -1,18 +1,17 @@
 package com.acama.muestreoapp
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityMenuBinding
-import com.acama.muestreoapp.databinding.ActivityMuestreosBinding
 import com.acama.muestreoapp.preference.UserApplication
 import com.android.volley.Request
 import com.android.volley.Response
@@ -23,12 +22,14 @@ import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 
+
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var bin: ActivityMenuBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
         bin = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(bin.root)
         version()
@@ -53,7 +54,7 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
-    fun verificacionVer(version: String){
+    fun verificacionVer(version: String, name: String){
 
         var txt = bin.txtVersion.text
         var arr = txt.split(" ")
@@ -62,7 +63,7 @@ class MenuActivity : AppCompatActivity() {
         if (version.toString() == versionActual.toString()){
           //  DialogNoVersion()
         } else {
-            DialogVersion()
+            DialogVersion(name)
         }
 
     }
@@ -75,7 +76,8 @@ class MenuActivity : AppCompatActivity() {
                        val obj = JSONObject(response)
                        Log.d("Response", response)
                        var version = obj.getString("version")
-                       verificacionVer(version)
+                       var name = obj.getString("name")
+                       verificacionVer(version, name)
                        if (obj.getBoolean("response") == true) {
                            Log.d("datos", obj.getString("datos"))
 
@@ -110,20 +112,27 @@ class MenuActivity : AppCompatActivity() {
             VolleySingleton.getInstance(this@MenuActivity).addToRequestQueue(stringRequest)
         }
     }
-    fun DialogVersion(){
+    fun DialogVersion(name: String){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Nueva Actualización disponible")
         builder.setMessage("Descarga la nueva versión")
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-            descargar()
+            descargar(name)
         }
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
             //CANCEL
         }
         builder.show()
     }
-    fun descargar(){
-
+    fun descargar(name: String){
+        val url = "https://techcrunch.com/wp-content/uploads/2015/04/codecode.jpg"
+        val request = DownloadManager.Request(Uri.parse(url))
+            .setTitle("File")
+            .setDescription("Descargando...")
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setAllowedOverMetered(true)
+        val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        dm.enqueue(request)
     }
 
 }
