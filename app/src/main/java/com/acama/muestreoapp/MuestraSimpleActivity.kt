@@ -446,6 +446,25 @@ class MuestraSimpleActivity : AppCompatActivity() {
 
               )
           con.insertCanceladas(modelCan)
+
+          val h = bin.edtHora.text.toString()
+          val m = bin.txtMin.text.toString()
+          val hora = h + ":" + m
+          val cvModel = ContentValues()
+          val toma = numToma.toInt()
+
+          cvModel.put("Fecha",bin.txtFecha.text.toString())
+          cvModel.put("Hora",hora)
+
+          dbw.update("ph_muestra", cvModel, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+          // Guardar TempAmbiente)
+          val cv5Model = ContentValues()
+          cv5Model.put("Num_toma",numToma.toInt())
+          cv5Model.put("TempA1",bin.edtTempA1.text.toString())
+
+          dbw.update("temperatura_ambiente", cv5Model, "Id_solicitud = "+idSol+ " AND Num_toma = "+toma, null)
+
+
       }
       estado = 0
       toma = 0
@@ -461,7 +480,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val toma = numToma.toInt()
 
         val cvModel = ContentValues()
-            cvModel.put("Num_toma",numToma.toInt())
+            cvModel.put("Num_toma",numToma)
             cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
             cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
             cvModel.put("Color",bin.spnColor.selectedItem.toString())
