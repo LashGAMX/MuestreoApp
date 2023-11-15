@@ -136,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Volumen calculado"
+                    android:inputType="numberDecimal"
                     />
 
                 <Button
@@ -193,6 +194,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="PH muestra"
+                    android:inputType="numberDecimal"
+
                     />
             </LinearLayout>
             <LinearLayout
@@ -208,6 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Temperatura C°"
+                    android:inputType="numberDecimal"
                     />
             </LinearLayout>
             <LinearLayout

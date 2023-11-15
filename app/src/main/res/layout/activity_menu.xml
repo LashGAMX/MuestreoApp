@@ -77,10 +77,11 @@
         android:id="@+id/txtVersion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Versión 2.0.2"
+        android:text="Versión 2.0.3"
         android:layout_marginLeft="15dp"
         android:textAlignment="center">
 
     </TextView>
+
 
 </FrameLayout>

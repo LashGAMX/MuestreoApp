@@ -17,6 +17,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import com.acama.muestreoapp.agua.MuestraSimple
 import com.acama.muestreoapp.api.VolleySingleton
 import com.acama.muestreoapp.databinding.ActivityListaAguaBinding
@@ -29,6 +30,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import kotlinx.android.synthetic.main.activity_lista_agua.circularProgressIndicator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,7 +57,13 @@ class ListaAguaActivity : AppCompatActivity() {
             //val del = "DELETE FROM solicitud_generadas where Id_solicitudGen = 1"
             //con.deleteData(con.writableDatabase, del)
             //animationSycn(bin.lteCarga,com.acama.muestreoapp.R.raw.cargaar)
+            bin.linearPorgressIndicator.isVisible = false
+            bin.circularProgressIndicator.isVisible = false
             sycnDatos()
+            bin.linearPorgressIndicator.isIndeterminate = true
+            bin.circularProgressIndicator.isIndeterminate = true
+            bin.linearPorgressIndicator.isVisible = true
+            bin.circularProgressIndicator.isVisible = true
         }
         bin.imglimpiar.setOnClickListener {
             Dialoglimpiar()
@@ -153,7 +161,7 @@ class ListaAguaActivity : AppCompatActivity() {
                             Toast.makeText(
                                 applicationContext,
                                 "Error en obtener los datos",
-                                Toast.LENGTH_LONG
+                                Toast.LENGTH_SHORT
                             ).show()
                         }
                     } catch (e: JSONException) {
@@ -161,7 +169,7 @@ class ListaAguaActivity : AppCompatActivity() {
                         Toast.makeText(
                             applicationContext,
                             "Error en la solicitud",
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
 
@@ -224,6 +232,9 @@ class ListaAguaActivity : AppCompatActivity() {
         }
         listaArr = listaIdMuestreo
         registerForContextMenu(bin.lstMuestreos)
+        bin.linearPorgressIndicator.isIndeterminate = false
+        bin.circularProgressIndicator.isIndeterminate = false
+
     }
 
     override fun onCreateContextMenu(
@@ -236,6 +247,9 @@ class ListaAguaActivity : AppCompatActivity() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
+        bin.linearPorgressIndicator.isVisible = false
+        bin.circularProgressIndicator.isVisible = false
+
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         val posicion = info.position
         var dbw: SQLiteDatabase = con.writableDatabase
@@ -246,6 +260,10 @@ class ListaAguaActivity : AppCompatActivity() {
         var idSol: Int = 0
         when (item.itemId) {
             com.acama.muestreoapp.R.id.enviar -> {
+                bin.linearPorgressIndicator.isIndeterminate = true
+                bin.circularProgressIndicator.isIndeterminate = true
+                bin.linearPorgressIndicator.isVisible = true
+                bin.circularProgressIndicator.isVisible = true
                 //Log.d("item",)
                 val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
                 val muestreoModel = db.rawQuery(query, null)
@@ -262,11 +280,12 @@ class ListaAguaActivity : AppCompatActivity() {
                 }
 
                 if (sw == true) {
+
                     sendDatosMuestra(idSol, folio)
                     //actualizar la solicidud al estado 3
 
+                    Toast.makeText(this, "Datos envidados correctamete",Toast.LENGTH_SHORT).show()
 
-                    Toast.makeText(this, "Datos guardados correctamete", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(
                         this,
@@ -274,7 +293,8 @@ class ListaAguaActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
+                bin.linearPorgressIndicator.isIndeterminate = false
+                bin.circularProgressIndicator.isIndeterminate = false
                 //Toast.makeText(applicationContext, "Enviar", Toast.LENGTH_SHORT).show()
                 return true
             }
@@ -334,11 +354,10 @@ class ListaAguaActivity : AppCompatActivity() {
             var phCalidadMuestra : MutableList<String> = ArrayList()
             var canceladas: MutableList<String> = ArrayList()
 
-
-
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
             var cont: Int = 0
+
             if (generalModel.moveToFirst()) {
                 do {
                     //Log.d("Captura",generalModel.getString(2))
@@ -674,8 +693,6 @@ class ListaAguaActivity : AppCompatActivity() {
             }
             campoCompuesto.addAll(listTempCampoCompuesto)
 
-
-
             val stringRequest = object : StringRequest(
                 Request.Method.POST, UserApplication.prefs.BASE_URL + "enviarDatos",
                 Response.Listener<String> { response ->
@@ -728,10 +745,13 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("canceladas", listCanceladas.toString())
 
                     return params
+
                 }
             }
+
             // Agregamos el request para que nos permita retornar y/o visualizar la respuesta
             VolleySingleton.getInstance(this@ListaAguaActivity).addToRequestQueue(stringRequest)
+
 
         }
 

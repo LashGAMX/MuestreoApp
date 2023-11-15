@@ -7,6 +7,13 @@
     tools:context=".ListaAguaActivity"
     android:layout_margin="5dp"
     >
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/linearPorgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:visibility="invisible"
+        />
 
   <LinearLayout
       android:layout_width="match_parent"
@@ -50,11 +57,20 @@
         android:background="#00FFFFFF"
         android:orientation="vertical">
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="300dp"
+            android:indeterminate="false"
+            android:visibility="invisible" />
+
         <ListView
             android:id="@+id/lstMuestreos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="200px" />
+            android:layout_marginTop="-500px" />
 
     </LinearLayout>
 

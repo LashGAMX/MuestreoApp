@@ -96,18 +96,18 @@ class LoginActivity : AppCompatActivity() {
                            syncFirstData(obj)
                            prefs.saveFirstStart(true)
                            prefs.savePermanecerConectado(bin.ckdConectado.isChecked)
-                           Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_LONG).show()
+                           Toast.makeText(applicationContext, "Sesión satisfactoria", Toast.LENGTH_SHORT).show()
                            changeActivity()
                        }else{
-                           Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_LONG).show()
+                           Toast.makeText(applicationContext, "Usuario y/o contraseña incorrecta", Toast.LENGTH_SHORT).show()
                        }
                    } catch (e: JSONException) {
                        e.printStackTrace()
-                       Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_LONG).show()
+                       Toast.makeText(applicationContext, "Error en la solicitud", Toast.LENGTH_SHORT).show()
                    }
 
                },
-               Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message + " Sin Response", Toast.LENGTH_LONG).show() }) {
+               Response.ErrorListener { volleyError -> Toast.makeText(applicationContext, volleyError.message + " Sin Response", Toast.LENGTH_SHORT).show() }) {
                @Throws(AuthFailureError::class)
                override fun getParams(): Map<String, String> {
                    val params = HashMap<String, String>()

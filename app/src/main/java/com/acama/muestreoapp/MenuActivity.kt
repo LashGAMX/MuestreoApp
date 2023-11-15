@@ -33,9 +33,8 @@ class MenuActivity : AppCompatActivity() {
         bin = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(bin.root)
         version()
-
         var user = UserApplication.prefs.getMuestreador()
-        Toast.makeText(this,"Bienvenido $user" ,Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"Bienvenido $user" ,Toast.LENGTH_SHORT).show()
 
         bin.cardAgua.setOnClickListener(View.OnClickListener { v: View? ->
 
@@ -55,13 +54,12 @@ class MenuActivity : AppCompatActivity() {
     }
 
     fun verificacionVer(version: String, name: String){
-
         var txt = bin.txtVersion.text
         var arr = txt.split(" ")
         var versionActual = arr[1]
 
         if (version.toString() == versionActual.toString()){
-          //  DialogNoVersion()
+            Toast.makeText(this, "Ya tienes la ultima vesión", Toast.LENGTH_SHORT).show()
         } else {
             DialogVersion(name)
         }
@@ -117,7 +115,10 @@ class MenuActivity : AppCompatActivity() {
         builder.setTitle("Nueva Actualización disponible")
         builder.setMessage("Descarga la nueva versión")
         builder.setPositiveButton(android.R.string.ok) { dialog, which ->
-            descargar(name)
+            val url = "http://sistemasofia.ddns.net:85/sofia/public/storage/Recursos/"+name
+            val intent =  Intent(Intent.ACTION_VIEW)
+            intent.setData(Uri.parse(url))
+            startActivity(intent)
         }
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
             //CANCEL

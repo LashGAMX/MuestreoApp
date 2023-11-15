@@ -288,9 +288,9 @@ class AguaCompuestosActivity : AppCompatActivity() {
         bin.edtProcedimiento.setText(datosCompuesto[5])
         bin.edtObservaciones.setText(datosCompuesto[6])
 
-        bin.edtVolCalculado.setText(datosCompuesto[8])
-        bin.edtPhCompuesto.setText(datosCompuesto[9])
-        bin.edtTempCompuesta.setText(datosCompuesto[10])
+        bin.edtVolCalculado.setText(datosCompuesto[10])
+        bin.edtPhCompuesto.setText(datosCompuesto[8])
+        bin.edtTempCompuesta.setText(datosCompuesto[9])
        // bin.edtCloruros.setSelection(datosCompuesto[11])
 
     }
