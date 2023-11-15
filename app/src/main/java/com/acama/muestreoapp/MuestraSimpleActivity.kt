@@ -480,7 +480,7 @@ class MuestraSimpleActivity : AppCompatActivity() {
         val toma = numToma.toInt()
 
         val cvModel = ContentValues()
-            cvModel.put("Num_toma",numToma)
+            cvModel.put("Num_toma",numToma.toInt())
             cvModel.put("Materia",bin.spnMateriaFlotante.selectedItem.toString())
             cvModel.put("Olor",bin.spnOlor.selectedItem.toString())
             cvModel.put("Color",bin.spnColor.selectedItem.toString())
@@ -796,6 +796,31 @@ class MuestraSimpleActivity : AppCompatActivity() {
                     ).show()
                 }
                 builder.show()
+
+
+    }
+    fun DialogError() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Faltan datos")
+        builder.setMessage("Necesitas capturar FECHA, HORA y TEMPERATURA AMBIENTE")
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
+            //GUARDAR FECHA Y HORA AL MOMENTO DE CANCELAR
+
+            //Toast.makeText(this, "muestra cancelada", Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
+        }
+        builder.show()
 
 
     }

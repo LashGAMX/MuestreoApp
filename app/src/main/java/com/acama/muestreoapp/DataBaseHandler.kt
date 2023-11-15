@@ -287,11 +287,11 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var result = db.insert(USUARIOS, null,cv)
         if( result == -1.toLong())
         {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     // Fin Usuario
@@ -309,11 +309,11 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var result = db.insert(CATPHTRAZABLE, null,cv)
         if( result == -1.toLong())
         {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertCatPhCalidad(ph: CatPhCalidad) {
@@ -329,11 +329,11 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var result = db.insert(CATPHCALIDAD, null,cv)
         if( result == -1.toLong())
         {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertCaTConTrazable(con: CatConTrazable) {
@@ -349,11 +349,11 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         var result = db.insert(CATCONTRAZABLE, null,cv)
         if( result == -1.toLong())
         {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertCaTConCalidad(con: CatConCalidad) {
@@ -373,7 +373,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     // Inicio SolicitudGenerada
@@ -463,7 +463,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertColor(color: Color){
@@ -475,7 +475,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertAforo(aforo: MetodoAforo){
@@ -487,7 +487,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertTipoTratamiento(tipo: TipoTratamiento){
@@ -499,7 +499,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     //fin de color
@@ -540,7 +540,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -558,7 +558,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -600,7 +600,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createPhTrazable(db: SQLiteDatabase?){
@@ -630,7 +630,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         if( result == -1.toLong())
         {
             //Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-            Log.d("phTrazable","Correcto")
+           // Log.d("phTrazable","Correcto")
         }
         else
         {
@@ -670,7 +670,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createConTrazable(db: SQLiteDatabase?){
@@ -704,7 +704,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createConCalidad(db: SQLiteDatabase?){
@@ -741,7 +741,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -785,7 +785,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createPhCalidadMuestra(db: SQLiteDatabase?){
@@ -818,7 +818,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -852,7 +852,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createTempMuestra(db: SQLiteDatabase?){
@@ -897,7 +897,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun insertTempAmbiente(tempAmbiente: TempAmbiente) {
@@ -918,7 +918,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createGastoMuestra(db: SQLiteDatabase?){
@@ -951,7 +951,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
     fun createCampoCompuesto(db: SQLiteDatabase?){
@@ -995,7 +995,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         }
         else
         {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
         }
     }
 }
