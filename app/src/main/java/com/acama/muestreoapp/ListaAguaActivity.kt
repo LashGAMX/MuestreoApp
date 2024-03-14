@@ -335,6 +335,8 @@ class ListaAguaActivity : AppCompatActivity() {
             val queryEvidencia = "SELECT * FROM evidencia WHERE Folio = '$folio'"
             val queryPhCalidadMuestra = "SELECT * FROM ph_calidadMuestra WHERE Id_solicitud = '$idSol' ORDER BY Num_toma DESC"
             val queryCanceladas = "SELECT * FROM canceladas WHERE Id_solicitud = '$idSol'"
+            val queryObservacionGeneral = "SELECT * FROM observacion_general WHERE Folio = '$folio'"
+
             var listTemp: MutableList<String> = ArrayList()
 
             var solGenModel: MutableList<String> = ArrayList()
@@ -353,6 +355,25 @@ class ListaAguaActivity : AppCompatActivity() {
             var evidencia : MutableList<String> = ArrayList()
             var phCalidadMuestra : MutableList<String> = ArrayList()
             var canceladas: MutableList<String> = ArrayList()
+            var observacionGeneral: MutableList<String> = ArrayList()
+
+            //llenar observacion general
+            val observacionGeneralModel = db.rawQuery(queryObservacionGeneral,null)
+            var contObs = 0
+            var tempObs : MutableList<String> = ArrayList()
+            if (observacionGeneralModel.moveToFirst()){
+                do {
+                    var jsonObsGeneral = "{" +
+                            " \"Folio\" : \"" + observacionGeneralModel.getString(1) + "\"" +
+                            ",\"Id_solicitud\" : \"" + observacionGeneralModel.getInt(2) + "\"" +
+                            ",\"Muestra\" : \"" + observacionGeneralModel.getInt(3) + "\"" +
+                            ",\"Estado\" : \"" + observacionGeneralModel.getInt(4) + "\"" +
+                            "}"
+                    tempObs.add(contObs, jsonObsGeneral)
+                    contObs++
+                } while (observacionGeneralModel.moveToNext())
+            }
+            observacionGeneral.addAll(tempObs)
 
             //Llenar datos generales
             val generalModel = db.rawQuery(queryGeneral, null)
@@ -743,6 +764,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     params.put("folio", folio)
                     params.put("solPunto",solPuntoModel.toString())
                     params.put("canceladas", listCanceladas.toString())
+                    params.put("observacionGeneral", observacionGeneral.toString())
 
                     return params
 
