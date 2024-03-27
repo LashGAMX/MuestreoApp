@@ -365,9 +365,7 @@ class ListaAguaActivity : AppCompatActivity() {
                 do {
                     var jsonObsGeneral = "{" +
                             " \"Folio\" : \"" + observacionGeneralModel.getString(1) + "\"" +
-                            ",\"Id_solicitud\" : \"" + observacionGeneralModel.getInt(2) + "\"" +
-                            ",\"Muestra\" : \"" + observacionGeneralModel.getInt(3) + "\"" +
-                            ",\"Estado\" : \"" + observacionGeneralModel.getInt(4) + "\"" +
+                            ",\"Observacion\" : \"" + observacionGeneralModel.getInt(2) + "\"" +
                             "}"
                     tempObs.add(contObs, jsonObsGeneral)
                     contObs++
