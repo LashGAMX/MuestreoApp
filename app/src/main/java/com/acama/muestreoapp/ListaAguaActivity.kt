@@ -316,7 +316,7 @@ class ListaAguaActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun sendDatosMuestra(idSol: Int, folio: String) {
+    fun  sendDatosMuestra(idSol: Int, folio: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val db: SQLiteDatabase = con.readableDatabase
             // val query = "SELECT * FROM solicitud_generadas WHERE Folio_servicio = '$folio'"
