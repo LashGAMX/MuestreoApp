@@ -63,6 +63,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
                 datosCompuesto.add(compuestosModel.getString(9))
                 datosCompuesto.add(compuestosModel.getString(10))
                 datosCompuesto.add(compuestosModel.getString(11))
+                datosCompuesto.add(compuestosModel.getString(12))
 
             } while (compuestosModel.moveToNext())
         }
@@ -102,6 +103,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         cv.put("Temp_muestraComp",bin.edtTempCompuesta.text.toString())
         cv.put("Volumen_calculado",bin.edtVolCalculado.text.toString())
         cv.put("Cloruros",bin.edtCloruros.selectedItem.toString())
+        cv.put("Cloro",bin.edtCloroCompuesto.text.toString())
 
         dbw.update("campo_compuesto", cv, "Id_solicitud = "+idSol, null)
 
@@ -292,6 +294,7 @@ class AguaCompuestosActivity : AppCompatActivity() {
         bin.edtVolCalculado.setText(datosCompuesto[10])
         bin.edtPhCompuesto.setText(datosCompuesto[8])
         bin.edtTempCompuesta.setText(datosCompuesto[9])
+        bin.edtCloroCompuesto.setText(datosCompuesto[12])
        // bin.edtCloruros.setSelection(datosCompuesto[11])
 
     }

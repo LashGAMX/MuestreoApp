@@ -64,7 +64,7 @@ val OBSGENERAL = "observacion_general"
 val EVIDENCIA = "evidencia"
 val CANCELADAS = "canceladas"
 
-class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 2){
+class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 3){
     override fun onCreate(db: SQLiteDatabase?) {
        createTableDatosGenerales(db)
         createTableUsuariosApp(db)
@@ -967,7 +967,8 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
                 "Ph_muestraComp TEXT," +
                 "Temp_muestraComp TEXT," +
                 "Volumen_calculado TEXT," +
-                "Cloruros TEXT" +
+                "Cloruros TEXT," +
+                "Cloro TEXT" +
                 ")"
         db?.execSQL(ph)
     }
@@ -986,6 +987,7 @@ class DataBaseHandler (var context: Context) : SQLiteOpenHelper(context, DATABAS
         cv.put("Temp_muestraComp", campoMuestra.Temp_muestraComp)
         cv.put("Volumen_calculado", campoMuestra.VolCalculado)
         cv.put("Cloruros", campoMuestra.Cloruros)
+        cv.put("Cloro", campoMuestra.Cloro)
 
 
         var result = db.insert(CAMPOCOMPUESTO, null,cv)

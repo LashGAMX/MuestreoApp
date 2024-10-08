@@ -12,10 +12,11 @@ class CampoCompuesto {
     var Temp_muestraComp : String = ""
     var VolCalculado : String = ""
     var Cloruros : String = ""
+    var Cloro : String = ""
     constructor(Id_solicitud:Int,Aforo:String,ConTratamiento:String,
                 TipoTratamiento:String,ProcMuestreo:String,Observaciones:String,
                 ObserSolicitud:String,PhMuestraCom:String,Temp_muestraComp:String,
-                VolCalculado:String, Cloruros:String){
+                VolCalculado:String, Cloruros:String, Cloro:String){
 
         this.Id_solicitud = Id_solicitud
         this.Aforo = Aforo
@@ -28,6 +29,7 @@ class CampoCompuesto {
         this.Temp_muestraComp = Temp_muestraComp
         this.VolCalculado = VolCalculado
         this.Cloruros = Cloruros
+        this.Cloro = Cloro
 
     }
 }

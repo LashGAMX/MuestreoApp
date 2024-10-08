@@ -243,6 +243,21 @@
                     android:layout_height="wrap_content"
                     android:text="07/06/2021"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cloro de la muestra"/>
+                <EditText
+                    android:id="@+id/edtCloroCompuesto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cloro"
+                    />
+            </LinearLayout>
             <Button
                 android:id="@+id/btnGuardarCompuestos"
                 style="@style/TextAppearance.MaterialComponents.Button"

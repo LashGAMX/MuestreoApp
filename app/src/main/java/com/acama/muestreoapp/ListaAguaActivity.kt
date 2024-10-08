@@ -703,6 +703,7 @@ class ListaAguaActivity : AppCompatActivity() {
                             ", \"Temp_muestraComp\" : \"" + compuestoModel.getString(9) + "\"" +
                             ", \"Volumen_calculado\" : \"" + compuestoModel.getString(10) + "\"" +
                             ", \"Cloruros\" : \"" + compuestoModel.getString(11) + "\"" +
+                            ", \"Cloro\" : \"" + compuestoModel.getString(12) + "\"" +
                             "}"
 
                     listTempCampoCompuesto.add(cont, jsonCampoCompuesto)
@@ -901,6 +902,7 @@ class ListaAguaActivity : AppCompatActivity() {
                     db.insertConCalidad(conCalModel)
                     var compuestosModel = CampoCompuesto(
                         idSolGen,
+                        "",
                         "",
                         "",
                         "",
