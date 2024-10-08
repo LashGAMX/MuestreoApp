@@ -143,32 +143,6 @@ class LoginActivity : AppCompatActivity() {
             db.inserUsuario(usuariosModel)
         }
 
-       /*var listaMuestreo = JSONArray(data.getString("solicitudes"))
-
-        for(i in 0 until listaMuestreo.length()){
-            var muestreo = listaMuestreo.getJSONObject(i)
-            Log.d("Solicitud",muestreo.getInt("Id_solicitud").toString())
-            var muestreoModel = SolicitudGenerada(
-                muestreo.getString("Folio_servicio"),
-                muestreo.getInt("Id_solicitud"),
-                muestreo.getInt("Id_intermediario"),
-                muestreo.getString("Nombres"),
-                muestreo.getInt("Id_cliente"),
-                muestreo.getString("Empresa"),
-                muestreo.getString("Direccion"),
-                muestreo.getString("Nom_con"),
-                muestreo.getString("Observacion"),
-                muestreo.getString("Servicio"),
-                muestreo.getString("Descarga"),
-                muestreo.getString("Clave"),
-                muestreo.getString("Fecha_muestreo"),
-                muestreo.getInt("Num_tomas"),
-                muestreo.getInt("Id_muestreador"),
-                1
-            )
-            db.insertSolicitudGenerada(muestreoModel)
-        }*/
-
 
     }
 
